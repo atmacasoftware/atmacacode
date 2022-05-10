@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,9 +6,36 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="description" content="Atmaca Code Yazılım Çözümleri">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Atmaca Code Hoşgeldiniz{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo/small_logo.png' %}">
+
+    <!-- Vendor CSS (Bootstrap & Icon Font) -->
+    <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}">
+
+    <!-- Plugins CSS (All Plugins Files) -->
+    <link rel="stylesheet" href="{% static 'css/plugins/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/odometer-theme-default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/magnific-pupup.css' %}">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://kit.fontawesome.com/aa7b4e2e81.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
+
+{% include 'partials/_navbar.html' %}
+
+<main>
+    {% block mainpage %}
+    {% endblock %}
+</main>
+
 
 </body>
 </html>

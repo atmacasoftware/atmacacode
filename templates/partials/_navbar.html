@@ -1,0 +1,160 @@
+{% load static %}
+
+<header class="header-wrapper sticky-header">
+    <div class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="flex-center justify-content-between">
+                        <!-- Header Logo Start -->
+                        <div class="logo">
+                            <a href="{% url 'mainpage' %}">
+                                <img src="{% static 'img/logo/logo.png' %}" alt="logo">
+                            </a>
+                        </div>
+                        <!-- Header Logo End -->
+
+                        <div class="flex-center header-right">
+                            <!-- Header Menu Start -->
+                            <div class="d-none d-lg-flex header-right_menu">
+                                <nav class="main-menu">
+                                    <ul>
+                                        <li class="has-children">
+                                            <a href="#">Anasayfa</a>
+                                        </li>
+                                        <li><a href="about.html">Hakkında</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Hizmetler</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="service.html">Service</a></li>
+                                                <li><a href="service-details.html">Service Details</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-children">
+                                            <a href="#">Blog</a>
+                                        </li>
+                                        <li><a href="contact.html">İletişim</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Hesabım</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="service.html">Giriş Yap</a></li>
+                                                <li><a href="service-details.html">Kayıt Ol</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-children">
+                                            <a href="{% url 'admin_main_page' %}">Yönetim</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Header Menu End -->
+
+                            <!-- Header Actions Start -->
+                            <div class="header-right_actions flex-center">
+                                <div class="header-social">
+                                    <ul class="social-icon flex-center">
+                                        <li>
+                                            <a href="https://www.facebook.com/" class="facebook"><i
+                                                    class="fa-brands fa-facebook-f"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com/" class="twitter"><i
+                                                    class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.linkedin.com/" class="linkedin"><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.instagram.com/" class="instagram"><i
+                                                    class="fab fa-instagram"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="hamburger d-block d-lg-none">
+                                    <!-- Mobile Menu Hambarger Action Button Start -->
+                                    <a class="header-action-btn header-action-btn-menu hamburger_button d-flex"
+                                       href="#/" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-header">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </a>
+                                    <!-- Mobile Menu Hambarger Action Button End -->
+                                </div>
+
+                            </div>
+                            <!-- Header Social Actions End -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+<div class="offcanvas offcanvas-end" id="offcanvas-header">
+
+    <div class="offcanvas-header">
+        <!-- Header Logo Start -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/images/logo.png" alt="">
+            </a>
+        </div>
+        <!-- Header Logo End -->
+        <button type="button" class="btn-close text-reset mobilemenu-close" data-bs-dismiss="offcanvas"
+                aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- mobile menu navigation start -->
+        <nav>
+            <ul class="mobile-menu">
+                <li class="menu-item-has-children">
+                    <a href="#">HOME</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html">Home One </a></li>
+                        <li><a href="index-2.html">Home Two</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="menu-item-has-children">
+                    <a href="#">SERVICE</a>
+                    <ul class="dropdown">
+                        <li><a href="service.html">Service</a></li>
+                        <li><a href="service-details.html">Service Details</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#">PORTFOLIO</a>
+                    <ul class="dropdown">
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="portfolio-grid.html">Portfolio Grid</a></li>
+                        <li><a href="portfolio-details.html">Portfolio Details</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#">TEAM</a>
+                    <ul class="dropdown">
+                        <li><a href="team-members.html">Team Members</a></li>
+                        <li><a href="member-details.html">Member Details</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children ">
+                    <a href="#">BLOG</a>
+                    <ul class="dropdown">
+                        <li><a href="blog.html">Blog Standard</a></li>
+                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                        <li><a href="blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">CONTACT US </a></li>
+            </ul>
+        </nav>
+        <!-- mobile menu navigation end -->
+    </div>
+
+</div>

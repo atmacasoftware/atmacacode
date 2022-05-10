@@ -1,0 +1,14 @@
+django-resources
+Unidecode
+whitenoise
+django-import-export
+resources
+django-autoslug
+django-multiselectfield
+django-widget-tweaks
+django-ckeditor
+django-admin-thumbnails
+pillow
+django-robots
+jwt
+PyJWT
