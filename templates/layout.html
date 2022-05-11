@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -34,8 +34,10 @@
 <main>
     {% block mainpage %}
     {% endblock %}
+    {% block adminpage %}
+    {% endblock %}
 </main>
 
-
+{% include 'partials/_footer.html' %}
 </body>
 </html>
