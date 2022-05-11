@@ -1,4 +1,5 @@
 {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="{% static 'css/adminpage/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/plugins/font-awesome.min.css' %}">
 <script src="https://kit.fontawesome.com/aa7b4e2e81.js" crossorigin="anonymous"></script>
@@ -26,6 +27,9 @@
                         </div>
                         <div class="col-3">
                             <button type="submit">Giriş Yap</button>
+                        </div>
+                        <div class="col-3">
+                            Çalışan kaydı için <a href="{% url 'admin_register' %}">Tıklayınız</a>
                         </div>
                     </div>
                 </form>
