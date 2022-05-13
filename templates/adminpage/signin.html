@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="{% static 'css/adminpage/signin.css' %}">
 <link rel="stylesheet" href="{% static 'css/plugins/font-awesome.min.css' %}">
+
 <script src="https://kit.fontawesome.com/aa7b4e2e81.js" crossorigin="anonymous"></script>
 <title>Atmaca Code Yönetim Paneli Girişi</title>
 {% block adminpage %}
@@ -9,19 +10,19 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="" class="admin-sign-in">
+                <form action="{% url 'admin_login' %}" class="admin-sign-in" method="POST">
+                    {% csrf_token %}
                     <h3>Yönetim Paneli Giriş</h3>
                     <div class="form-container">
-
                         <div class="col-3">
                             <div class="form-group">
-                                <input type="email" class="email form-field">
+                                <input type="email" name="email-signin" class="email form-field">
                                 <span><i class="fa-solid fa-envelope"></i></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <input type="password" class="password form-field">
+                                <input type="password" name="password-signin" class="password form-field">
                                 <span><i class="fa-solid fa-lock"></i></span>
                             </div>
                         </div>

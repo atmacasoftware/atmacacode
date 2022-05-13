@@ -1,7 +1,9 @@
 from random import randint
 
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, JsonResponse
 from unidecode import unidecode
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -17,8 +19,10 @@ from user_accounts.models import Account
 
 
 def admin_main_page(request):
-    return render(request, "adminpage/signin.html")
+    return render(request, "adminpage/mainpage.html")
 
+def singin_page(request):
+    pass
 
 class SignupAdmin(View):
     def get(self, request):
@@ -91,4 +95,40 @@ class SignupAdmin(View):
 
 
 class SigninAdmin(View):
-    pass
+    return_url = None
+
+    def get(self, request):
+        SigninAdmin.return_url = request.GET.get('return_url')
+        return render(request, 'adminpage/mainpage.html')
+
+    def post(self, request):
+        email = request.POST.get('email-signin')
+        password = request.POST.get('password-signin')
+
+        try:
+            admin = AdminUser.get_admin_by_email(email)
+            user = authenticate(username=admin.user, password=password)
+            login(request, user)
+            error_message = None
+            if admin:
+                flag = check_password(password, user.password)
+                if flag:
+                    request.session['customer'] = admin.id
+                    request.session['email'] = email
+                    request.session['first_name'] = admin.first_name
+                    request.session['last_name'] = admin.last_name
+
+                    if SigninAdmin.return_url:
+                        return HttpResponseRedirect(SigninAdmin.return_url)
+                    else:
+                        SigninAdmin.return_url = None
+                        return redirect('index')
+                else:
+                    error_message = 'Email or Password invalid !!'
+
+            else:
+                error_message = 'Email or Password invalid !!'
+                return JsonResponse({'data': 'Kullanıcı adı veya şifre yanlış!'})
+            return redirect('index')
+        except:
+            return JsonResponse({'data': 'Email ve şifre alanlarının doldurulması gerekmektedir.'})

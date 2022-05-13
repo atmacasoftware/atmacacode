@@ -29,3 +29,10 @@ class AdminUser(models.Model):
             return self.photo.url
         else:
             return "/static/img/empty_standart.png"
+
+    @staticmethod
+    def get_admin_by_email(email):
+        try:
+            return AdminUser.objects.get(email=email)
+        except:
+            return False
