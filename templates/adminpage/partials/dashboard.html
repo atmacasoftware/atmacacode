@@ -1,0 +1,161 @@
+{% extends 'adminpage/mainpage.html' %}
+{% load static %}
+{% block dashboard %}
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="mat-card">
+                <div class="dash-card">
+                    <div class="box box-hover box-weather">
+                        <div class="datetime">
+                            <div class="date">
+                                <span id="dayname">Day</span>,
+                                <span id="month">Month</span>
+                                <span id="daynum">00</span>,
+                                <span id="year">Year</span>
+                            </div>
+                            <div class="time">
+                                <span id="hour">00</span>:
+                                <span id="minutes">00</span>
+                            </div>
+                        </div>
+                        <div class="weather">
+                            <p><b><span id="tempMin"></span> <span id="unitLabel"> &#8451;</span> <span
+                                    id="f"></span></b>
+                            <p><span id="place"> </span> / <span id="country"></span></p>
+                            <div class="weather-state">
+                                <img id="durumimg" src="{% static 'img/weather/clouds.png' %}"
+                                     data-clouds="{% static 'img/weather/clouds.png' %}"
+                                     data-rain="{% static 'img/weather/rain.png' %}"
+                                     data-sun="{% static 'img/weather/sun.png' %}"
+                                     class="img-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="mat-card">
+                <div class="dash-card">
+                    <i class="fa-solid fa-sack-dollar fa-3x"></i>
+                    <h4>3</h4>
+                    <p>Sipariş</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="mat-card">
+                <div class="dash-card">
+                    <i class="fa-solid fa-chart-line fa-3x"></i>
+                    <h4>3000 TL</h4>
+                    <p>Kazanç</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-13">
+            <div class="mat-card">
+                <div class="dash-card">
+                    <i class="fa-solid fa-file-pen fa-3x"></i>
+                    <h4>3</h4>
+                    <p>Blog</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mat-card">
+                <div class="table-title-section d-flex align-items-center justify-content-between pt-3 px-3">
+                    <div>
+                        <h5>Siparişler</h5>
+                    </div>
+                    <div>
+                        <a href="#" class="btn bg-green custom-btn">Export</a>
+                    </div>
+                </div>
+                <div class="table-responsive px-3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Sipariş Adı</th>
+                            <th>Ücret (TL)</th>
+                            <th>Sipariş Tarihi</th>
+                            <th>Tahmini Teslim Tarihi</th>
+                            <th>Kalan Gün</th>
+                            <th>Durum</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Web Tasarımı</td>
+                            <td>200</td>
+                            <td>13.05.2022</td>
+                            <td>13.06.2022</td>
+                            <td>30 Gün</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg"></i>
+                                <span class="px2"></span>
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Web Tasarımı</td>
+                            <td>1500</td>
+                            <td>13.05.2022</td>
+                            <td>13.06.2022</td>
+                            <td>30 Gün</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg"></i>
+                                <span class="px2"></span>
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Web Tasarımı</td>
+                            <td>1500</td>
+                            <td>13.05.2022</td>
+                            <td>13.06.2022</td>
+                            <td>30 Gün</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg"></i>
+                                <span class="px2"></span>
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Web Tasarımı</td>
+                            <td>1500</td>
+                            <td>13.05.2022</td>
+                            <td>13.06.2022</td>
+                            <td>30 Gün</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg"></i>
+                                <span class="px2"></span>
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Web Tasarımı</td>
+                            <td>1500</td>
+                            <td>13.05.2022</td>
+                            <td>13.06.2022</td>
+                            <td>30 Gün</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg"></i>
+                                <span class="px2"></span>
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -2,11 +2,14 @@
 <link rel="stylesheet" href="{% static 'css/adminpage/main/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/plugins/font-awesome.min.css' %}">
-<script src="{% static 'js/pages/adminpage.js' %}"></script>
 <script src="https://kit.fontawesome.com/aa7b4e2e81.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+<script src="{% static 'js/weather.js' %}"></script>
+
 {% block mainpage %}
+    <body onload="initClock();">
     <div class="page-wrapper">
         <div class="sidebar-wrapper">
             <div class="sidebar">
@@ -29,9 +32,11 @@
                 </div>
                 <div class="menus px-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-house"></i>Anasayfa</a>
+                        <li class="nav-item"><a href="{% url 'admin_main_page' %}" class="nav-link"><i
+                                class="fa-solid fa-house"></i>Anasayfa</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-calendar"></i>Takvim</a>
+                        <li class="nav-item"><a href="{% url 'calender' %}" class="nav-link"><i
+                                class="fa-solid fa-calendar"></i>Takvim</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-laptop-code"></i>Siparişler</a>
                         </li>
@@ -49,7 +54,7 @@
                             <button class="toggler"><i class="fa-solid fa-bars"></i></button>
                         </div>
                         <div class="top-bar-right">
-                            <button><i class="fa-solid fa-moon"></i></button>
+                            <button class="dark-mode"><i class="fa-solid fa-moon"></i></button>
                             <button><i class="fa-solid fa-magnifying-glass"></i></button>
                             <button><i class="fa-solid fa-language"></i></button>
                             <button><i class="fa-solid fa-bell"></i></button>
@@ -57,7 +62,33 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="welcome-banner">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12">
+                            <div class="user-text ml-3">
+                                <h3>Merhaba, Ahmet Atmaca</h3>
+                                <p>Yapılacak 3 tane işiniz bulunmaktadır.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-12">
+                            <div class="d-flex justify-content-end align-items-center h-100 flex-wrap">
+                                <a href="#" class="btn bg-gray custom-btn"><i
+                                        class="fa-solid fa-clipboard custom-i"></i>Görevler</a>
+                                <a href="#" class="btn bg-green custom-btn ml-3"><i
+                                        class="fa-solid fa-message custom-i"></i>Mesajlar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% block dashboard %}
+                {% endblock %}
+                {% block calander %}
+                {% endblock %}
+
             </div>
         </div>
     </div>
+    </body>
+    <script src="{% static 'js/pages/adminpage.js' %}"></script>
 {% endblock %}

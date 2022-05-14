@@ -17,10 +17,6 @@ from django.views import View
 from adminpage.models import AdminUser
 from user_accounts.models import Account
 
-
-def admin_main_page(request):
-    return render(request, "adminpage/mainpage.html")
-
 def singin_page(request):
     pass
 
@@ -132,3 +128,9 @@ class SigninAdmin(View):
             return redirect('index')
         except:
             return JsonResponse({'data': 'Email ve şifre alanlarının doldurulması gerekmektedir.'})
+
+def admin_main_page(request):
+    return render(request, "adminpage/partials/dashboard.html")
+
+def calender_page(request):
+    return render(request,"adminpage/partials/calendar.html")

@@ -1,0 +1,27 @@
+{% extends 'adminpage/mainpage.html' %}
+{% load static %}
+
+{% block calander %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
+
+    <div class="chat-wrapper">
+        <div id="calendar">
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar:{
+                    left:'dayGridMonth,timeGridWeek,timeGridDay',
+                    center:'title'
+                }
+            });
+            calendar.render();
+        });
+    </script>
+
+{% endblock %}
