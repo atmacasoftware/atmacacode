@@ -1,3 +1,8 @@
+import datetime
+from datetime import datetime
+from django.utils import timezone
+import random
+
 from django.db import models
 from atmacacode.settings import AUTH_USER_MODEL
 
@@ -36,3 +41,34 @@ class AdminUser(models.Model):
             return AdminUser.objects.get(email=email)
         except:
             return False
+
+
+def task_create_id():
+    now = datetime.now()
+    d = now.strftime("%Y%d%m")
+    n = random.randint(10000, 99999)
+    task_id = d + str(n)
+    return task_id
+
+
+class Task(models.Model):
+    task_id = models.TextField(primary_key=True, default=task_create_id, editable=False, max_length=255)
+    authorizedperson = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length=500, null=True, blank=False, verbose_name="Müşteri İsmi")
+    customer_email = models.EmailField(max_length=250, null=True, blank=True, verbose_name="Müşteri Email")
+    customer_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Müşteri Telefon")
+    task_name = models.CharField(max_length=500,null=True,blank=False, verbose_name="Görev Adı")
+    task_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, default=0.0, verbose_name="Görev Ücreti")
+    task_start_date = models.DateField()
+    estimated_deliver_date = models.DateField()
+    is_exist = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Görev"
+        verbose_name_plural = "Görevler"
+
+    def __str__(self):
+        return f"{self.customer_name + '-' + self.task_name}"
+
+    def duration(self):
+        return self.estimated_deliver_date - self.task_start_date

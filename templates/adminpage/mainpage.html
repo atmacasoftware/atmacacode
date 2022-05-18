@@ -32,18 +32,21 @@
                 </div>
                 <div class="menus px-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="{% url 'admin_main_page' %}" class="nav-link"><i
+                        <li class="nav-item"><a href="{% url 'admin_main_page' request.user %}" class="nav-link"><i
                                 class="fa-solid fa-house"></i>Anasayfa</a>
                         </li>
                         <li class="nav-item"><a href="{% url 'calender' %}" class="nav-link"><i
                                 class="fa-solid fa-calendar"></i>Takvim</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-laptop-code"></i>Siparişler</a>
+                        <li class="nav-item"><a href="{% url 'task_page' request.user %}" class="nav-link"><i
+                                class="fa-solid fa-laptop-code"></i>Görevler</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-file-pen"></i>Blog</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link"><i
                                 class="fa-solid fa-message"></i>Mesajlar</a></li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><i
+                                class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
                     </ul>
                 </div>
             </div>
@@ -69,13 +72,13 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-12">
                             <div class="user-text ml-3">
-                                <h3>Merhaba, Ahmet Atmaca</h3>
-                                <p>Yapılacak 3 tane işiniz bulunmaktadır.</p>
+                                <h3>Merhaba, {{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                                <p>Yapılacak {{ task_count }} tane işiniz bulunmaktadır.</p>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-12">
                             <div class="d-flex justify-content-end align-items-center h-100 flex-wrap">
-                                <a href="#" class="btn bg-gray custom-btn"><i
+                                <a href="{% url 'task_page' request.user %}" class="btn bg-gray custom-btn"><i
                                         class="fa-solid fa-clipboard custom-i"></i>Görevler</a>
                                 <a href="#" class="btn bg-green custom-btn ml-3"><i
                                         class="fa-solid fa-message custom-i"></i>Mesajlar</a>
@@ -87,7 +90,12 @@
                 {% endblock %}
                 {% block calander %}
                 {% endblock %}
-
+                {% block add_task %}
+                {% endblock %}
+                {% block task_page %}
+                {% endblock %}
+                {% block task_detail %}
+                {% endblock %}
             </div>
         </div>
     </div>

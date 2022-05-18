@@ -34,7 +34,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="mat-card">
+                <a href="{% url 'add_task' request.user %}">
+                    <div class="dash-card">
+                        <i class="fa-solid fa-code fa-3x"></i>
+                        <h4>Görev Ekle</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12">
             <div class="mat-card">
                 <div class="dash-card">
                     <i class="fa-solid fa-sack-dollar fa-3x"></i>
@@ -52,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-13">
+        <div class="col-lg-2 col-md-6 col-sm-13">
             <div class="mat-card">
                 <div class="dash-card">
                     <i class="fa-solid fa-file-pen fa-3x"></i>
@@ -87,71 +97,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Web Tasarımı</td>
-                            <td>200</td>
-                            <td>13.05.2022</td>
-                            <td>13.06.2022</td>
-                            <td>30 Gün</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Web Tasarımı</td>
-                            <td>1500</td>
-                            <td>13.05.2022</td>
-                            <td>13.06.2022</td>
-                            <td>30 Gün</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Web Tasarımı</td>
-                            <td>1500</td>
-                            <td>13.05.2022</td>
-                            <td>13.06.2022</td>
-                            <td>30 Gün</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Web Tasarımı</td>
-                            <td>1500</td>
-                            <td>13.05.2022</td>
-                            <td>13.06.2022</td>
-                            <td>30 Gün</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Web Tasarımı</td>
-                            <td>1500</td>
-                            <td>13.05.2022</td>
-                            <td>13.06.2022</td>
-                            <td>30 Gün</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
+                        {% for t in task %}
+                            <tr>
+                                <td>{{ t.task_id }}</td>
+                                <td>{{ t.task_name }}</td>
+                                <td>{{ t.task_price }}</td>
+                                <td>{{ t.task_start_date|date:"d/m/y" }}</td>
+                                <td>{{ t.estimated_deliver_date|date:"d/m/y" }}</td>
+                                <td>{{ t.duration }}</td>
+                                <td>
+                                    <i class="fa-solid fa-check fa-lg"></i>
+                                    <span class="px2"></span>
+                                    <i class="fa-solid fa-trash fa-lg"></i>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

@@ -1,0 +1,60 @@
+{% extends 'adminpage/mainpage.html' %}
+{% load static %}
+
+{% block add_task %}
+    <link rel="stylesheet" href="{% static 'css/adminpage/forms.css' %}">
+    <form action="{% url 'add_task' request.user %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tbody>
+            <tr>
+                <th><label for="id_customer_name">Müşteri İsmi:</label></th>
+                <td>
+                    <input type="text" name="customer_name" maxlength="500" required="" id="id_customer_name">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="id_customer_email">Müşteri Email:</label></th>
+                <td>
+                    <input type="email" name="customer_email" maxlength="250" id="id_customer_email">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="id_customer_phone">Müşteri Telefonu:</label></th>
+                <td>
+                    <input type="text" name="customer_phone" maxlength="20" id="id_customer_phone">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="id_task_name">Görev İsmi:</label></th>
+                <td>
+
+                    <input type="text" name="task_name" maxlength="500" required="" id="id_task_name">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="id_task_price">Görev Ücreti:</label></th>
+                <td>
+                    <input type="number" name="task_price" step="0.01" required="" id="id_task_price">
+                </td>
+            </tr>
+
+            <tr>
+                <th><label for="id_task_start_date">Görev Başlama Tarihi:</label></th>
+                <td>
+                    <input type="date" name="task_start_date" required="" id="id_task_start_date">
+                </td>
+            </tr>
+
+            <tr>
+                <th><label for="id_estimated_deliver_date">Tahmini Teslim Tarihi:</label></th>
+                <td>
+                    <input type="date" name="estimated_deliver_date" required="" id="id_estimated_deliver_date">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="submit" id="addTaskBtn" value="Görev Ekle">
+    </form>
+
+{% endblock %}

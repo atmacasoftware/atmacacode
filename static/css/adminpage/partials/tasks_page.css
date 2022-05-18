@@ -1,0 +1,36 @@
+#taskList {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    list-style-type: none;
+    align-items: center;
+    border-radius: 8px;
+}
+
+#taskList li {
+    padding: 8px 16px;
+    width: 25%;
+    position: relative;
+}
+
+#taskList li:last-child {
+    border-bottom: none
+}
+
+.bold {
+    font-weight: bold;
+}
+
+#taskList li a i {
+    font-size: 24px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-dark span{
+    color: #FFFFFF;
+}

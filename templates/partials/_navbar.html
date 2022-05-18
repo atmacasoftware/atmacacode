@@ -38,7 +38,11 @@
                                             </ul>
                                         </li>
                                         <li class="has-children">
-                                            <a href="{% url 'admin_login' %}">Yönetim</a>
+                                            {% if request.user.is_admin %}
+                                                <a href="{% url 'admin_main_page' request.user %}">Yönetim</a>
+                                            {% else %}
+                                                <a href="{% url 'admin_login' %}">Yönetim</a>
+                                            {% endif %}
                                         </li>
                                     </ul>
                                 </nav>

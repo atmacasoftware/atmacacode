@@ -1,0 +1,43 @@
+tbody{
+    height: auto;
+}
+
+tr, th, td{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+td{
+    margin-left: 30px;
+}
+
+td input{
+    width: 250px;
+    height: 40px;
+    outline: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+label{
+    color: #FFFFFF;
+}
+
+#addTaskBtn{
+    width: 200px;
+    height: 40px;
+    outline: none;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+}
+
+label{
+    color: black;
+}
+
+.bg-dark label{
+    color: #FFFFFF;
+}
+

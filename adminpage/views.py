@@ -1,20 +1,18 @@
 from random import randint
-
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, JsonResponse
 from unidecode import unidecode
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
-
-
-# Create your views here.
 from django.template.loader import get_template
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views import View
 
-from adminpage.models import AdminUser
+from adminpage.form import TaskForm
+from adminpage.models import AdminUser, Task
 from user_accounts.models import Account
 
 def singin_page(request):
@@ -89,22 +87,24 @@ class SignupAdmin(View):
 
         return error_message
 
-
 class SigninAdmin(View):
     return_url = None
 
     def get(self, request):
         SigninAdmin.return_url = request.GET.get('return_url')
-        return render(request, 'adminpage/mainpage.html')
+        return render(request, 'adminpage/signin.html')
 
     def post(self, request):
         email = request.POST.get('email-signin')
         password = request.POST.get('password-signin')
-
+        print("3")
         try:
+            print("1")
             admin = AdminUser.get_admin_by_email(email)
-            user = authenticate(username=admin.user, password=password)
+            print(admin)
+            user = authenticate(username=admin, password=password)
             login(request, user)
+            print("2")
             error_message = None
             if admin:
                 flag = check_password(password, user.password)
@@ -118,7 +118,7 @@ class SigninAdmin(View):
                         return HttpResponseRedirect(SigninAdmin.return_url)
                     else:
                         SigninAdmin.return_url = None
-                        return redirect('index')
+                        return redirect('mainpage')
                 else:
                     error_message = 'Email or Password invalid !!'
 
@@ -129,8 +129,51 @@ class SigninAdmin(View):
         except:
             return JsonResponse({'data': 'Email ve şifre alanlarının doldurulması gerekmektedir.'})
 
-def admin_main_page(request):
-    return render(request, "adminpage/partials/dashboard.html")
+
+def logout(request):
+    request.session.clear()
+    return redirect('mainpage')
+
+
+def admin_main_page(request,username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_admin:
+        task = Task.objects.filter(authorizedperson=user)
+        task_count = task.count()
+        return render(request, "adminpage/partials/dashboard.html",
+                      {'user': user, 'task': task, 'task_count': task_count})
+    return render(request, "adminpage/partials/dashboard.html",{'user':user})
 
 def calender_page(request):
     return render(request,"adminpage/partials/calendar.html")
+
+def add_task(request, username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_admin:
+        tasks_form = TaskForm(data=request.POST or None, files=request.FILES or None)
+        if request.method == 'POST':
+            try:
+                tasks_form = TaskForm(data=request.POST or None, files=request.FILES or None)
+                if tasks_form.is_valid():
+                    a = tasks_form.save(commit=False)
+                    a.authorizedperson = user
+                    a.save()
+                    messages.add_message(request, messages.SUCCESS, 'Adres Eklendi')
+                    return redirect('admin_main_page', user)
+                return render(request, "adminpage/partials/add_task.html", {'user': user,'form':tasks_form})
+            except:
+                pass
+        return render(request, "adminpage/partials/add_task.html", {'user': user,'form':tasks_form})
+
+def task_page(request,username):
+    user = get_object_or_404(Account, username=username)
+    task = Task.objects.filter(authorizedperson=user)
+    task_count = task.count()
+    return render(request, "adminpage/partials/task_page.html", {'user': user,'task':task,'task_count':task_count})
+
+def task_detail_page(request,username,task_id):
+    user = get_object_or_404(Account, username=username)
+    task = Task.objects.get(authorizedperson=user,task_id=task_id)
+    task_count = Task.objects.filter(authorizedperson=user).count()
+    return render(request, "adminpage/partials/task_detail.html", {'user': user, 'task': task, 'task_count': task_count})
+
