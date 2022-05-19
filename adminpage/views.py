@@ -11,12 +11,14 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views import View
 
-from adminpage.form import TaskForm
-from adminpage.models import AdminUser, Task
+from adminpage.form import TaskForm, NoteForm
+from adminpage.models import AdminUser, Task, Note
 from user_accounts.models import Account
+
 
 def singin_page(request):
     pass
+
 
 class SignupAdmin(View):
     def get(self, request):
@@ -53,7 +55,8 @@ class SignupAdmin(View):
         error_message = None
 
         admin_user = AdminUser(authorizedperson=user, first_name=first_name, last_name=last_name,
-                                                  phone=phone, email=email, password=password,is_exist=True, is_admin=True,address=address)
+                               phone=phone, email=email, password=password, is_exist=True, is_admin=True,
+                               address=address)
         error_message = self.validateCustomer(admin_user)
 
         if not error_message:
@@ -86,6 +89,7 @@ class SignupAdmin(View):
             error_message = "Telefon numarası en az 10 rakam olmalıdır."
 
         return error_message
+
 
 class SigninAdmin(View):
     return_url = None
@@ -135,17 +139,20 @@ def logout(request):
     return redirect('mainpage')
 
 
-def admin_main_page(request,username):
+def admin_main_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_admin:
         task = Task.objects.filter(authorizedperson=user)
         task_count = task.count()
+        note = Note.objects.filter(authorizedperson=user)
         return render(request, "adminpage/partials/dashboard.html",
-                      {'user': user, 'task': task, 'task_count': task_count})
-    return render(request, "adminpage/partials/dashboard.html",{'user':user})
+                      {'user': user, 'task': task, 'task_count': task_count,'note':note})
+    return render(request, "adminpage/partials/dashboard.html", {'user': user})
+
 
 def calender_page(request):
-    return render(request,"adminpage/partials/calendar.html")
+    return render(request, "adminpage/partials/calendar.html")
+
 
 def add_task(request, username):
     user = get_object_or_404(Account, username=username)
@@ -160,20 +167,41 @@ def add_task(request, username):
                     a.save()
                     messages.add_message(request, messages.SUCCESS, 'Adres Eklendi')
                     return redirect('admin_main_page', user)
-                return render(request, "adminpage/partials/add_task.html", {'user': user,'form':tasks_form})
+                return render(request, "adminpage/partials/add_task.html", {'user': user, 'form': tasks_form})
             except:
                 pass
-        return render(request, "adminpage/partials/add_task.html", {'user': user,'form':tasks_form})
+        return render(request, "adminpage/partials/add_task.html", {'user': user, 'form': tasks_form})
 
-def task_page(request,username):
+
+def task_page(request, username):
     user = get_object_or_404(Account, username=username)
     task = Task.objects.filter(authorizedperson=user)
     task_count = task.count()
-    return render(request, "adminpage/partials/task_page.html", {'user': user,'task':task,'task_count':task_count})
+    return render(request, "adminpage/partials/task_page.html", {'user': user, 'task': task, 'task_count': task_count})
 
-def task_detail_page(request,username,task_id):
+
+def task_detail_page(request, username, task_id):
     user = get_object_or_404(Account, username=username)
-    task = Task.objects.get(authorizedperson=user,task_id=task_id)
+    task = Task.objects.get(authorizedperson=user, task_id=task_id)
     task_count = Task.objects.filter(authorizedperson=user).count()
-    return render(request, "adminpage/partials/task_detail.html", {'user': user, 'task': task, 'task_count': task_count})
+    return render(request, "adminpage/partials/task_detail.html",
+                  {'user': user, 'task': task, 'task_count': task_count})
 
+
+def add_note_page(request, username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_admin:
+        note_form = NoteForm(data=request.POST or None, files=request.FILES or None)
+        if request.method == 'POST':
+            try:
+                note_form = NoteForm(data=request.POST or None, files=request.FILES or None)
+                if note_form.is_valid():
+                    a = note_form.save(commit=False)
+                    a.authorizedperson = user
+                    a.save()
+                    messages.add_message(request, messages.SUCCESS, 'Adres Eklendi')
+                    return redirect('admin_main_page', user)
+                return render(request, "adminpage/partials/add_note.html", {'user': user, 'form': note_form})
+            except:
+                pass
+        return render(request, "adminpage/partials/add_note.html", {'user': user, 'form': note_form})

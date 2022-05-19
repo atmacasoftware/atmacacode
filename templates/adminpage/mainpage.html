@@ -7,6 +7,7 @@
 <script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
 <script src="{% static 'js/weather.js' %}"></script>
+<title>{{ request.user }} Yönetim Paneli</title>
 
 {% block mainpage %}
     <body onload="initClock();">
@@ -95,6 +96,10 @@
                 {% block task_page %}
                 {% endblock %}
                 {% block task_detail %}
+                {% endblock %}
+                {% block site_constructor %}
+                {% endblock %}
+                {% block add_note %}
                 {% endblock %}
             </div>
         </div>

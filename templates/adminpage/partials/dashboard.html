@@ -126,7 +126,7 @@
                         <h5>Notlar</h5>
                     </div>
                     <div>
-                        <a href="#" class="btn bg-green custom-btn">Export</a>
+                        <a href="{% url 'add_note_page' request.user %}" class="btn bg-green custom-btn">Not Ekle</a>
                     </div>
                 </div>
                 <div class="table-responsive px-3">
@@ -138,46 +138,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Web Tasarımı</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Web Tasarımı</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Web Tasarımı</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Web Tasarımı</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Web Tasarımı</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg"></i>
-                                <span class="px2"></span>
-                                <i class="fa-solid fa-trash fa-lg"></i>
-                            </td>
-                        </tr>
+                        {% for n in note %}
+                            <tr>
+                                <td>{{ n.note_title }}</td>
+                                <td>
+                                    <i class="fa-solid fa-check fa-lg"></i>
+                                    <span class="px2"></span>
+                                    <i class="fa-solid fa-trash fa-lg"></i>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

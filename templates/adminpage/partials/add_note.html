@@ -1,0 +1,12 @@
+{% extends 'adminpage/mainpage.html' %}
+{% load static %}
+{% block add_note %}
+    <link rel="stylesheet" href="{% static 'css/adminpage/forms.css' %}">
+    <form action="{% url 'add_note_page' request.user %}" method="POST">
+    {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+    <input type="submit" id="addBtn" value="Not Ekle">
+    </form>
+{% endblock %}
