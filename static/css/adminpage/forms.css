@@ -24,7 +24,15 @@ label{
     color: #FFFFFF;
 }
 
-#addTaskBtn{
+textarea{
+   width: 250px;
+    height: 300px;
+    outline: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#addBtn{
     width: 200px;
     height: 40px;
     outline: none;

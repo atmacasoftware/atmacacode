@@ -4,3 +4,5 @@ from user_accounts.models import Account
 
 def index(request):
     return render(request, "mainpage/mainpage.html")
+
+

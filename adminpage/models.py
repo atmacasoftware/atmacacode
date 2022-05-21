@@ -7,6 +7,8 @@ from django.db import models
 from atmacacode.settings import AUTH_USER_MODEL
 
 User = AUTH_USER_MODEL
+
+
 # Create your models here.
 
 class AdminUser(models.Model):
@@ -18,7 +20,8 @@ class AdminUser(models.Model):
     password = models.CharField(max_length=100)
     address = models.TextField(max_length=300, verbose_name='Adres', null=True)
     is_admin = models.BooleanField(default=True, null=True)
-    photo = models.ImageField(upload_to='static/img/admin_photo/', null=True, blank=True, verbose_name='Yönetici Fotoğrafı')
+    photo = models.ImageField(upload_to='static/img/admin_photo/', null=True, blank=True,
+                              verbose_name='Yönetici Fotoğrafı')
     created = models.DateTimeField(auto_now_add=True, null=True)
     is_exist = models.BooleanField(default=False, null=True)
 
@@ -57,8 +60,9 @@ class Task(models.Model):
     customer_name = models.CharField(max_length=500, null=True, blank=False, verbose_name="Müşteri İsmi")
     customer_email = models.EmailField(max_length=250, null=True, blank=True, verbose_name="Müşteri Email")
     customer_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Müşteri Telefon")
-    task_name = models.CharField(max_length=500,null=True,blank=False, verbose_name="Görev Adı")
-    task_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, default=0.0, verbose_name="Görev Ücreti")
+    task_name = models.CharField(max_length=500, null=True, blank=False, verbose_name="Görev Adı")
+    task_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, default=0.0,
+                                     verbose_name="Görev Ücreti")
     task_start_date = models.DateField()
     estimated_deliver_date = models.DateField()
     is_exist = models.BooleanField(default=True)
@@ -72,3 +76,28 @@ class Task(models.Model):
 
     def duration(self):
         return self.estimated_deliver_date - self.task_start_date
+
+
+def note_create_id():
+    now = datetime.now()
+    d = now.strftime("%Y%d%m")
+    n = random.randint(10000, 99999)
+    task_id = d + str(n)
+    return task_id
+
+
+class Note(models.Model):
+    authorizedperson = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
+    note_id = models.TextField(primary_key=True, default=note_create_id, editable=False, max_length=255)
+    note_title = models.CharField(max_length=100, null=True, blank=False, verbose_name="Not Başlık")
+    note_content = models.TextField(verbose_name="Not İçerik", null=True, blank=True, max_length=10000)
+    task_start_date = models.DateField(auto_now=True)
+    is_exist = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Not"
+        verbose_name_plural = "Notlar"
+
+    def __str__(self):
+        return f"{self.authorizedperson.username + '-' + self.note_title}"
+

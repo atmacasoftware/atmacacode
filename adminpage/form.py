@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import widgets
 
-from adminpage.models import Task
+from adminpage.models import Task,Note
 
 
 class TaskForm(forms.ModelForm):
@@ -21,4 +21,18 @@ class TaskForm(forms.ModelForm):
 
         def __init__(self, *args, **kwargs):
             super(TaskForm, self).__init__(*args, **kwargs)
+            self.fields['task_start_date'].widget = widgets.EmailInput()
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+
+        fields = ('note_title','note_content',)
+        labels = {
+            'note_title': 'Not Başlık',
+            'note_content': 'Not İçerik',
+        }
+
+        def __init__(self, *args, **kwargs):
+            super(NoteForm, self).__init__(*args, **kwargs)
             self.fields['task_start_date'].widget = widgets.EmailInput()
