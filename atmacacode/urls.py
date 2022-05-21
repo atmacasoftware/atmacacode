@@ -22,6 +22,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
+    path('blog', include('blog.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),
     path('favicon.ico', RedirectView.as_view(url='/static/img/logo/small_logo.png')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
