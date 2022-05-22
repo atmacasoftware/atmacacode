@@ -42,7 +42,8 @@
                         <li class="nav-item"><a href="{% url 'task_page' request.user %}" class="nav-link"><i
                                 class="fa-solid fa-laptop-code"></i>Görevler</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-file-pen"></i>Blog</a>
+                        <li class="nav-item"><a href="{% url 'blog_page' request.user %}" class="nav-link"><i
+                                class="fa-solid fa-file-pen"></i>Blog</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link"><i
                                 class="fa-solid fa-message"></i>Mesajlar</a></li>
@@ -100,6 +101,8 @@
                 {% block site_constructor %}
                 {% endblock %}
                 {% block add_note %}
+                {% endblock %}
+                {% block blog_page %}
                 {% endblock %}
             </div>
         </div>

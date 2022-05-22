@@ -6,8 +6,9 @@ from unidecode import unidecode
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from adminpage.form import TaskForm
+from adminpage.form import TaskForm, NoteForm
 from adminpage.models import AdminUser, Task
+from blog.models import Blog
 from user_accounts.models import Account
 
 def singin_page(request):
@@ -167,3 +168,28 @@ def task_detail_page(request, username, task_id):
     task_count = Task.objects.filter(authorizedperson=user).count()
     return render(request, "adminpage/partials/task_detail.html",
                   {'user': user, 'task': task, 'task_count': task_count})
+
+def add_note_page(request, username):
+    user = get_object_or_404(Account, username=username)
+    task_count = Task.objects.filter(authorizedperson=user).count()
+    if user.is_admin:
+        note_form = NoteForm(data=request.POST or None, files=request.FILES or None)
+        if request.method == 'POST':
+            try:
+                note_form = NoteForm(data=request.POST or None, files=request.FILES or None)
+                if note_form.is_valid():
+                    a = note_form.save(commit=False)
+                    a.authorizedperson = user
+                    a.save()
+                    messages.add_message(request, messages.SUCCESS, 'Adres Eklendi')
+                    return redirect('admin_main_page', user)
+                return render(request, "adminpage/partials/add_note.html", {'user': user, 'form': note_form,'task_count':task_count})
+            except:
+                pass
+        return render(request, "adminpage/partials/add_note.html", {'user': user, 'form': note_form,'task_count':task_count})
+
+def blog_page(request,username):
+    user = get_object_or_404(Account, username=username)
+    blog = Blog.objects.filter(user=user)
+    task_count = Task.objects.filter(authorizedperson=user).count()
+    return render(request,"adminpage/partials/blog_page.html",{'user':user,'blog':blog,'task_count':task_count})

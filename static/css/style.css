@@ -35,6 +35,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+:root {
+    --main-color: #313030;
+    --pale-color: #54545f;
+    --link-hover-color: #293ad0;
+    --link-active-color: #293ad0;
+    --text-color: #54545f;
+    --list-text: #1c1c1c;
+}
+
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -79,7 +88,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: #7153d9;
+    color: #313030 !important;
     margin: 0px;
 }
 
@@ -248,7 +257,7 @@ hr {
     font-family: "Jost", sans-serif;
     font-weight: 500;
     line-height: 1.9;
-    color: #7153d9;
+    color: var(--link-active-color);
     text-transform: uppercase;
     letter-spacing: 8px;
 }
@@ -760,7 +769,7 @@ hr {
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    background-color: #7153d9;
+    background-color: var(--link-active-color);
     background-size: 200% auto;
     background-position: left center;
     transition: 0.3s;
@@ -998,6 +1007,10 @@ hr {
 }
 
 .main-menu > ul > li:hover > a {
+    color: #293ad0;
+}
+
+.main-menu > ul > li:hover > a.active {
     color: #293ad0;
 }
 
@@ -5952,19 +5965,19 @@ hr {
 }
 
 .single-blog-meta li span {
-    color: #7153d9;
+    color: var(--main-color);
     margin-right: 10px;
 }
 
 .single-blog-meta li a {
     font-size: 16px;
-    color: #1c1c1c;
+    color: var(--list-text);
     font-family: "Jost", sans-serif;
     font-weight: 500;
 }
 
 .single-blog-meta li a:hover {
-    color: #7153d9;
+    color: var(--link-hover-color);
 }
 
 .single-blog-content .title {
@@ -5991,7 +6004,7 @@ hr {
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
-    color: #54545f;
+    color: var(--text-color);
     margin: 30px 0;
 }
 
@@ -7086,7 +7099,7 @@ hr {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #7153d9;
+    background-color: var(--link-active-color);
     width: 5px;
     height: 20px;
     border-radius: 5px;
@@ -7126,7 +7139,7 @@ hr {
     transform: translateY(-50%);
     border: 0px;
     background-color: white;
-    color: #7153d9;
+    color: var(--link-active-color);
     font-size: 20px;
 }
 
@@ -7192,7 +7205,7 @@ hr {
 }
 
 .sidebar-blog li .content .subtitle {
-    color: #7153d9;
+    color: #293ad0;
     font-size: 14px;
     font-family: "Jost", sans-serif;
     font-weight: 500;
@@ -7247,8 +7260,8 @@ hr {
     font-size: 18px;
     padding: 10px 20px;
     border-radius: 30px;
-    background-color: #dfd7fd;
-    color: #54545f;
+    background-color: #54545f;
+    color: #FFFFFF;
     display: inline-flex;
     margin-bottom: 6px;
     margin-right: 4px;
@@ -7259,7 +7272,7 @@ hr {
 }
 
 .sidebar-tags a:hover, .sidebar-tags a.active {
-    background-color: #7153d9;
+    background-color: #293ad0;
     color: White;
 }
 
@@ -7840,7 +7853,7 @@ hr {
 }
 
 .footer-widget-list a:hover {
-    color: #7153d9;
+    color: var(--link-hover-color);
 }
 
 .footer-widget .instagrm {
@@ -8061,9 +8074,10 @@ hr {
     top: 50%;
     transform: translateY(-50%);
     right: 0;
-    border-color: #4526b1;
-    background: #4526b1;
-    background: linear-gradient(135deg, #4526b1 0%, #5435be 45%, #7153d9 66%);
+    border-color: var(--main-color);
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #000000, #434343); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #000000, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: 0px;
     border-radius: 0 5px 5px 0;
     height: 100%;

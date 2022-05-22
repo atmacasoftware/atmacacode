@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('mainpage.urls')),
     path('blog', include('blog.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('favicon.ico', RedirectView.as_view(url='/static/img/logo/small_logo.png')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),

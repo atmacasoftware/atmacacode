@@ -13,12 +13,12 @@ class Blog(models.Model):
 
     CATEGORY = (
         ('1','Genel'),
-        ('2','HTML'),
-        ('3','Css'),
-        ('4','Javasciprt'),
-        ('5','Python'),
-        ('6','Django'),
-        ('7','Yapay Zeka'),
+        ('2','HTML/Css'),
+        ('3','Javasciprt'),
+        ('4','Python'),
+        ('5','Django'),
+        ('6','Yapay Zeka'),
+        ('7','Teknoloji'),
     )
 
     user = models.ForeignKey(User, default=1, null=True, verbose_name='Yazar',on_delete=models.CASCADE)

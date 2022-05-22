@@ -1,0 +1,22 @@
+{% extends 'adminpage/mainpage.html' %}
+{% load static %}
+
+{% block blog_page %}
+    <div class="container">
+        <div class="row">
+            <div class="boxes">
+                {% for b in blog %}
+                <div class="box">
+                    <div class="box_title">
+                        <h4>{{ b.title }}</h4>
+                    </div>
+                    <div class="box-date">
+                        <span>{{ b.created_at|date:"d/m/y" }}</span>
+                    </div>
+                    .box_
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
