@@ -33,7 +33,7 @@
                 </div>
                 <div class="menus px-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="{% url 'admin_main_page' request.user %}" class="nav-link"><i
+                        <li class="nav-item {% if request.path == 'yonetim-paneli/yonetim-paneli/'%}active{% endif %}"><a href="{% url 'admin_main_page' request.user %}" class="nav-link"><i
                                 class="fa-solid fa-house"></i>Anasayfa</a>
                         </li>
                         <li class="nav-item"><a href="{% url 'calender' %}" class="nav-link"><i

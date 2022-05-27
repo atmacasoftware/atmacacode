@@ -1,0 +1,471 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block blog_details %}
+    <div class="section-padding">
+        <div class="container">
+            <div class="row mb-n30">
+                <div class="col-lg-8 mb-30 standard-blog">
+                    <!-- Single Blog Start -->
+                    <div class="single-blog">
+                        <!-- Blog Thumbnail Start -->
+                        <div class="single-thumb wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <img src="{{ blog_detail.get_blog_photos }}" alt="Blog-Image">
+                        </div>
+                        <!-- Blog Thumbnail End -->
+
+                        <!-- Blog Meta Start -->
+                        <ul class="single-blog-meta wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <li>
+                                <span><i class="fas fa-folder-open"></i></span>
+                                <a href="blog-details.html">{{ blog_detail.get_category_display }}</a>
+                            </li>
+                            <li>
+                                <span><i class="fas fa-user"></i></span>
+                                <a href="blog-details.html">Admin</a>
+                            </li>
+                            <li>
+                                <span><i class="fas fa-clock"></i></span>
+                                <p>{{ blog_detail.created_at }}</p>
+                            </li>
+                            <li>
+                                <span><i class="fas fa-comments"></i></span>
+                                <p>50 comments</p>
+                            </li>
+                        </ul>
+                        <!-- Blog Meta End -->
+
+                        <!-- Blog Content Start -->
+                        <div class="single-blog-content wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <h2 class="title"><a href="blog-details.html">{{ blog_detail.title }}</a>
+                            </h2>
+                            <p class="text">{{ blog_detail.content|safe }} </p>
+                            <blockquote class="blockquote mt-5 mb-5">
+                                <div class="thumb">
+                                    <img src="assets/images/quote/quote-3.png" alt="quote-image">
+                                </div>
+                                <div class="content">
+                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, con sectetur,
+                                        adipisci vel quia non numquam eius modi tempora incidunt ut labore et dolore
+                                        magn eto ochena hole voluptatem.</p>
+                                    <footer class="blockquote-footer">
+                                        <span class="name">Paul Harrison,</span>
+                                        <span class="designation">Web Developer</span>
+                                    </footer>
+                                </div>
+                            </blockquote>
+                            <p class="text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                non, culpa qui officia deserunt mollit anim id est laborum. </p>
+                            <p class="text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+                                quasi architecto beatae </p>
+                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt molli id est labor spiciatis unde </p>
+                        </div>
+                        <!-- Blog Content End -->
+
+                        <!-- Blog Share and Tags Section Start -->
+                        <div class="single-blog-share-tag wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="tags">
+                                <span class="label">Tags</span>
+                                <ul>
+                                    <li><a href="blog-details.html">Web Design,</a></li>
+                                    <li><a href="blog-details.html">Development,</a></li>
+                                    <li><a href="blog-details.html">Creativity,</a></li>
+                                    <li><a href="blog-details.html">Google</a></li>
+                                </ul>
+                            </div>
+                            <div class="share">
+                                <span class="label">Share</span>
+                                <ul class="sidebar-social d-flex flex-start">
+                                    <li>
+                                        <a href="https://www.facebook.com/" class="facebook"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/" class="twitter"><i
+                                                class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" class="linkedin"><i
+                                                class="fab fa-linkedin-in"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Blog Share and Tags Section End -->
+
+                        <!-- Post nav-link Section Start -->
+                        <div class="post-nav-link wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="post-prev">
+                                <div class="thumb">
+                                    <img src="assets/images/blog/blog-post-1.png" alt="Blog-Post">
+                                </div>
+                                <div class="content">
+                                    <a href="blog-details.html" class="prev-arrow"><i class="fas fa-arrow-left"></i>Previous
+                                        Post</a>
+                                    <h4 class="title"><a href="blog-details.html">When the musics over turn off the
+                                        light</a></h4>
+                                </div>
+                            </div>
+                            <div class="post-next">
+                                <div class="thumb">
+                                    <img src="assets/images/blog/blog-post-2.png" alt="Blog-Post">
+                                </div>
+                                <div class="content">
+                                    <a href="blog-details.html" class="next-arrow">Next Post<i
+                                            class="fas fa-arrow-right"></i></a>
+                                    <h4 class="title"><a href="blog-details.html">When the musics over turn off the
+                                        light</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post nav-link Section End -->
+
+                        <!-- Entry Author Section Start -->
+                        <div class="entry-author wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="thumb">
+                                <img src="assets/images/author/entry-author.png" alt="Author-image">
+                            </div>
+                            <div class="content">
+                                <div class="head">
+                                    <h3 class="title">Johnson Doe</h3>
+                                    <ul class="social-icon flex-center">
+                                        <li>
+                                            <a href="https://www.facebook.com/" class="facebook"><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com/" class="twitter"><i
+                                                    class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.linkedin.com/" class="linkedin"><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.instagram.com/" class="instagram"><i
+                                                    class="fab fa-instagram"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+                                    Excepteur in culp ao qui officia de serunt mollit anim id est labo rum. Sed ut
+                                    perspiciatis unde omnis iste natus error sit voluptatem accusantium dolo</p>
+                                <div class="content-bottom">
+                                    <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>View
+                                        All Post</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Entry Author Section End -->
+
+                        <!-- Comment Section Start -->
+                        <div class="comment wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <h2 class="title">20 Comments</h2>
+                            <ul class="comment-list">
+                                <li class="comment-inner">
+                                    <div class="comment-1">
+                                        <div class="comment-thumb">
+                                            <img src="assets/images/author/comment-1.png" alt="Author-Image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-head">
+                                                <div class="comment-title-date">
+                                                    <h5 class="comment-title">Kane Timberlake</h5>
+                                                    <div class="meta">
+                                                        <div class="date">Jun 22, 2022</div>
+                                                        <div class="time">10:00 AM</div>
+                                                    </div>
+                                                </div>
+                                                <div class="button">
+                                                    <a href="blog-details.html" class="replay">Replay</a>
+                                                </div>
+                                            </div>
+                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
+                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
+                                                voluptatem accusantium dolo</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="comment-inner">
+                                    <div class="comment-1">
+                                        <div class="comment-thumb">
+                                            <img src="assets/images/author/comment-2.png" alt="Author-Image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-head">
+                                                <div class="comment-title-date">
+                                                    <h5 class="comment-title">Kane Timberlake</h5>
+                                                    <div class="meta">
+                                                        <div class="date">Jun 22, 2022</div>
+                                                        <div class="time">10:00 AM</div>
+                                                    </div>
+                                                </div>
+                                                <div class="button">
+                                                    <a href="blog-details.html" class="replay">Replay</a>
+                                                </div>
+                                            </div>
+                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
+                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
+                                                voluptatem accusantium dolo</p>
+                                        </div>
+                                    </div>
+                                    <ul class="comment-children">
+                                        <li>
+                                            <div class="comment-1">
+                                                <div class="comment-thumb">
+                                                    <img src="assets/images/author/comment-3.png" alt="Author-Image">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <div class="comment-head">
+                                                        <div class="comment-title-date">
+                                                            <h5 class="comment-title">Kane Timberlake</h5>
+                                                            <div class="meta">
+                                                                <div class="date">Jun 22, 2022</div>
+                                                                <div class="time">10:00 AM</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="button">
+                                                            <a href="blog-details.html" class="replay">Replay</a>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text">Duis aute irure dolor in reprehenderit in voluptate
+                                                        velit esse cillum. Excepteur in culp ao qui officia de serunt
+                                                        mollit anim id est labo rum. Sed ut perspiciatis unde omnis iste
+                                                        natus error sit voluptatem accusantium dolo</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="comment-inner">
+                                    <div class="comment-1">
+                                        <div class="comment-thumb">
+                                            <img src="assets/images/author/comment-4.png" alt="Author-Image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-head">
+                                                <div class="comment-title-date">
+                                                    <h5 class="comment-title">Kane Timberlake</h5>
+                                                    <div class="meta">
+                                                        <div class="date">Jun 22, 2022</div>
+                                                        <div class="time">10:00 AM</div>
+                                                    </div>
+                                                </div>
+                                                <div class="button">
+                                                    <a href="blog-details.html" class="replay">Replay</a>
+                                                </div>
+                                            </div>
+                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
+                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
+                                                voluptatem accusantium dolo</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Comment Section End -->
+
+                        <!-- Comment Form Start -->
+                        <div class="comment-form wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <h2 class="title">Add A Comment</h2>
+                            <form class="comment-form-inner" action="#">
+                                <div class="row">
+                                    <div class="col-md-6 col-12 mb-3">
+                                        <input placeholder="Your name" name="name">
+                                    </div>
+                                    <div class="col-md-6 col-12 mb-3">
+                                        <input type="email" placeholder="Your email" name="email">
+                                    </div>
+                                    <div class="col-md-6 col-12 mb-3">
+                                        <input placeholder="Your phone" name="name">
+                                    </div>
+                                    <div class="col-md-6 col-12 mb-3">
+                                        <input type="text" placeholder="Your Website" name="name">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <textarea name="message" placeholder="Write your comment here"></textarea>
+                                    </div>
+                                    <div class="col-12 text-left">
+                                        <button class="btn btn-style-one"><span>Submit Now</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Comment Form End -->
+                    </div>
+                    <!-- Single Blog Start -->
+                </div>
+                <div class="col-lg-4 mb-30">
+                    <div class="sidebar-wrap">
+                        <!--Sidebar Search Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Search</h4>
+                            <form class="sidebar-search" action="#">
+                                <input class="sidebar-input" placeholder="Search you keywords" type="text">
+                                <button class="sidebar-search-btn"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                        <!--Sidebar Search End-->
+
+                        <!--Sidebar Post Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">recent post</h4>
+                            <ul class="sidebar-blog">
+                                <li>
+                                    <a href="blog-details.html" class="image"><img
+                                            src="assets/images/blog/blog-post-1.png" alt="Blog Post"></a>
+                                    <div class="content">
+                                        <span class="subtitle">Web Design</span>
+                                        <a class="title" href="blog-details.html">When the musics over turn off the
+                                            light</a>
+                                        <span class="date">25 Feb 2022</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="blog-details.html" class="image"><img
+                                            src="assets/images/blog/blog-post-2.png" alt="Blog Post"></a>
+                                    <div class="content">
+                                        <span class="subtitle">Web Design</span>
+                                        <a class="title" href="blog-details.html">Niche Blogs for Rising Metal Bands</a>
+                                        <span class="date">24 Jun 2022</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="blog-details.html" class="image"><img
+                                            src="assets/images/blog/blog-post-3.png" alt="Blog Post"></a>
+                                    <div class="content">
+                                        <span class="subtitle">Web Design</span>
+                                        <a class="title" href="blog-details.html">When the musics over turn off the
+                                            light</a>
+                                        <span class="date">26 Apr 2022</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Sidebar Post End-->
+
+                        <!--Sidebar Category Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">categories</h4>
+                            <ul class="sidebar-category">
+                                <li><a href="blog-details.html">Web Development <span>(32)</span></a></li>
+                                <li><a href="blog-details.html">Business Management <span>(07)</span></a></li>
+                                <li><a href="blog-details.html">Critical Analysis <span>(09)</span></a></li>
+                                <li><a href="blog-details.html">Digital Marketing <span>(04)</span></a></li>
+                                <li><a href="blog-details.html">Report and Management <span>(10)</span></a></li>
+                                <li><a href="blog-details.html">Search Engine Optimization <span>(19)</span></a></li>
+                                <li><a href="blog-details.html">Software Development <span>(19)</span></a></li>
+                            </ul>
+                        </div>
+                        <!--Sidebar Category End-->
+
+                        <!--Sidebar Tags Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">tags</h4>
+                            <div class="sidebar-tags">
+                                <a href="blog-details.html" class="active">Website</a>
+                                <a href="blog-details.html">Development</a>
+                                <a href="blog-details.html">Marketing</a>
+                                <a href="blog-details.html">Application</a>
+                                <a href="blog-details.html">Design</a>
+                                <a href="blog-details.html">Web</a>
+                                <a href="blog-details.html">Template</a>
+                                <a href="blog-details.html">WordPress</a>
+                                <a href="blog-details.html">Themeforest</a>
+                            </div>
+                        </div>
+                        <!--Sidebar Tags End-->
+
+                        <!--Sidebar Instagram Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Instagram</h4>
+                            <ul class="sidebar-instagram">
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-one.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-two.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-three.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-four.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-five.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="assets/images/footer/insta-six.png" alt="Insta-Image">
+                                        <div class="add-action">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Sidebar Instagram End-->
+
+                        <!--Sidebar Social Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Follow Us</h4>
+                            <ul class="sidebar-social d-flex flex-start">
+                                <li>
+                                    <a href="https://www.facebook.com/" class="facebook"><i
+                                            class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/" class="linkedin"><i
+                                            class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/" class="instagram"><i
+                                            class="fab fa-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Sidebar Social End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+{% endblock %}

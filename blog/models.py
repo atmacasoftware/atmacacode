@@ -50,7 +50,7 @@ class Blog(models.Model):
             return None
 
     def get_absolute_url(self):
-        return reverse('blog-details',args=[self.slug])
+        return reverse('blog_details',args=[self.slug])
 
     def save(self, *args, **kwargs):
         value = self.title
