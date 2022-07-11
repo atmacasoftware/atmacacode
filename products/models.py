@@ -57,7 +57,7 @@ class Services(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.service_name
-        self.slug = slugify(unidecode(value))
+        self.slug = slugify(unidecode(value), allow_unicode=True)
         super().save(*args, **kwargs)
 
 class ReviewRating(models.Model):
