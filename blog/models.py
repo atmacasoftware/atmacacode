@@ -1,3 +1,4 @@
+import readtime as readtime
 from ckeditor_uploader.fields import RichTextUploadingField
 #from django.contrib.auth.models import User
 from django.db import models
@@ -56,6 +57,10 @@ class Blog(models.Model):
         value = self.title
         self.slug = slugify(unidecode(value), allow_unicode=True)
         super().save(*args, **kwargs)
+
+    def get_readtime(self):
+        result = readtime.of_text(self.content)
+        return result.text
 
     class Meta:
         verbose_name = "Blog Gönderisi"

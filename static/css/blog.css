@@ -113,3 +113,15 @@
 .navigation-visibility .slide-icon.active {
     background: #FF914DFF;
 }
+
+.sidebar-blog li a img{
+    width: 90px!important;
+    height: 90px!important;
+    object-fit: contain;
+}
+
+.sidebar-instagram ul li a img{
+    width: 90px!important;
+    height: 90px!important;
+    object-fit: contain;
+}

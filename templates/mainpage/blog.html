@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
     <div class="section-padding mt-2">
-    <!-- Slider Start -->
+        <!-- Slider Start -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -38,280 +38,82 @@
                 </div>
             </div>
         </div>
-    <!-- Blog Section Start -->
+        <!-- Blog Section Start -->
         <div class="container">
             <div class="row mb-n30">
                 <div class="col-lg-8 mb-30 standard-blog">
                     <!-- Single Blog Start -->
-                    <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                        <!-- Blog Thumbnail Start -->
-                        <div class="single-thumb">
-                            <a href="blog-details.html">
-                                <img src="assets/images/blog/blog-1-1.png" alt="Blog-Image">
-                            </a>
+                    {% for sb in single_blog %}
+                        <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            <!-- Blog Thumbnail Start -->
+                            <div class="single-thumb">
+                                <a href="{% url 'blog_details' sb.slug %}">
+                                    <img src="{{ sb.get_blog_photos }}" alt="Blog-Image">
+                                </a>
+                            </div>
+                            <!-- Blog Thumbnail End -->
+
+                            <!-- Blog Meta Start -->
+                            <ul class="single-blog-meta">
+                                <li>
+                                    <span><i class="fas fa-folder-open"></i></span>
+                                    <a href="{% url 'blog_details' sb.slug %}">{{ sb.get_category_display }}</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-user"></i></span>
+                                    <a href="blog-details.html">{{ sb.user }}</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-clock"></i></span>
+                                    <p>{{ sb.created_at }}</p>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-comments"></i></span>
+                                    <p>50 comments</p>
+                                </li>
+                            </ul>
+                            <!-- Blog Meta End -->
+
+                            <!-- Blog Content Start -->
+                            <div class="single-blog-content">
+                                <h2 class="title"><a href="{% url 'blog_details' sb.slug %}">{{ sb.title }}</a>
+                                </h2>
+                                <p class="text">{{ sb.content|truncatechars:320|safe }} </p>
+                                <div class="content-bottom">
+                                    <a href="{% url 'blog_details' sb.slug %}" class="read-more"><i
+                                            class="fas fa-angle-right"></i>Devamını
+                                        Gör</a>
+                                    <span class="time">{{ sb.get_readtime }}</span>
+                                </div>
+                            </div>
+                            <!-- Blog Content End -->
                         </div>
-                        <!-- Blog Thumbnail End -->
-
-                        <!-- Blog Meta Start -->
-                        <ul class="single-blog-meta">
-                            <li>
-                                <span><i class="fas fa-folder-open"></i></span>
-                                <a href="blog-details.html">Web Development</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-user"></i></span>
-                                <a href="blog-details.html">Admin</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-clock"></i></span>
-                                <p>Mar 07,2022</p>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-comments"></i></span>
-                                <p>50 comments</p>
-                            </li>
-                        </ul>
-                        <!-- Blog Meta End -->
-
-                        <!-- Blog Content Start -->
-                        <div class="single-blog-content">
-                            <h2 class="title"><a href="blog-details.html">When the musics over turn off the light</a>
-                            </h2>
-                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                Excepteur
-                                sint occaecat cupidatat non proident, sunt in culp ao qui officia de serunt mollit anim
-                                id
-                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae </p>
-                            <div class="content-bottom">
-                                <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>Read
-                                    More</a>
-                                <span class="time">10 mins read</span>
+                    {% endfor %}
+                    <!-- Single Blog End -->
+                    {% if blog_count > 10 %}
+                        <div class="row">
+                            <div class="col-12 justify-content-center align-items-center d-flex">
+                                <nav class="pagination-wrapper mt-3">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link active" href="#/">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#/">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#/">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#/" aria-label="Next">
+                                                <span aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
-                        <!-- Blog Content End -->
-                    </div>
-                    <!-- Single Blog Start -->
-                    <!-- Single Blog Start -->
-                    <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                        <!-- Blog Thumbnail Start -->
-                        <div class="single-thumb">
-                            <a href="blog-details.html">
-                                <img src="assets/images/blog/blog-1-2.png" alt="Blog-Image">
-                            </a>
-                        </div>
-                        <!-- Blog Thumbnail End -->
-
-                        <!-- Blog Meta Start -->
-                        <ul class="single-blog-meta">
-                            <li>
-                                <span><i class="fas fa-folder-open"></i></span>
-                                <a href="blog-details.html">Web Development</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-user"></i></span>
-                                <a href="blog-details.html">Admin</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-clock"></i></span>
-                                <p>Mar 07,2022</p>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-comments"></i></span>
-                                <p>50 comments</p>
-                            </li>
-                        </ul>
-                        <!-- Blog Meta End -->
-
-                        <!-- Blog Content Start -->
-                        <div class="single-blog-content">
-                            <h2 class="title"><a href="blog-details.html">Seven Secrets That You Should Know</a></h2>
-                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                Excepteur
-                                sint occaecat cupidatat non proident, sunt in culp ao qui officia de serunt mollit anim
-                                id
-                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae </p>
-                            <div class="content-bottom">
-                                <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>Read
-                                    More</a>
-                                <span class="time">10 mins read</span>
-                            </div>
-                        </div>
-                        <!-- Blog Content End -->
-                    </div>
-                    <!-- Single Blog Start -->
-                    <!-- Single Blog Start -->
-                    <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                        <!-- Blog Thumbnail Start -->
-                        <div class="single-thumb">
-                            <a href="blog-details.html">
-                                <img src="assets/images/blog/blog-1-3.png" alt="Blog-Image">
-                            </a>
-                        </div>
-                        <!-- Blog Thumbnail End -->
-
-                        <!-- Blog Meta Start -->
-                        <ul class="single-blog-meta">
-                            <li>
-                                <span><i class="fas fa-folder-open"></i></span>
-                                <a href="blog-details.html">Web Development</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-user"></i></span>
-                                <a href="blog-details.html">Admin</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-clock"></i></span>
-                                <p>Mar 07,2022</p>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-comments"></i></span>
-                                <p>50 comments</p>
-                            </li>
-                        </ul>
-                        <!-- Blog Meta End -->
-
-                        <!-- Blog Content Start -->
-                        <div class="single-blog-content">
-                            <h2 class="title"><a href="blog-details.html">You Will Believe These Bizarre Truth</a></h2>
-                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                Excepteur
-                                sint occaecat cupidatat non proident, sunt in culp ao qui officia de serunt mollit anim
-                                id
-                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae </p>
-                            <div class="content-bottom">
-                                <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>Read
-                                    More</a>
-                                <span class="time">10 mins read</span>
-                            </div>
-                        </div>
-                        <!-- Blog Content End -->
-                    </div>
-                    <!-- Single Blog Start -->
-                    <!-- Single Blog Start -->
-                    <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                        <!-- Blog Thumbnail Start -->
-                        <div class="single-thumb">
-                            <a href="blog-details.html">
-                                <img src="assets/images/blog/blog-1-4.png" alt="Blog-Image">
-                            </a>
-                        </div>
-                        <!-- Blog Thumbnail End -->
-
-                        <!-- Blog Meta Start -->
-                        <ul class="single-blog-meta">
-                            <li>
-                                <span><i class="fas fa-folder-open"></i></span>
-                                <a href="blog-details.html">Web Development</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-user"></i></span>
-                                <a href="blog-details.html">Admin</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-clock"></i></span>
-                                <p>Mar 07,2022</p>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-comments"></i></span>
-                                <p>50 comments</p>
-                            </li>
-                        </ul>
-                        <!-- Blog Meta End -->
-
-                        <!-- Blog Content Start -->
-                        <div class="single-blog-content">
-                            <h2 class="title"><a href="blog-details.html">When the musics over turn off the light</a>
-                            </h2>
-                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                Excepteur
-                                sint occaecat cupidatat non proident, sunt in culp ao qui officia de serunt mollit anim
-                                id
-                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae </p>
-                            <div class="content-bottom">
-                                <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>Read
-                                    More</a>
-                                <span class="time">10 mins read</span>
-                            </div>
-                        </div>
-                        <!-- Blog Content End -->
-                    </div>
-                    <!-- Single Blog Start -->
-                    <!-- Single Blog Start -->
-                    <div class="single-blog wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                        <!-- Blog Thumbnail Start -->
-                        <div class="single-thumb">
-                            <a href="blog-details.html">
-                                <img src="assets/images/blog/blog-1-5.png" alt="Blog-Image">
-                            </a>
-                        </div>
-                        <!-- Blog Thumbnail End -->
-
-                        <!-- Blog Meta Start -->
-                        <ul class="single-blog-meta">
-                            <li>
-                                <span><i class="fas fa-folder-open"></i></span>
-                                <a href="blog-details.html">Web Development</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-user"></i></span>
-                                <a href="blog-details.html">Admin</a>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-clock"></i></span>
-                                <p>Mar 07,2022</p>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-comments"></i></span>
-                                <p>50 comments</p>
-                            </li>
-                        </ul>
-                        <!-- Blog Meta End -->
-
-                        <!-- Blog Content Start -->
-                        <div class="single-blog-content">
-                            <h2 class="title"><a href="blog-details.html">Seven Secrets That You Should Know</a></h2>
-                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                Excepteur
-                                sint occaecat cupidatat non proident, sunt in culp ao qui officia de serunt mollit anim
-                                id
-                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae </p>
-                            <div class="content-bottom">
-                                <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>Read
-                                    More</a>
-                                <span class="time">10 mins read</span>
-                            </div>
-                        </div>
-                        <!-- Blog Content End -->
-                    </div>
-                    <!-- Single Blog Start -->
-
-                    <div class="row">
-                        <div class="col-12 justify-content-center align-items-center d-flex">
-                            <nav class="pagination-wrapper mt-3">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link active" href="#/">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#/">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#/">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#/" aria-label="Next">
-                                            <span aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-lg-4 mb-30">
                     <div class="sidebar-wrap">
                         <!--Sidebar Search Start-->
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">Search</h4>
+                            <h4 class="sidebar-title">Arama</h4>
                             <form class="sidebar-search" action="#">
                                 <input class="sidebar-input" placeholder="Search you keywords" type="text">
                                 <button class="sidebar-search-btn"><i class="fas fa-search"></i></button>
@@ -321,40 +123,21 @@
 
                         <!--Sidebar Post Start-->
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">recent post</h4>
+                            <h4 class="sidebar-title">Son Yazılar</h4>
                             <ul class="sidebar-blog">
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-1.png"
-                                            alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">When the musics over turn off the
-                                            light</a>
-                                        <span class="date">25 Feb 2022</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-2.png"
-                                            alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">Niche Blogs for Rising Metal Bands</a>
-                                        <span class="date">24 Jun 2022</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-3.png"
-                                            alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">When the musics over turn off the
-                                            light</a>
-                                        <span class="date">26 Apr 2022</span>
-                                    </div>
-                                </li>
+                                {% for rb in recent_blog %}
+                                    <li>
+                                        <a href="{% url 'blog_details' rb.slug %}" class="image"><img
+                                                src="{{ rb.get_blog_photos }}"
+                                                alt="Blog Post"></a>
+                                        <div class="content">
+                                            <span class="subtitle">{{ rb.get_category_display }}</span>
+                                            <a class="title"
+                                               href="{% url 'blog_details' rb.slug %}">{{ rb.title|truncatechars:40 }}</a>
+                                            <span class="date">{{ rb.created_at }}</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!--Sidebar Post End-->
@@ -394,68 +177,27 @@
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
                             <h4 class="sidebar-title">Instagram</h4>
                             <ul class="sidebar-instagram">
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-one.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-two.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-three.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-four.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-five.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="assets/images/footer/insta-six.png" alt="Insta-Image">
-                                        <div class="add-action">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </li>
+                                {% for im in instagram_image %}
+                                    <li>
+                                        <a href="{{ im.url }}">
+                                            <img src="{{ im.get_instagram_image }}" alt="Insta-Image">
+                                            <div class="add-action">
+                                                <i class="fab fa-instagram"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!--Sidebar Instagram End-->
 
                         <!--Sidebar Social Start-->
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">Follow Us</h4>
+                            <h4 class="sidebar-title">Bizi Takip Edin</h4>
                             <ul class="sidebar-social d-flex flex-start">
                                 <li>
                                     <a href="https://www.facebook.com/" class="facebook"><i
                                             class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
                                 </li>
                                 <li>
                                     <a href="https://www.linkedin.com/" class="linkedin"><i
