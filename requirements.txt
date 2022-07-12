@@ -12,3 +12,4 @@ pillow
 django-robots
 jwt
 PyJWT
+readtime

@@ -2,6 +2,7 @@ import readtime as readtime
 from ckeditor_uploader.fields import RichTextUploadingField
 #from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 from django.urls import reverse
 from django.utils.text import slugify
 from unidecode import unidecode
@@ -62,6 +63,13 @@ class Blog(models.Model):
     def get_readtime(self):
         result = readtime.of_text(self.content)
         return result.text
+
+    def countReview(self):
+        reviews = ReviewRating.objects.filter(blog=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
 
     class Meta:
         verbose_name = "Blog Gönderisi"

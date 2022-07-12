@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block customer_login %}
+
+    <!--CSS Start-->x"
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!--CSS End-->
+
+    <!--Code Start-->
+    <div class="section-padding mt-5">
+        <div class="container account">
+            <div class="account-container">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="boxes">
+                        <div class="box b-padding">
+                            <label for="firstname">Ad</label>
+                            <input type="text" id="firstname" name="firstname">
+                        </div>
+                        <div class="box b-padding">
+                            <label for="surname">Soyad</label>
+                            <input type="text" id="surname" name="surname">
+                        </div>
+                        <div class="box b-padding">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="box b-padding">
+                            <label for="phone">Telefon</label>
+                            <input type="text" id="phone" name="phone">
+                        </div>
+                        <div class="box b-padding">
+                            <label for="password">Şifre</label>
+                            <input type="password" id="password" name="password">
+                        </div>
+                        <div class="box buttons">
+                             <button class="btn btn-style-one"><span>Kayıt Ol</span></button>
+                             <button class="btn btn-style-two"><span>Giriş Yap</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Code End-->
+{% endblock %}

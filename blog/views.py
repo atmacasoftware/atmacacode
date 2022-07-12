@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from blog.models import Blog
+from django.shortcuts import render, redirect
+
+from blog.form import ReviewForm
+from blog.models import Blog,ReviewRating
 # Create your views here.
 from social_media.models import Instagram
 
@@ -36,8 +38,12 @@ def blog_details(request,slug):
     blog_detail = None
     recent_blog = None
     blog_tags = None
+    previous_post = None
+    next_post = None
     try:
         blog_detail = Blog.objects.get(slug=slug)
+        next_post = Blog.objects.filter(id=blog_detail.id + 1)
+        previous_post = Blog.objects.filter(id=blog_detail.id - 1)
     except:
         pass
     try:
@@ -48,5 +54,36 @@ def blog_details(request,slug):
         blog_tags = Blog.objects.filter(slug=slug).values('keywords')
     except:
         pass
-    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags})
+    try:
+        previous_post = Blog.objects.filter(id=blog_detail.id-1)
+        print(previous_post.id)
+    except:
+        pass
+    try:
+        next_post = Blog.objects.filter(id=blog_detail.id+1)
+        print(next_post.id)
+    except:
+        pass
+    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post})
+
+
+def submit_review(request, blog_id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        try:
+            customer_id = request.session.get('customer')
+            reviews = ReviewRating.objects.get(user__id=customer_id, blog__id=blog_id)
+            form = ReviewForm(request.POST, instance=reviews)
+            form.save()
+            return redirect(url)
+        except ReviewRating.DoesNotExist:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                data = ReviewRating()
+                data.review = form.cleaned_data['review']
+                data.ip = request.META.get('REMOTE_ADDR')
+                data.blog_id = blog_id
+                data.user_id = request.session.get('customer')
+                data.save()
+                return redirect(url)
 

@@ -75,7 +75,7 @@
                                 <span class="label">Etiketler</span>
                                 <ul>
                                     {% for bt in blog_tags %}
-                                    <li><a href="blog-details.html">{{ bt.keywords }},</a></li>
+                                        <li><a href="blog-details.html">{{ bt.keywords }},</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -102,67 +102,34 @@
                         <!-- Post nav-link Section Start -->
                         <div class="post-nav-link wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
                             <div class="post-prev">
-                                <div class="thumb">
-                                    <img src="assets/images/blog/blog-post-1.png" alt="Blog-Post">
-                                </div>
-                                <div class="content">
-                                    <a href="blog-details.html" class="prev-arrow"><i class="fas fa-arrow-left"></i>Previous
-                                        Post</a>
-                                    <h4 class="title"><a href="blog-details.html">When the musics over turn off the
-                                        light</a></h4>
-                                </div>
+                                {% for pb in previous_post %}
+                                    <div class="thumb">
+                                        <img src="{{ pb.get_blog_photos }}" alt="Blog-Post">
+                                    </div>
+                                    <div class="content">
+                                        <a href="{% url 'blog_details' pb.slug %}" class="prev-arrow"><i
+                                                class="fas fa-arrow-left"></i>Önceki
+                                            Blog</a>
+                                        <h4 class="title"><a
+                                                href="{% url 'blog_details' pb.slug %}">{{ pb.title|truncatechars:20 }}</a>
+                                        </h4>
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="post-next">
-                                <div class="thumb">
-                                    <img src="assets/images/blog/blog-post-2.png" alt="Blog-Post">
-                                </div>
-                                <div class="content">
-                                    <a href="blog-details.html" class="next-arrow">Next Post<i
-                                            class="fas fa-arrow-right"></i></a>
-                                    <h4 class="title"><a href="blog-details.html">When the musics over turn off the
-                                        light</a></h4>
-                                </div>
+                                {% for nb in next_post %}
+                                    <div class="thumb">
+                                        <img src="{{ nb.get_blog_photos }}" alt="Blog-Post">
+                                    </div>
+                                    <div class="content">
+                                        <a href="{% url 'blog_details' nb.slug %}" class="next-arrow">Sonraki Blog<i
+                                                class="fas fa-arrow-right"></i></a>
+                                        <h4 class="title"><a href="{% url 'blog_details' nb.slug %}">{{ nb.title|truncatechars:20 }}</a></h4>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <!-- Post nav-link Section End -->
-
-                        <!-- Entry Author Section Start -->
-                        <div class="entry-author wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                            <div class="thumb">
-                                <img src="assets/images/author/entry-author.png" alt="Author-image">
-                            </div>
-                            <div class="content">
-                                <div class="head">
-                                    <h3 class="title">Johnson Doe</h3>
-                                    <ul class="social-icon flex-center">
-                                        <li>
-                                            <a href="https://www.facebook.com/" class="facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://twitter.com/" class="twitter"><i
-                                                    class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.linkedin.com/" class="linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.instagram.com/" class="instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                    Excepteur in culp ao qui officia de serunt mollit anim id est labo rum. Sed ut
-                                    perspiciatis unde omnis iste natus error sit voluptatem accusantium dolo</p>
-                                <div class="content-bottom">
-                                    <a href="blog-details.html" class="read-more"><i class="fas fa-angle-right"></i>View
-                                        All Post</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Entry Author Section End -->
 
                         <!-- Comment Section Start -->
                         <div class="comment wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">

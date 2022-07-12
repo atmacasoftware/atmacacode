@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
     path('blog', include('blog.urls')),
+    path('hesap/', include('customers.urls')),
     path('hizmetler', include('products.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
