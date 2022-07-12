@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from unidecode import unidecode
 from atmacacode.settings import AUTH_USER_MODEL
 # Create your models here.
+from customers.models import Customer
 
 User = AUTH_USER_MODEL
 
@@ -66,3 +67,19 @@ class Blog(models.Model):
         verbose_name = "Blog Gönderisi"
         verbose_name_plural = "Blog Gönderileri"
         ordering = ['created_at', ]
+
+
+class ReviewRating(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.TextField(max_length=200, blank=True)
+    rating = models.FloatField(blank=True)
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(default=True)
+    created_at = models.DateField(auto_now_add=True, )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Yorum ve Oylama Sistemi"
+        verbose_name_plural = "Yorum ve Oylama Sistemi"
+

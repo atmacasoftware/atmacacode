@@ -34,9 +34,19 @@ def blog_page(request):
 
 def blog_details(request,slug):
     blog_detail = None
+    recent_blog = None
+    blog_tags = None
     try:
         blog_detail = Blog.objects.get(slug=slug)
     except:
         pass
-    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail})
+    try:
+        recent_blog = Blog.objects.filter().order_by("-id")[:5]
+    except:
+        pass
+    try:
+        blog_tags = Blog.objects.filter(slug=slug).values('keywords')
+    except:
+        pass
+    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags})
 

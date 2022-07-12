@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block blog_details %}
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <div class="section-padding">
         <div class="container">
             <div class="row mb-n30">
@@ -70,12 +72,11 @@
                         <!-- Blog Share and Tags Section Start -->
                         <div class="single-blog-share-tag wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
                             <div class="tags">
-                                <span class="label">Tags</span>
+                                <span class="label">Etiketler</span>
                                 <ul>
-                                    <li><a href="blog-details.html">Web Design,</a></li>
-                                    <li><a href="blog-details.html">Development,</a></li>
-                                    <li><a href="blog-details.html">Creativity,</a></li>
-                                    <li><a href="blog-details.html">Google</a></li>
+                                    {% for bt in blog_tags %}
+                                    <li><a href="blog-details.html">{{ bt.keywords }},</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <div class="share">
@@ -275,26 +276,14 @@
 
                         <!-- Comment Form Start -->
                         <div class="comment-form wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                            <h2 class="title">Add A Comment</h2>
+                            <h2 class="title">Yorum Ekle</h2>
                             <form class="comment-form-inner" action="#">
                                 <div class="row">
-                                    <div class="col-md-6 col-12 mb-3">
-                                        <input placeholder="Your name" name="name">
-                                    </div>
-                                    <div class="col-md-6 col-12 mb-3">
-                                        <input type="email" placeholder="Your email" name="email">
-                                    </div>
-                                    <div class="col-md-6 col-12 mb-3">
-                                        <input placeholder="Your phone" name="name">
-                                    </div>
-                                    <div class="col-md-6 col-12 mb-3">
-                                        <input type="text" placeholder="Your Website" name="name">
-                                    </div>
                                     <div class="col-12 mb-3">
-                                        <textarea name="message" placeholder="Write your comment here"></textarea>
+                                        <textarea name="message" placeholder="Yorumunuzu buraya yazınız..."></textarea>
                                     </div>
                                     <div class="col-12 text-left">
-                                        <button class="btn btn-style-one"><span>Submit Now</span></button>
+                                        <button class="btn btn-style-one"><span>Şimdi Gönder</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -316,55 +305,11 @@
                         <!--Sidebar Search End-->
 
                         <!--Sidebar Post Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">recent post</h4>
-                            <ul class="sidebar-blog">
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-1.png" alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">When the musics over turn off the
-                                            light</a>
-                                        <span class="date">25 Feb 2022</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-2.png" alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">Niche Blogs for Rising Metal Bands</a>
-                                        <span class="date">24 Jun 2022</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="image"><img
-                                            src="assets/images/blog/blog-post-3.png" alt="Blog Post"></a>
-                                    <div class="content">
-                                        <span class="subtitle">Web Design</span>
-                                        <a class="title" href="blog-details.html">When the musics over turn off the
-                                            light</a>
-                                        <span class="date">26 Apr 2022</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        {% include 'mainpage/partials/recent_blog.html' %}
                         <!--Sidebar Post End-->
 
                         <!--Sidebar Category Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">categories</h4>
-                            <ul class="sidebar-category">
-                                <li><a href="blog-details.html">Web Development <span>(32)</span></a></li>
-                                <li><a href="blog-details.html">Business Management <span>(07)</span></a></li>
-                                <li><a href="blog-details.html">Critical Analysis <span>(09)</span></a></li>
-                                <li><a href="blog-details.html">Digital Marketing <span>(04)</span></a></li>
-                                <li><a href="blog-details.html">Report and Management <span>(10)</span></a></li>
-                                <li><a href="blog-details.html">Search Engine Optimization <span>(19)</span></a></li>
-                                <li><a href="blog-details.html">Software Development <span>(19)</span></a></li>
-                            </ul>
-                        </div>
+                        {% include 'mainpage/partials/blog_categories.html' %}
                         <!--Sidebar Category End-->
 
                         <!--Sidebar Tags Start-->

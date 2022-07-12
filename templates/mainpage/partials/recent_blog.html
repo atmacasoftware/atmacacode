@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+    <h4 class="sidebar-title">Son Yazılar</h4>
+    <ul class="sidebar-blog">
+        {% for rb in recent_blog %}
+            <li>
+                <a href="{% url 'blog_details' rb.slug %}" class="image"><img
+                        src="{{ rb.get_blog_photos }}"
+                        alt="Blog Post"></a>
+                <div class="content">
+                    <span class="subtitle">{{ rb.get_category_display }}</span>
+                    <a class="title"
+                       href="{% url 'blog_details' rb.slug %}">{{ rb.title|truncatechars:40 }}</a>
+                    <span class="date">{{ rb.created_at }}</span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

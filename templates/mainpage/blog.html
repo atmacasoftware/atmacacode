@@ -122,38 +122,11 @@
                         <!--Sidebar Search End-->
 
                         <!--Sidebar Post Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">Son Yazılar</h4>
-                            <ul class="sidebar-blog">
-                                {% for rb in recent_blog %}
-                                    <li>
-                                        <a href="{% url 'blog_details' rb.slug %}" class="image"><img
-                                                src="{{ rb.get_blog_photos }}"
-                                                alt="Blog Post"></a>
-                                        <div class="content">
-                                            <span class="subtitle">{{ rb.get_category_display }}</span>
-                                            <a class="title"
-                                               href="{% url 'blog_details' rb.slug %}">{{ rb.title|truncatechars:40 }}</a>
-                                            <span class="date">{{ rb.created_at }}</span>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+                        {% include 'mainpage/partials/recent_blog.html' %}
                         <!--Sidebar Post End-->
 
                         <!--Sidebar Category Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">Kategoriler</h4>
-                            <ul class="sidebar-category">
-                                <li><a href="blog-details.html">Genel <span>(32)</span></a></li>
-                                <li><a href="blog-details.html">HTML / Css <span>(07)</span></a></li>
-                                <li><a href="blog-details.html">Javascript <span>(09)</span></a></li>
-                                <li><a href="blog-details.html">Python <span>(04)</span></a></li>
-                                <li><a href="blog-details.html">Django <span>(10)</span></a></li>
-                                <li><a href="blog-details.html">Yapay Zeka <span>(19)</span></a></li>
-                            </ul>
-                        </div>
+                        {% include 'mainpage/partials/blog_categories.html' %}
                         <!--Sidebar Category End-->
 
                         <!--Sidebar Tags Start-->
