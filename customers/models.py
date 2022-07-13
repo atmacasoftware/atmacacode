@@ -17,8 +17,8 @@ class Customer(models.Model):
     last_login = models.DateTimeField(auto_now_add=True,null=True)
 
     class Meta:
-        verbose_name = "Satın Alan Kullanıcı"
-        verbose_name_plural = "Satın Alan Kullanıcılar"
+        verbose_name = "Müşteri"
+        verbose_name_plural = "Müşteriler"
 
     def register(self):
         self.save()

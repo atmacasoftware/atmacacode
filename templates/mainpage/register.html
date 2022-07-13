@@ -11,7 +11,7 @@
     <div class="section-padding mt-5">
         <div class="container account">
             <div class="account-container">
-                <form action="" method="post">
+                <form action="{% url 'customer_register' %}" method="post">
                     {% csrf_token %}
                     <div class="boxes">
                         <div class="box b-padding">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="box b-padding">
                             <label for="surname">Soyad</label>
-                            <input type="text" id="surname" name="surname">
+                            <input type="text" id="surname" name="lastname">
                         </div>
                         <div class="box b-padding">
                             <label for="email">Email</label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="box b-padding">
                             <label for="password">Şifre</label>
-                            <input type="password" id="password" name="password">
+                            <input type="password" id="password" name="password1">
                         </div>
                         <div class="box buttons">
                              <button class="btn btn-style-one"><span>Kayıt Ol</span></button>

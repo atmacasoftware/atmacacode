@@ -31,11 +31,21 @@
                                         </li>
                                         <li><a href="contact.html">İletişim</a></li>
                                         <li class="has-children">
+                                            {% if request.user.is_authenticated %}
+                                                <a href="">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="">Profil</a></li>
+                                                    <li><a href="">Siparişlerim</a></li>
+                                                    <li><a href="">Mesajlarım</a></li>
+                                                    <li><a href="">Çıkış Yap</a></li>
+                                                </ul>
+                                            {% else %}
                                             <a href="#">Hesabım</a>
                                             <ul class="sub-menu">
                                                 <li><a href="{% url 'customer_login' %}">Giriş Yap</a></li>
                                                 <li><a href="{% url 'customer_register' %}">Kayıt Ol</a></li>
                                             </ul>
+                                            {% endif %}
                                         </li>
                                         <li class="has-children">
                                             {% if request.user.is_admin %}

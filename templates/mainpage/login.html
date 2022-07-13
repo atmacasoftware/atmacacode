@@ -3,7 +3,7 @@
 
 {% block customer_login %}
 
-    <!--CSS Start-->x"
+    <!--CSS Start-->
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <!--CSS End-->
 
@@ -11,16 +11,16 @@
     <div class="section-padding mt-5">
         <div class="container account">
             <div class="account-container">
-                <form action="" method="post">
+                <form action="{% url 'customer_login' %}" method="post">
                     {% csrf_token %}
                     <div class="boxes">
                         <div class="box b-padding">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="customer-email">
                         </div>
                         <div class="box b-padding">
                             <label for="password">Şifre</label>
-                            <input type="password" id="password" name="password">
+                            <input type="password" id="password" name="customer-password">
                         </div>
                         <div class="box buttons">
                              <button class="btn btn-style-one"><span>Giriş Yap</span></button>

@@ -1,10 +1,11 @@
 from random import randint
 
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.views import View
@@ -23,7 +24,7 @@ def customer_register(request):
 
 class Signup(View):
     def get(self, request):
-        return render(request, 'customer/register.html')
+        return render(request, 'mainpage/register.html')
 
     def post(self, request):
         postData = request.POST
@@ -65,13 +66,13 @@ class Signup(View):
             # to_email = email
             # send_mail = EmailMessage(mail_subject, message, to=[to_email])
             # send_mail.send()
-            return redirect('index')
+            return redirect('mainpage')
         else:
             data = {
                 'error': error_message,
                 'values': value
             }
-            return render(request, 'customer/register.html', data)
+            return render(request, 'mainpage/register.html', data)
 
     def validateCustomer(self, customer):
         error_message = None
@@ -98,15 +99,14 @@ class Login(View):
 
     def get(self, request):
         Login.return_url = request.GET.get('return_url')
-        return render(request, 'customer/login.html')
+        return render(request, 'mainpage/login.html')
 
     def post(self, request):
-        email = request.POST.get('email-signin')
-        password = request.POST.get('password-signin')
+        email = request.POST.get('customer-email')
+        password = request.POST.get('customer-password')
 
         try:
             customer = Customer.get_customer_by_email(email)
-            print(customer.user)
             user = authenticate(username=customer.user, password=password)
             login(request, user)
             error_message = None
@@ -122,14 +122,14 @@ class Login(View):
                         return HttpResponseRedirect(Login.return_url)
                     else:
                         Login.return_url = None
-                        return redirect('index')
+                        return redirect('mainpage')
                 else:
                     error_message = 'Email or Password invalid !!'
 
             else:
                 error_message = 'Email or Password invalid !!'
                 return JsonResponse({'data': 'Kullanıcı adı veya şifre yanlış!'})
-            return redirect('index')
+            return redirect('mainpage')
         except:
             return JsonResponse({'data': 'Email ve şifre alanlarının doldurulması gerekmektedir.'})
 
@@ -138,3 +138,10 @@ class Login(View):
 def logout(request):
     request.session.clear()
     return redirect('index')
+
+
+@login_required
+def profile_page(request,username):
+    user = get_object_or_404(Account, user=username)
+    print(user)
+    return render(request,"mainpage/customer_profile.html")
