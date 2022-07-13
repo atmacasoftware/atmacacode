@@ -12,18 +12,30 @@
     border-radius: 20px;
 }
 
+.box{
+    width: 100%;
+}
+
 .boxes{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .boxes .b-padding{
     display: flex;
     justify-content: center;
+    align-items: center;
     padding-bottom: 40px;
+}
+
+.flex{
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
+
 
 .boxes .box label{
     width: 100px;
@@ -40,8 +52,33 @@
 .buttons{
     display: flex;
     justify-content: center;
+    margin-left: 20px;
+    margin-top: 15px;
 }
 
-.buttons button{
+.buttons a,button{
     margin: 10px;
+}
+
+.error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+.btn-style-two{
+    padding: 20px 45px !important;
+}
+
+.error span{
+    padding-top: 0!important;
+    color: red;
+}
+
+.forgat-password{
+    float: right;
+    padding-right: 40px;
+    margin-top: 10px;
 }

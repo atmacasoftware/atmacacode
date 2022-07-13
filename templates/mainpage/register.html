@@ -1,8 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block customer_login %}
-
+{% block customer_register %}
     <!--CSS Start-->x"
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <!--CSS End-->
@@ -16,27 +15,27 @@
                     <div class="boxes">
                         <div class="box b-padding">
                             <label for="firstname">Ad</label>
-                            <input type="text" id="firstname" name="firstname">
+                            <input type="text" id="firstname" name="firstname" required>
                         </div>
                         <div class="box b-padding">
                             <label for="surname">Soyad</label>
-                            <input type="text" id="surname" name="lastname">
+                            <input type="text" id="surname" name="lastname" required>
                         </div>
                         <div class="box b-padding">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="email" required>
                         </div>
                         <div class="box b-padding">
                             <label for="phone">Telefon</label>
-                            <input type="text" id="phone" name="phone">
+                            <input type="text" id="phone" name="phone" required>
                         </div>
                         <div class="box b-padding">
                             <label for="password">Şifre</label>
-                            <input type="password" id="password" name="password1">
+                            <input type="password" id="password" name="password1" required>
                         </div>
                         <div class="box buttons">
-                             <button class="btn btn-style-one"><span>Kayıt Ol</span></button>
-                             <button class="btn btn-style-two"><span>Giriş Yap</span></button>
+                            <button class="btn btn-style-one"><span>Kayıt Ol</span></button>
+                            <a href="{% url 'customer_login' %}" class="btn btn-style-two"><span>Giriş Yap</span></a>
                         </div>
                     </div>
                 </form>
@@ -44,4 +43,11 @@
         </div>
     </div>
     <!--Code End-->
+
+    <!--JS Start-->
+
+
+    <script src="{% static 'js/register.js' %}"></script>
+
+    <!--JS End-->
 {% endblock %}

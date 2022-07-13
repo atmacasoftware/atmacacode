@@ -125,23 +125,20 @@ class Login(View):
                         return redirect('mainpage')
                 else:
                     error_message = 'Email or Password invalid !!'
-
             else:
-                error_message = 'Email or Password invalid !!'
-                return JsonResponse({'data': 'Kullanıcı adı veya şifre yanlış!'})
+                return render(request, "mainpage/login.html",{'error':'Kullanıcı Adı veya Şifre Hatalı!'})
             return redirect('mainpage')
         except:
-            return JsonResponse({'data': 'Email ve şifre alanlarının doldurulması gerekmektedir.'})
+            return render(request, "mainpage/login.html",{'error':'Kullanıcı Adı veya Şifre Hatalı!'})
 
 
-@custom_login_required
+@login_required
 def logout(request):
     request.session.clear()
-    return redirect('index')
+    return redirect('mainpage')
 
 
 @login_required
 def profile_page(request,username):
-    user = get_object_or_404(Account, user=username)
-    print(user)
+    user = get_object_or_404(Account, username=username)
     return render(request,"mainpage/customer_profile.html")

@@ -18,13 +18,24 @@
                             <label for="email">Email</label>
                             <input type="email" id="email" name="customer-email">
                         </div>
-                        <div class="box b-padding">
+                        <div class="box flex">
                             <label for="password">Şifre</label>
                             <input type="password" id="password" name="customer-password">
                         </div>
+
+                        <div class="box">
+                            <a href="" class="forgat-password">Şifremi Unuttum</a>
+                        </div>
+
+                        {% if error %}
+                            <div class="box error">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endif %}
                         <div class="box buttons">
-                             <button class="btn btn-style-one"><span>Giriş Yap</span></button>
-                             <button class="btn btn-style-two"><span>Kayıt Ol</span></button>
+                            <button class="btn btn-style-one" id="loginBtn" data-url="{% url 'customer_login' %}"><span>Giriş Yap</span>
+                            </button>
+                            <a href="{% url 'customer_register' %}" class="btn btn-style-two"><span>Kayıt Ol</span></a>
                         </div>
                     </div>
                 </form>
@@ -32,4 +43,5 @@
         </div>
     </div>
     <!--Code End-->
+
 {% endblock %}
