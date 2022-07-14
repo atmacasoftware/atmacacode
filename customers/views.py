@@ -12,6 +12,7 @@ from django.views import View
 from unidecode import unidecode
 
 from customers.decorators import custom_login_required
+from customers.forms import CustomerProfileUpdateForm
 from customers.models import Customer
 from user_accounts.models import Account
 
@@ -141,4 +142,54 @@ def logout(request):
 @login_required
 def profile_page(request,username):
     user = get_object_or_404(Account, username=username)
-    return render(request,"mainpage/customer_profile.html")
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
+                                                files=request.FILES or None)
+        print(update_form)
+        try:
+            update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
+                                                    files=request.FILES or None)
+            print("a")
+            if 'update_profile' in request.POST:
+                print("b")
+                if update_form.is_valid():
+                    print("yes")
+                    update_form.save(commit=True)
+                    print("yes2")
+                    return render(request, "mainpage/customer_profile.html",
+                                  {'customer': customer, 'update_form': update_form})
+
+                else:
+                    print("c")
+                    return render(request, "mainpage/customer_profile.html",
+                                  {'customer': customer, 'update_form': update_form})
+            else:
+                print("d")
+                return render(request, "mainpage/customer_profile.html",
+                              {'customer': customer, 'update_form': update_form})
+        except:
+            pass
+        return render(request, "mainpage/customer_profile.html", {'customer': customer, 'update_form': update_form})
+    else:
+        redirect("mainpage")
+
+
+@login_required
+def profile_update(request, username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
+                                                files=request.FILES or None)
+        print(update_form)
+        try:
+            update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None, files=request.FILES or None)
+            if update_form.is_valid():
+                update_form.save(commit=True)
+                return render(request, "mainpage/customer_profile.html", {'customer': customer,'update_form':update_form})
+        except:
+            pass
+        return render(request, "mainpage/customer_profile.html", {'customer': customer,'update_form':update_form})
+    else:
+        redirect("mainpage")

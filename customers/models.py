@@ -7,10 +7,10 @@ User = AUTH_USER_MODEL
 
 
 class Customer(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=60)
-    phone = models.CharField(max_length=15)
-    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50, blank=False, null=True)
+    last_name = models.CharField(max_length=60,blank=False, null=True)
+    phone = models.CharField(max_length=15,blank=False, null=True)
+    email = models.EmailField(unique=True,blank=False, null=True)
     password = models.CharField(max_length=100)
     user = models.OneToOneField(User, verbose_name='Müşteri', on_delete=models.CASCADE, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, null=True)
