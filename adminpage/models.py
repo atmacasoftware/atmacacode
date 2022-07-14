@@ -99,5 +99,5 @@ class Note(models.Model):
         verbose_name_plural = "Notlar"
 
     def __str__(self):
-        return f"{self.authorizedperson.username + '-' + self.note_title}"
+        return f"{self.authorizedperson + '-' + self.note_title}"
 

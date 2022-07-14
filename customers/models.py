@@ -43,3 +43,17 @@ class Customer(models.Model):
         if customer.get_full_name():
             return customer.get_full_name()
         return None
+
+class WhyDelete(models.Model):
+    email = models.EmailField(unique=True,blank=False, null=True)
+    reason = models.TextField()
+
+    class Meta:
+        verbose_name = "Hesap Silme Neden"
+        verbose_name_plural = "Hesap Silme Nedenleri"
+
+    def __str__(self):
+        if self.email != "-" :
+            return self.email
+        else:
+            return "Email"

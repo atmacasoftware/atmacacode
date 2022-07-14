@@ -1,5 +1,6 @@
 from random import randint
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password, make_password
@@ -11,17 +12,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from unidecode import unidecode
 
+from announcement.models import Announcement
 from customers.decorators import custom_login_required
 from customers.forms import CustomerProfileUpdateForm
-from customers.models import Customer
+from customers.models import Customer, WhyDelete
+from order.models import Order
 from user_accounts.models import Account
 
 
 def customer_login(request):
-    return render(request,'mainpage/login.html')
+    return render(request, 'mainpage/login.html')
+
 
 def customer_register(request):
-    return render(request,'mainpage/register.html')
+    return render(request, 'mainpage/register.html')
+
 
 class Signup(View):
     def get(self, request):
@@ -127,10 +132,10 @@ class Login(View):
                 else:
                     error_message = 'Email or Password invalid !!'
             else:
-                return render(request, "mainpage/login.html",{'error':'Kullanıcı Adı veya Şifre Hatalı!'})
+                return render(request, "mainpage/login.html", {'error': 'Kullanıcı Adı veya Şifre Hatalı!'})
             return redirect('mainpage')
         except:
-            return render(request, "mainpage/login.html",{'error':'Kullanıcı Adı veya Şifre Hatalı!'})
+            return render(request, "mainpage/login.html", {'error': 'Kullanıcı Adı veya Şifre Hatalı!'})
 
 
 @login_required
@@ -140,56 +145,82 @@ def logout(request):
 
 
 @login_required
-def profile_page(request,username):
+def profile_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
                                                 files=request.FILES or None)
-        print(update_form)
         try:
             update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
                                                     files=request.FILES or None)
-            print("a")
             if 'update_profile' in request.POST:
-                print("b")
                 if update_form.is_valid():
-                    print("yes")
                     update_form.save(commit=True)
-                    print("yes2")
-                    return render(request, "mainpage/customer_profile.html",
+                    return render(request, "mainpage/customer_edit.html",
                                   {'customer': customer, 'update_form': update_form})
 
                 else:
-                    print("c")
-                    return render(request, "mainpage/customer_profile.html",
+                    return render(request, "mainpage/customer_edit.html",
                                   {'customer': customer, 'update_form': update_form})
+            elif 'change_password' in request.POST:
+                postData = request.POST
+                password = postData.get('password')
+                haspass = make_password(password)
+                cust = customer
+                user.password = haspass
+                user.save()
+
+                cust.password = password
+                cust.password = make_password(cust.password)
+                cust.save()
+                messages.add_message(request, messages.SUCCESS, 'Şifre başarıyla güncellendi.')
+                return redirect("customer_login")
+
+            elif 'delete_account' in request.POST:
+                postData = request.POST
+                password = postData.get('current-password')
+                if password != '':
+                    flag = check_password(password, user.password)
+                    if flag:
+                        delete_account = WhyDelete.objects.create()
+                        delete_account.email = customer.email
+                        reason = postData.get('reason')
+                        if reason != '':
+                            delete_account.reason = reason
+                            delete_account.save()
+                            user.delete()
+                            customer.delete()
+                            return redirect("mainpage")
+                        else:
+                            delete_error = "Silme nedeniniz boş bırakılamaz!"
+                            return render(request, "mainpage/customer_edit.html",
+                                          {'customer': customer, 'update_form': update_form,
+                                           'delete_error': delete_error})
+                else:
+                    delete_error = "Mevcut şifre boş bırakılamaz!"
+                    return render(request, "mainpage/customer_edit.html",
+                                  {'customer': customer, 'update_form': update_form, 'delete_error': delete_error})
             else:
-                print("d")
-                return render(request, "mainpage/customer_profile.html",
+                return render(request, "mainpage/customer_edit.html",
                               {'customer': customer, 'update_form': update_form})
         except:
             pass
-        return render(request, "mainpage/customer_profile.html", {'customer': customer, 'update_form': update_form})
+        return render(request, "mainpage/customer_edit.html", {'customer': customer, 'update_form': update_form})
     else:
         redirect("mainpage")
 
 
-@login_required
-def profile_update(request, username):
+def order_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
-        update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
-                                                files=request.FILES or None)
-        print(update_form)
-        try:
-            update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None, files=request.FILES or None)
-            if update_form.is_valid():
-                update_form.save(commit=True)
-                return render(request, "mainpage/customer_profile.html", {'customer': customer,'update_form':update_form})
-        except:
-            pass
-        return render(request, "mainpage/customer_profile.html", {'customer': customer,'update_form':update_form})
-    else:
-        redirect("mainpage")
+        orders = Order.objects.filter(customer=customer)
+        return render(request, "mainpage/order_page.html", {'customer': customer, 'orders': orders})
+
+def announcement_page(request, username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        announcement = Announcement.objects.filter(users=user)
+        return render(request, "mainpage/announcement_page.html", {'customer': customer, 'announcement': announcement})

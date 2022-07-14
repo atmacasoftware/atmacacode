@@ -202,3 +202,26 @@
     height: auto;
     min-height: 100px;
 }
+
+.nav_counter_link{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_counter_link span.counter{
+    height: 30px;
+    width: 30px;
+    background: #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.order_detail{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #010101;
+}

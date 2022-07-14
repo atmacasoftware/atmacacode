@@ -23,171 +23,28 @@
                             <div class="nav_menu">
                                 <div class="nav_menu_list">
                                     <a href="" class="active">{{ customer.first_name }} {{ customer.last_name }}</a>
-                                    <a href="">Siparişlerim</a>
-                                    <a href="">Duyurularım</a>
-                                    <a href="">Mesajlarım</a>
-                                    <a href="">Siparişlerim</a>
-                                    <a href="">Çıkış Yap</a>
+                                    <a href="{% url 'customer_order' customer.user %}">Siparişlerim</a>
+                                    <a href="{% url 'customer_announcement' customer.user %}" class="nav_counter_link">
+                                        <span class="text">Duyurularım</span>
+                                        <span class="counter">0</span>
+                                    </a>
+                                    <a href="" class="nav_counter_link">
+                                        <span class="text">Mesajlarım</span>
+                                        <span class="counter">0</span>
+                                    </a>
+                                    <a href="{% url 'customer_logout' %}">Çıkış Yap</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="profile_page__header">
-                        <h3>{{ customer.first_name }} {{ customer.last_name }} - Hesabı Düzenle</h3>
-                    </div>
-                    <div class="boxes">
-                        <div class="box">
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Ad</label>
-                                            <input type="text" name="first_name" value="{{ customer.first_name }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Soyad</label>
-                                            <input type="text" name="last_name" value="{{ customer.last_name }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-feedback">
-                                        <div class="feedback-alert">
-                                            <span class="feedback_icon">
-                                                <i class="fa-solid fa-circle-exclamation"></i>
-                                            </span>
-                                            <span class="feedback_text">Hesabınızın genel adıdır. İncelemelerinizde, yorumlarınızda, puanlarınızda veya yanıtlarınızda görünür. Değiştirirseniz, yeni ad yalnızca yeni içerikte değil, eski içerikte de görünecektir.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Email</label>
-                                            <input type="email" name="email" value="{{ customer.email }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Telefon</label>
-                                            <input type="text" name="phone" value="{{ customer.phone }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-feedback">
-                                        <div class="feedback-alert">
-                                            <span class="feedback_icon">
-                                                <i class="fa-solid fa-envelope"></i>
-                                            </span>
-                                            <span class="feedback_text">Email adresi hesabınızın eşsiz olması için istenmektedir. Kayıtlı bir email adresi ile yeniden kayıt olamazsınız. Ayrıca email ve telefon numarası sizlerle iletişim için istenmektedir.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% for error in update_form.errors %}
-                                    {% if error == 'email' %}
-                                        <div class="alert alert-danger" role="alert">
-                                            Lütfen geçerli bir mail adresi giriniz.
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                                <div class="row mt-5">
-                                    <input type="submit" name="update_profile" class="saveBtn"
-                                           value="Değişiklikleri Kaydet">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="profile_page__header mt-3">
-                        <h3>Şifre Değiştir</h3>
-                    </div>
-                    <div class="boxes">
-                        <div class="box">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Şifre</label>
-                                            <input type="password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-field">
-                                            <label for="">Şifre Tekrar</label>
-                                            <input type="password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-feedback">
-                                        <div class="feedback-alert">
-                                            <span class="feedback_icon">
-                                                <i class="fa-solid fa-circle-exclamation"></i>
-                                            </span>
-                                            <span class="feedback_text">Şifre ve şifre tekrarının eşit olması gerekmektedir.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <button type="submit" class="saveBtn">Şifre Değiştir</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="profile_page__header mt-3">
-                        <h3>Hesabı Sil</h3>
-                    </div>
-                    <div class="boxes">
-                        <div class="box">
-                            <form action="" method="post">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-field">
-                                            <label for="">Mevcut Şifre</label>
-                                            <input type="password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-feedback">
-                                        <div class="feedback-alert">
-                                            <span class="feedback_icon">
-                                                <i class="fa-solid fa-circle-exclamation"></i>
-                                            </span>
-                                            <span class="feedback_text">Hesap silme işlemi için mevcut şifrenizi biliyor olmanız gerekmektedir. Mevcut şifrenizi yazarak hesabınızı silebilirsiniz.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <div class="col-lg-12">
-                                        <div class="form-field">
-                                            <label for="">Hesabınızı Silme Nedeniniz?</label>
-                                            <textarea name="" id=""></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-feedback">
-                                        <div class="feedback-alert">
-                                            <span class="feedback_icon">
-                                                <i class="fa-solid fa-circle-exclamation"></i>
-                                            </span>
-                                            <span class="feedback_text">Atmaca Code hesabınızı neden silmeye karar verdiğinizi bize anlatın. Geri bildiriminiz, sitemizi müşterilerimiz için daha da iyi hale getirmemize gerçekten yardımcı oluyor.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <button type="submit" class="saveBtn">Hesabımı Sil</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    {% block customer_edit %}
+                    {% endblock %}
+                    {% block orders %}
+                    {% endblock %}
+                    {% block announcement %}
+                    {% endblock %}
                 </div>
                 <div class="col-lg-2 flex">
                     <div class="row">
@@ -204,4 +61,11 @@
             </div>
         </div>
     </div>
+
+    <!--JS Start-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/change_password.js' %}"></script>
+    <!--JS End-->
 {% endblock %}

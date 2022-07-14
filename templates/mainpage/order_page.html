@@ -1,0 +1,37 @@
+{% extends 'mainpage/customer_profile.html' %}
+{% load static %}
+
+{% block orders %}
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <!--CSS End-->
+
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-1" style="color: #f0f0f0">Sipariş Adı</div>
+            <div class="col col-1" style="color: #f0f0f0">Sipariş Fiyatı</div>
+            <div class="col col-1" style="color: #f0f0f0">Sipariş Tarihi</div>
+            <div class="col col-1" style="color: #f0f0f0">Sipariş Durumu</div>
+        </li>
+        {% for o in orders %}
+            <li class="table-row">
+                <a href="" class="order_detail">
+                    <div class="col col-1" data-label="Başlık">{{ o.order_name|truncatechars:50 }}</div>
+                    <div class="col col-1" data-label="Oluşturulma Tarihi">{{ o.price }}</div>
+                    <div class="col col-1" data-label="Görüntülenme Sayısı">{{ o.created_at|date:"d/m/y" }}</div>
+                    <div class="col col-1" data-label="Edit">
+                        {{ o.status }}
+                    </div>
+                </a>
+            </li>
+        {% empty %}
+            <li class="table-row">
+                <div class="col col-12">
+                    Henüz siparişiniz bulunmamaktadır.
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'mainpage/customer_profile.html' %}
+{% load static %}
+
+{% block announcement %}
+    <div class="profile_page__header">
+        <h3>{{ customer.first_name }} {{ customer.last_name }} - Duyurular</h3>
+    </div>
+    {% for a in announcement %}
+        {% if a.is_read == False %}
+            <div class="alert alert-{{ a.importance }}" role="alert">
+                <span class="alert-text">{{ a.title }}</span>
+                <span class="alert-read">{{ a.title }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
