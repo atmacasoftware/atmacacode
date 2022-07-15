@@ -60,7 +60,7 @@ class Services(models.Model):
         self.slug = slugify(unidecode(value), allow_unicode=True)
         super().save(*args, **kwargs)
 
-class ReviewRating(models.Model):
+class ReviewRatingService(models.Model):
     service = models.ForeignKey(Services, on_delete=models.CASCADE)
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     subject = models.CharField(max_length=100, blank=True)
@@ -82,7 +82,7 @@ class ReviewRating(models.Model):
 class LikeProduct(models.Model):
     customer = models.ForeignKey(Customer, null=True, related_name='like_service', on_delete=models.CASCADE)
     service = models.ForeignKey(Services, null=True, blank=True, on_delete=models.CASCADE, related_name='like_service')
-    comment = models.ForeignKey(ReviewRating, null=True, on_delete=models.CASCADE)
+    comment = models.ForeignKey(ReviewRatingService, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Beğenilen Ürünler'
@@ -105,7 +105,7 @@ class DisLikeProduct(models.Model):
     customer = models.ForeignKey(Customer, null=True, related_name='dislike_service', on_delete=models.CASCADE)
     service = models.ForeignKey(Services, null=True, blank=True, on_delete=models.CASCADE,
                                 related_name='dislike_service')
-    comment = models.ForeignKey(ReviewRating, null=True, on_delete=models.CASCADE)
+    comment = models.ForeignKey(ReviewRatingService, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Beğenilmeyen Ürünler'

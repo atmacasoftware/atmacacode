@@ -79,7 +79,7 @@ class Blog(models.Model):
 
 class ReviewRating(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     review = models.TextField(max_length=200, blank=True)
     rating = models.FloatField(blank=True)
     ip = models.CharField(max_length=20, blank=True)

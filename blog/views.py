@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from blog.form import ReviewForm
 from blog.models import Blog,ReviewRating
 # Create your views here.
+from customers.models import Customer
 from social_media.models import Instagram
+from user_accounts.models import Account
 
 
 def blog_page(request):
@@ -67,10 +69,12 @@ def blog_details(request,slug):
     return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post})
 
 
-def submit_review(request, blog_id):
+def submit_review(request, username, blog_id):
+    user = get_object_or_404(Account,username=username)
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         try:
+            customer = Customer.objects.get(user=user)
             customer_id = request.session.get('customer')
             reviews = ReviewRating.objects.get(user__id=customer_id, blog__id=blog_id)
             form = ReviewForm(request.POST, instance=reviews)

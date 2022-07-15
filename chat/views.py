@@ -34,11 +34,11 @@ def chatroom(request, username):
     other_user = get_object_or_404(Account, username=username)
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
-        customer = Customer.objects.get(authorizedperson=user)
-        messages = Message.objects.filter(Q(receiver__username=request.session['username'], sender=other_user))
+        customer = Customer.objects.get(user=user)
+        messages = Message.objects.filter(Q(receiver__username=request.user.username, sender=other_user))
         messages.update(seen=True)
-        messages = messages | Message.objects.filter(Q(receiver=other_user, sender__username=request.session['username']))
-        chat_messages = Message.objects.filter(Q(receiver__username=request.session['username'])).values("sender").annotate(
+        messages = messages | Message.objects.filter(Q(receiver=other_user, sender__username=request.user.username))
+        chat_messages = Message.objects.filter(Q(receiver__username=request.user.username)).values("sender").annotate(
             Count('sender_id')).order_by().filter(sender_id__gt=1)
         contact_list = []
         for m in chat_messages:

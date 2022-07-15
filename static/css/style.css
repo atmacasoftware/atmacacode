@@ -1022,7 +1022,7 @@ hr {
     position: absolute;
     background: #ffffff;
     box-shadow: 0 0 6px -3px;
-    width: 160px;
+    width: 200px;
     transform-origin: 0 0 0;
     transform: scaleY(0);
     transition: all 0.3s ease-in-out;

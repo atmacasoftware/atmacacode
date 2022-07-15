@@ -1,0 +1,140 @@
+.section-message {
+    height: 90vh;
+}
+
+.support_header {
+    padding: 20px;
+    background: #0d6efd;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.support_header h4 {
+    color: #FFFFFF !important;
+}
+
+.support-list {
+    height: 60vh;
+    border: 2px solid #f4f4f4;
+    border-radius: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.support-list .list {
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: 0.3s;
+}
+
+
+.support-list a {
+    color: #313030;
+    line-height: 3;
+}
+
+.support-list .list:hover {
+    background: #e9edf4;
+}
+
+.support-list .list:hover a {
+    color: #0d6efd;
+}
+
+.box {
+    height: 50vh !important;
+    overflow-y: auto;
+}
+
+.send-message {
+    height: 100%;
+
+}
+
+.send-message form{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.send-message textarea {
+    width: 70%;
+    height: 15vh;
+    border: 2px solid #f4f4f4;
+    border-radius: 12px;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.send-message button {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    min-height: 40px;
+    display: block;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    color: #f4f4f4;
+}
+
+.msg-left {
+    background: #202c33;
+    position: relative;
+}
+
+.msg-left:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #202c33;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid transparent;
+    position: absolute;
+    top: calc(50% - 15px);
+    left: calc(-11px * 2);
+}
+
+.msg-right {
+    background: #06cf9c;
+    position: relative;
+}
+
+.msg-right:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-top: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #06cf9c;
+    position: absolute;
+    top: calc(50% - 15px);
+    right: calc(-11px * 2);
+}
+
+#createSupportForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#createSupportForm textarea{
+    width: 100%;
+    border: 2px solid #f4f4f4;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+#createSupportForm #create_support_btn{
+    margin-top: 20px;
+    width: 200px;
+}

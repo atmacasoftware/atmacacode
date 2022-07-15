@@ -3,5 +3,5 @@ from products.models import *
 # Register your models here.
 
 admin.site.register(Services)
-admin.site.register(ReviewRating)
+admin.site.register(ReviewRatingService)
 

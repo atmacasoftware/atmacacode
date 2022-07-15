@@ -1,0 +1,56 @@
+{% extends 'mainpage/customer_profile.html' %}
+{% load static %}
+
+{% block support_message %}
+
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/support.css' %}">
+    <!--CSS End-->
+
+    <div class="row">
+        <div class="col-lg-4 section-message">
+            <div class="support_header">
+                <h4>Destek Taleplerim</h4>
+            </div>
+            <div class="new-support">
+                <a href="" class="btn btn-secondary w-100 mt-2">Yeni Destek Oluştur</a>
+            </div>
+            <div class="support-list mt-2">
+                {% for r in room %}
+                    <div class="list">
+                        <a href="{% url 'support_page_message' customer.user r.room_id %}">#{{ r.room_id }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-8 section-message">
+            <div class="boxes">
+                <div class="support_header bg-secondary">
+                    <h4>{{ select_room.room_id }}'Nolu Destek Talebi</h4>
+                </div>
+                <div class="box mt-2">
+
+                    {% for s in supports %}
+                        <div class="message msg-left">
+                            {{ s.body }}
+                        </div>
+                    {% endfor %}
+                    {% for a in answer %}
+                        <div class="message msg-right">
+                            {{ a.body }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="send-message mt-2">
+                    <form action="{% url 'support_page_message' customer.user select_room.room_id %}" method="post">
+                        {% csrf_token %}
+                        <textarea name="body"></textarea>
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i>&nbsp;Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

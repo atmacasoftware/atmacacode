@@ -23,19 +23,18 @@
                             <div class="nav_menu">
                                 <div class="nav_menu_list">
                                     <a href="{% url 'customer_profile' customer.user %}"
-                                       class="{% if '/duzenleme/' in request.path %}active{% endif %}">{{ customer.first_name }} {{ customer.last_name }}</a>
+                                       class="{% if '/duzenleme/' in request.path %}active{% endif %}"><i class="fa-solid fa-user"></i>&nbsp;&nbsp;{{ customer.first_name }} {{ customer.last_name }}</a>
                                     <a href="{% url 'customer_order' customer.user %}"
-                                       class="{% if '/siparislerim' in request.path %}active{% endif %}">Siparişlerim</a>
+                                       class="{% if '/siparislerim' in request.path %}active{% endif %}"><i class="fa-solid fa-laptop-code"></i>&nbsp;&nbsp;Siparişlerim</a>
                                     <a href="{% url 'customer_announcement' customer.user %}"
                                        class="nav_counter_link {% if '/duyurular/' in request.path %}active{% endif %}">
-                                        <span class="text">Duyurularım</span>
+                                        <span class="text"><i class="fa-solid fa-bullhorn"></i>&nbsp;&nbsp;Duyurularım</span>
                                         <span class="counter">{{ announcement_count }}</span>
                                     </a>
-                                    <a href="{% url 'main-chat' customer.user %}" class="nav_counter_link">
-                                        <span class="text">Mesajlarım</span>
-                                        <span class="counter">0</span>
+                                    <a href="{% url 'create_support' customer.user %}" class="nav_counter_link">
+                                        <span class="text"><i class="fa-solid fa-life-ring"></i>&nbsp;&nbsp;Destek Taleplerim</span>
                                     </a>
-                                    <a href="{% url 'customer_logout' %}">Çıkış Yap</a>
+                                    <a href="{% url 'customer_logout' %}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Çıkış Yap</a>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +49,9 @@
                     {% endblock %}
                     {% block read_announcement %}
                     {% endblock %}
-                    {% block chat %}
+                    {% block support %}
+                    {% endblock %}
+                    {% block support_message %}
                     {% endblock %}
                 </div>
                 <div class="col-lg-2 flex">

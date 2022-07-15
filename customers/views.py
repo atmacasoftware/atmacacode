@@ -12,11 +12,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from unidecode import unidecode
 
+from adminpage.models import AdminUser
 from announcement.models import Announcement
 from customers.decorators import custom_login_required
 from customers.forms import CustomerProfileUpdateForm
 from customers.models import Customer, WhyDelete
 from order.models import Order
+from supports.models import SupportRoom, Support, AnswerSupport
 from user_accounts.models import Account
 
 
@@ -246,3 +248,41 @@ def delete_announcement_page(request, username, id):
         announcement.is_active = False
         announcement.save()
         return redirect('customer_announcement',user)
+
+
+def support_page(request,username):
+    user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        room = SupportRoom.objects.filter(user=user)
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
+        if 'create_support' in request.POST:
+            postData = request.POST
+            body = postData.get('body')
+            new_room = SupportRoom.objects.create(user=request.user)
+            new_room.save()
+
+            new_support = Support.objects.create(room_id=new_room.room_id,sender=user, body=body)
+            new_support.save()
+            return render(request, "mainpage/partials/create_support.html", {'customer': customer, 'room': room,'announcement_count':announcement_count})
+        return render(request, "mainpage/partials/create_support.html", {'customer': customer,'room':room,'announcement_count':announcement_count})
+
+def support_page_message(request,username,room_id):
+    user = get_object_or_404(Account, username=username)
+    other_user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        room = SupportRoom.objects.filter(user=user)
+        select_room = SupportRoom.objects.get(user=user, room_id=room_id)
+        supports = Support.objects.filter(room_id=room_id)
+        answer = AnswerSupport.objects.filter(room_id=room_id)
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
+        if request.method == 'POST':
+            postData = request.POST
+            body = postData.get('body')
+            msg = Support.objects.create(room_id=room_id,sender=user, body=body)
+            msg.save()
+            return render(request, "mainpage/partials/support.html", {'customer': customer,'room':room,'supports':supports,'answer':answer,'select_room':select_room,'announcement_count':announcement_count})
+        return render(request, "mainpage/partials/support.html",
+                      {'customer': customer, 'room': room, 'supports': supports, 'answer': answer,
+                       'select_room': select_room,'announcement_count':announcement_count})
