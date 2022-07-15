@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'social_media',
     'order',
     'announcement',
+    'chat',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,49 @@
+{% extends 'mainpage/customer_profile.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+</head>
+<body>
+
+{% block chat %}
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}">
+    <div class="row">
+        <div class="col-3 col-md-4 col-sm-12">
+            <div class="tabs">
+                <div class="tab-header">
+                    <div class="active">Gelen Mesajlar</div>
+                </div>
+                <div class="tab-body">
+                    <div class="active">
+                        <div class="contact_list">
+                            <div class="sender-user">
+                                <p class="contact_name">
+                                    <a href="{% url 'chatroom' 	'AhmetAtmaca-9007981' %}">
+                                        <span>Admin</span>
+                                        <i class="fas fa-circle"></i></a>
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 col-md-8 col-sm-12">
+            <div class="empty-chat-container">
+                <div class="empty-message">
+                    <img src="{% static 'img/emptymessage.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+</body>
+</html>

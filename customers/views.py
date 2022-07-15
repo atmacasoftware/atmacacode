@@ -149,6 +149,7 @@ def profile_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
         update_form = CustomerProfileUpdateForm(instance=customer, data=request.POST or None,
                                                 files=request.FILES or None)
         try:
@@ -158,11 +159,11 @@ def profile_page(request, username):
                 if update_form.is_valid():
                     update_form.save(commit=True)
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form})
+                                  {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
 
                 else:
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form})
+                                  {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
             elif 'change_password' in request.POST:
                 postData = request.POST
                 password = postData.get('password')
@@ -196,17 +197,17 @@ def profile_page(request, username):
                             delete_error = "Silme nedeniniz boş bırakılamaz!"
                             return render(request, "mainpage/customer_edit.html",
                                           {'customer': customer, 'update_form': update_form,
-                                           'delete_error': delete_error})
+                                           'delete_error': delete_error,'announcement_count':announcement_count})
                 else:
                     delete_error = "Mevcut şifre boş bırakılamaz!"
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form, 'delete_error': delete_error})
+                                  {'customer': customer, 'update_form': update_form, 'delete_error': delete_error,'announcement_count':announcement_count})
             else:
                 return render(request, "mainpage/customer_edit.html",
-                              {'customer': customer, 'update_form': update_form})
+                              {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
         except:
             pass
-        return render(request, "mainpage/customer_edit.html", {'customer': customer, 'update_form': update_form})
+        return render(request, "mainpage/customer_edit.html", {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
     else:
         redirect("mainpage")
 
@@ -216,11 +217,32 @@ def order_page(request, username):
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         orders = Order.objects.filter(customer=customer)
-        return render(request, "mainpage/order_page.html", {'customer': customer, 'orders': orders})
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
+        return render(request, "mainpage/order_page.html", {'customer': customer, 'orders': orders,'announcement_count':announcement_count})
 
 def announcement_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         announcement = Announcement.objects.filter(users=user)
-        return render(request, "mainpage/announcement_page.html", {'customer': customer, 'announcement': announcement})
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
+        return render(request, "mainpage/announcement_page.html", {'customer': customer, 'announcement': announcement,'announcement_count':announcement_count})
+
+def read_announcement_page(request, username,id):
+    user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        announcement = Announcement.objects.get(users=user, id=id)
+        announcement.is_read = True
+        announcement.save()
+        announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
+        return render(request, "mainpage/read_announcement.html", {'customer': customer, 'announcement': announcement,'announcement_count':announcement_count})
+
+def delete_announcement_page(request, username, id):
+    user = get_object_or_404(Account, username=username)
+    if user.is_customer:
+        customer = Customer.objects.get(user=user)
+        announcement = Announcement.objects.get(users=user, id=id)
+        announcement.is_active = False
+        announcement.save()
+        return redirect('customer_announcement',user)

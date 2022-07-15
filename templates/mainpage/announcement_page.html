@@ -5,12 +5,29 @@
     <div class="profile_page__header">
         <h3>{{ customer.first_name }} {{ customer.last_name }} - Duyurular</h3>
     </div>
-    {% for a in announcement %}
-        {% if a.is_read == False %}
-            <div class="alert alert-{{ a.importance }}" role="alert">
-                <span class="alert-text">{{ a.title }}</span>
-                <span class="alert-read">{{ a.title }}</span>
-            </div>
-        {% endif %}
-    {% endfor %}
+
+    <ul>
+        {% for a in announcement %}
+            {% if a.is_active == True %}
+                <li class="list_announcement">
+                    <a href="{% url 'read_announcement_page' customer.user a.id %}">
+                        <div class="alert alert-{{ a.importance }} alert-flex" role="alert">
+                            <span class="alert-text">{{ a.title|truncatechars:50 }}</span>
+                            <span class="alert-read">
+                                {% if a.is_read == False %}
+                                    Okunmadı
+                                {% else %}
+                                    Okundu
+                                {% endif %}
+                                    </span>
+                        </div>
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <!-- JS Start-->
+    <script src="{% static 'js/read_announcement.js' %}"></script>
+    <!-- JS End-->
 {% endblock %}

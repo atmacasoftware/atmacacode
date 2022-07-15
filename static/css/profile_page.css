@@ -225,3 +225,12 @@
     justify-content: space-between;
     color: #010101;
 }
+
+.alert-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.alert-flex i{
+    font-size: 20px;
+}

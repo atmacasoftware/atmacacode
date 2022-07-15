@@ -4,12 +4,12 @@ User = AUTH_USER_MODEL
 
 
 class Announcement(models.Model):
-    users = models.ManyToManyField(User)
+    users = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255, null=True, verbose_name="Duyuru Başlık")
     content = models.TextField(verbose_name="Duyuru İçeriği")
     importance = models.CharField(max_length=255, null=True, verbose_name="Duyuru Önceliği")
     is_read = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

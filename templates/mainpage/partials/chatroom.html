@@ -1,0 +1,122 @@
+{% extends 'shop/profile/standart_shop_panel.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}">
+</head>
+<body>
+
+{% block company_chat %}
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}">
+    <div class="row">
+        <div class="col-3 col-md-4 col-sm-12">
+            <div class="tabs">
+                <div class="tab-header">
+                    <div class="active">Gelen Mesajlar</div>
+                </div>
+                <div class="tab-indicator"></div>
+                <div class="tab-body">
+                    <div class="active">
+                        <div class="contact_list">
+                            {% for cl in contact_list %}
+                                <div class="sender-user">
+                                    <p class="contact_name">
+                                        <a href="{% url 'chatroom' cl %}">
+                                            <span>{{ cl.first_name }} {{ cl.last_name }}</span>
+                                            <i class="fas fa-circle"></i></a>
+                                    </p>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 col-md-8 col-sm-12">
+            <div class="chat-container">
+                <div class="header">{{ other_user.first_name }} {{ other_user.last_name }}</div>
+                <div class="message-container">
+                    <div class="message">
+                        {% for message in messages %}
+                            <div class="message {% if message.sender.username == request.session.username %}right{% else %}left{% endif %}">
+
+                                <div class="content">{{ message.message }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <div class="input-area">
+                    <input type="text" id="message-input">
+                    <button id="send-btn">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/chat/tabs.js' %}"></script>
+    <script>
+        let message_send_btn = document.getElementById("send-btn");
+        let message_input = document.getElementById("message-input");
+
+        function send_message() {
+            let message = message_input.value;
+            if (message === "") {
+                return;
+            }
+            message_input.value = "";
+            fetch("{% url 'chatroom-ajax' other_user.username %}", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(message),
+            }).then(e => e.json()).then(
+                messages => {
+                    for (message of messages) {
+                        construct_message(message);
+                    }
+                }
+            )
+        }
+
+        function load_messages() {
+            fetch("{% url 'chatroom-ajax' other_user.username %}").then(e => e.json()).then(
+                messages => {
+                    for (message of messages) {
+                        construct_message(message);
+                    }
+                }
+            )
+        }
+
+        function construct_message(message) {
+            let messages_contaner = document.querySelector(".message");
+            let class_name = "left"
+            if (message.sent) {
+                class_name = "right"
+            }
+            let div = document.createElement("div");
+            div.classList.add("message", class_name);
+            div.innerHTML = `
+        <div class="sent-by">${message.sender}</div>
+        <div class="content">${message.message}</div>
+    `
+            messages_contaner.appendChild(div);
+            div.scrollIntoView()
+        }
+
+        message_send_btn.addEventListener('click', send_message);
+        setInterval(load_messages, 2000);
+    </script>
+{% endblock %}
+</body>
+<script> let url = "{% url 'chatroom-ajax' other_user.id %}";</script>
+
+</html>

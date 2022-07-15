@@ -26,6 +26,7 @@ urlpatterns = [
     path('hesap/', include('customers.urls')),
     path('hizmetler', include('products.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),
+    path('mesajlasma/', include('chat.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('favicon.ico', RedirectView.as_view(url='/static/img/logo/small_logo.png')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
