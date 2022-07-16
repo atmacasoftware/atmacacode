@@ -19,13 +19,13 @@
                             <div class="d-none d-lg-flex header-right_menu">
                                 <nav class="main-menu">
                                     <ul>
-                                    
+
                                         <li class="has-children">
                                             <a href="{% url 'mainpage' %}">Anasayfa</a>
                                         </li>
                                         <li><a href="about.html">Hakkında</a></li>
                                         <li class="has-children">
-                                            <a href="#services">Hizmetler</a>
+                                            <a href="{% url 'mainpage' %}#services">Hizmetler</a>
                                         </li>
                                         <li class="has-children">
                                             <a href="{% url 'blog_pages' %}">Blog</a>
@@ -35,18 +35,25 @@
                                             {% if request.user.is_authenticated %}
                                                 <a href="#">Hesabım</a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="{% url 'customer_profile' request.user %}">{{ request.user.first_name }} {{ request.user.last_name }}</a></li>
-                                                    <li><a href="{% url 'customer_order' request.user %}">Siparişlerim</a></li>
-                                                    <li><a href="{% url 'customer_announcement' request.user %}">Duyurularım</a></li>
-                                                    <li><a href="{% url 'create_support' request.user %}">Destek Taleplerim</a></li>
+                                                    <li>
+                                                        <a href="{% url 'customer_profile' request.user %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'customer_order' request.user %}">Siparişlerim</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'customer_announcement' request.user %}">Duyurularım</a>
+                                                    </li>
+                                                    <li><a href="{% url 'create_support' request.user %}">Destek
+                                                        Taleplerim</a></li>
                                                     <li><a href="{% url 'customer_logout' %}">Çıkış Yap</a></li>
                                                 </ul>
                                             {% else %}
-                                            <a href="#">Hesabım</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="{% url 'customer_login' %}">Giriş Yap</a></li>
-                                                <li><a href="{% url 'customer_register' %}">Kayıt Ol</a></li>
-                                            </ul>
+                                                <a href="#">Hesabım</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="{% url 'customer_login' %}">Giriş Yap</a></li>
+                                                    <li><a href="{% url 'customer_register' %}">Kayıt Ol</a></li>
+                                                </ul>
                                             {% endif %}
                                         </li>
                                         <li class="has-children">
@@ -109,8 +116,8 @@
     <div class="offcanvas-header">
         <!-- Header Logo Start -->
         <div class="logo">
-            <a href="index.html">
-                <img src="assets/images/logo.png" alt="">
+            <a href="{% url 'mainpage' %}">
+                <img src="{% static 'img/logo/logo.png' %}" alt="">
             </a>
         </div>
         <!-- Header Logo End -->
@@ -122,44 +129,45 @@
         <nav>
             <ul class="mobile-menu">
                 <li class="menu-item-has-children">
-                    <a href="#">HOME</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html">Home One </a></li>
-                        <li><a href="index-2.html">Home Two</a></li>
-                    </ul>
+                    <a href="{% url 'mainpage' %}">Anasayfa</a>
                 </li>
-                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="about.html">Hakkında</a></li>
                 <li class="menu-item-has-children">
-                    <a href="#">SERVICE</a>
-                    <ul class="dropdown">
-                        <li><a href="service.html">Service</a></li>
-                        <li><a href="service-details.html">Service Details</a></li>
-                    </ul>
+                    <a href="{% url 'mainpage' %}#services">Hizmetler</a>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="#">PORTFOLIO</a>
-                    <ul class="dropdown">
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="portfolio-grid.html">Portfolio Grid</a></li>
-                        <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                    </ul>
+                    <a href="{% url 'blog_pages' %}">Blog</a>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="#">TEAM</a>
-                    <ul class="dropdown">
-                        <li><a href="team-members.html">Team Members</a></li>
-                        <li><a href="member-details.html">Member Details</a></li>
-                    </ul>
+                    <a href="{% url 'contact' %}">İletişim</a>
                 </li>
                 <li class="menu-item-has-children ">
-                    <a href="#">BLOG</a>
-                    <ul class="dropdown">
-                        <li><a href="blog.html">Blog Standard</a></li>
-                        <li><a href="blog-grid.html">Blog Grid</a></li>
-                        <li><a href="blog-details.html">Blog Details</a></li>
-                    </ul>
+                    {% if request.user.is_authenticated %}
+                        <a href="#">Hesabım</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{% url 'customer_profile' request.user %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                            </li>
+                            <li><a href="{% url 'customer_order' request.user %}">Siparişlerim</a></li>
+                            <li><a href="{% url 'customer_announcement' request.user %}">Duyurularım</a></li>
+                            <li><a href="{% url 'create_support' request.user %}">Destek Taleplerim</a></li>
+                            <li><a href="{% url 'customer_logout' %}">Çıkış Yap</a></li>
+                        </ul>
+                    {% else %}
+                        <a href="#">Hesabım</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'customer_login' %}">Giriş Yap</a></li>
+                            <li><a href="{% url 'customer_register' %}">Kayıt Ol</a></li>
+                        </ul>
+                    {% endif %}
                 </li>
-                <li><a href="contact.html">CONTACT US </a></li>
+                <li class="menu-item-has-children ">
+                    {% if request.user.is_admin %}
+                        <a href="{% url 'admin_main_page' request.user %}">Yönetim</a>
+                    {% else %}
+                        <a href="{% url 'admin_login' %}">Yönetim</a>
+                    {% endif %}
+                </li>
             </ul>
         </nav>
         <!-- mobile menu navigation end -->
