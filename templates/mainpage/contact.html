@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block contact %}
+
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+
+    <div class="section-padding">
+        <div class="container">
+            <div class="row mb-n30">
+                <div class="col-lg-6 mb-30">
+                    <!-- Section Title Start -->
+                    <div class="section-title-center section-head contact-head text-start mb-5 wow fadeIn"
+                         data-wow-duration="1.5s" data-wow-delay=".1s">
+                        <span class="subtitle">Bize Ulaşın</span>
+                        <h2 class="title">Sizin için buradayız..</h2>
+                        <p class="text-two mw-100 mb-0">Yazılım destek ve çözümlerimiz için bize ulaşın.</p>
+                    </div>
+                    <!-- Section Title End  -->
+                    <!-- Contact Information Start -->
+                    <ul class="contact-info wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                        <li>
+                            <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="contact-info-content">
+                                <h3 class="title"><a href="https://wa.me/05525551106" target="_blank">Whatsapp</a></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-info-content">
+                                <h3 class="title">Email</h3>
+                                <span class="text"><a href="mailto:info@atmacacode.com" target="_blank">info@atmacacode.com</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- Contact Information End -->
+                </div>
+                <div class="col-lg-6 mb-30">
+                    <form id="contact-form" class="comment-form-inner contact-form wow fadeIn" data-wow-duration="1.5s"
+                          data-wow-delay=".1s" action="{% url 'contact' %}" method="post">
+                        {% csrf_token %}
+                        <h2 class="title">Bir Mesaj Gönderin</h2>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <input placeholder="Ad ve soyadınız" name="name">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="email" placeholder="Email adresiniz" name="email">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input placeholder="Telefon numaranız" name="phone">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <textarea name="content" placeholder="Mesajınızı buraya yazınız"></textarea>
+                            </div>
+                            <div class="col-12 text-left">
+                                <button class="btn btn-style-one" type="submit"><span>Şimdi Gönder</span></button>
+                            </div>
+                            <div class="col-12">
+                                <!--== Message Notification ==-->
+                                {% if status %}
+                                    <div class="form-message mt-4">
+                                        <div class="alert alert-success" role="alert">
+                                            {{ status }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section End -->
+{% endblock %}

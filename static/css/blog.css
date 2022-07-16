@@ -124,3 +124,20 @@
     height: 90px!important;
     object-fit: contain;
 }
+
+.comment-thumb{
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #0d6efd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.comment-thumb span{
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 18px;
+}

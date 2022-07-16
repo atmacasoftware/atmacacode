@@ -42,6 +42,8 @@ def blog_details(request,slug):
     blog_tags = None
     previous_post = None
     next_post = None
+    review = None
+    review_count = None
     try:
         blog_detail = Blog.objects.get(slug=slug)
         next_post = Blog.objects.filter(id=blog_detail.id + 1)
@@ -58,15 +60,18 @@ def blog_details(request,slug):
         pass
     try:
         previous_post = Blog.objects.filter(id=blog_detail.id-1)
-        print(previous_post.id)
     except:
         pass
     try:
         next_post = Blog.objects.filter(id=blog_detail.id+1)
-        print(next_post.id)
     except:
         pass
-    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post})
+    try:
+        review = ReviewRating.objects.filter(blog=blog_detail)
+        review_count = ReviewRating.objects.filter(blog=blog_detail).count()
+    except:
+        pass
+    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post,'review':review,'review_count':review_count})
 
 
 def submit_review(request, username, blog_id):
@@ -75,19 +80,19 @@ def submit_review(request, username, blog_id):
     if request.method == 'POST':
         try:
             customer = Customer.objects.get(user=user)
-            customer_id = request.session.get('customer')
-            reviews = ReviewRating.objects.get(user__id=customer_id, blog__id=blog_id)
+            reviews = ReviewRating.objects.get(customer=customer, blog__id=blog_id)
             form = ReviewForm(request.POST, instance=reviews)
             form.save()
             return redirect(url)
         except ReviewRating.DoesNotExist:
             form = ReviewForm(request.POST)
+            customer = Customer.objects.get(user=user)
             if form.is_valid():
                 data = ReviewRating()
                 data.review = form.cleaned_data['review']
                 data.ip = request.META.get('REMOTE_ADDR')
                 data.blog_id = blog_id
-                data.user_id = request.session.get('customer')
+                data.customer = customer
                 data.save()
                 return redirect(url)
 

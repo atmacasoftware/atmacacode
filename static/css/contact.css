@@ -1,0 +1,6 @@
+.toast:not(.show){
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 150px;
+}

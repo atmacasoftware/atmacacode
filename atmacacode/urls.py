@@ -22,7 +22,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
-    path('blog', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     path('hesap/', include('customers.urls')),
     path('hizmetler', include('products.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),

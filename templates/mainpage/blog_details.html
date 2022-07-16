@@ -124,7 +124,9 @@
                                     <div class="content">
                                         <a href="{% url 'blog_details' nb.slug %}" class="next-arrow">Sonraki Blog<i
                                                 class="fas fa-arrow-right"></i></a>
-                                        <h4 class="title"><a href="{% url 'blog_details' nb.slug %}">{{ nb.title|truncatechars:20 }}</a></h4>
+                                        <h4 class="title"><a
+                                                href="{% url 'blog_details' nb.slug %}">{{ nb.title|truncatechars:20 }}</a>
+                                        </h4>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -133,110 +135,30 @@
 
                         <!-- Comment Section Start -->
                         <div class="comment wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                            <h2 class="title">20 Comments</h2>
+                            <h2 class="title">{{ review_count }} Yorum</h2>
                             <ul class="comment-list">
-                                <li class="comment-inner">
-                                    <div class="comment-1">
-                                        <div class="comment-thumb">
-                                            <img src="assets/images/author/comment-1.png" alt="Author-Image">
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-head">
-                                                <div class="comment-title-date">
-                                                    <h5 class="comment-title">Kane Timberlake</h5>
-                                                    <div class="meta">
-                                                        <div class="date">Jun 22, 2022</div>
-                                                        <div class="time">10:00 AM</div>
-                                                    </div>
-                                                </div>
-                                                <div class="button">
-                                                    <a href="blog-details.html" class="replay">Replay</a>
-                                                </div>
+                                {% for r in review %}
+                                    <li class="comment-inner">
+                                        <div class="comment-1">
+                                            <div class="comment-thumb">
+                                                <span>{{ r.customer.first_name|slice:'1' }} {{ r.customer.last_name|slice:'1' }}</span>
                                             </div>
-                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
-                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
-                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
-                                                voluptatem accusantium dolo</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment-inner">
-                                    <div class="comment-1">
-                                        <div class="comment-thumb">
-                                            <img src="assets/images/author/comment-2.png" alt="Author-Image">
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-head">
-                                                <div class="comment-title-date">
-                                                    <h5 class="comment-title">Kane Timberlake</h5>
-                                                    <div class="meta">
-                                                        <div class="date">Jun 22, 2022</div>
-                                                        <div class="time">10:00 AM</div>
-                                                    </div>
-                                                </div>
-                                                <div class="button">
-                                                    <a href="blog-details.html" class="replay">Replay</a>
-                                                </div>
-                                            </div>
-                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
-                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
-                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
-                                                voluptatem accusantium dolo</p>
-                                        </div>
-                                    </div>
-                                    <ul class="comment-children">
-                                        <li>
-                                            <div class="comment-1">
-                                                <div class="comment-thumb">
-                                                    <img src="assets/images/author/comment-3.png" alt="Author-Image">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <div class="comment-head">
-                                                        <div class="comment-title-date">
-                                                            <h5 class="comment-title">Kane Timberlake</h5>
-                                                            <div class="meta">
-                                                                <div class="date">Jun 22, 2022</div>
-                                                                <div class="time">10:00 AM</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="button">
-                                                            <a href="blog-details.html" class="replay">Replay</a>
+                                            <div class="comment-content">
+                                                <div class="comment-head">
+                                                    <div class="comment-title-date">
+                                                        <h5 class="comment-title">{{ r.customer.first_name }} {{ r.customer.last_name }}</h5>
+                                                        <div class="meta">
+                                                            <div class="date">{{ r.created_at|date:"d/m/y" }}</div>
+                                                            <div class="time">{{ r.created_at|time }}</div>
                                                         </div>
                                                     </div>
-                                                    <p class="text">Duis aute irure dolor in reprehenderit in voluptate
-                                                        velit esse cillum. Excepteur in culp ao qui officia de serunt
-                                                        mollit anim id est labo rum. Sed ut perspiciatis unde omnis iste
-                                                        natus error sit voluptatem accusantium dolo</p>
+
                                                 </div>
+                                                <p class="text">{{ r.review }}</p>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="comment-inner">
-                                    <div class="comment-1">
-                                        <div class="comment-thumb">
-                                            <img src="assets/images/author/comment-4.png" alt="Author-Image">
                                         </div>
-                                        <div class="comment-content">
-                                            <div class="comment-head">
-                                                <div class="comment-title-date">
-                                                    <h5 class="comment-title">Kane Timberlake</h5>
-                                                    <div class="meta">
-                                                        <div class="date">Jun 22, 2022</div>
-                                                        <div class="time">10:00 AM</div>
-                                                    </div>
-                                                </div>
-                                                <div class="button">
-                                                    <a href="blog-details.html" class="replay">Replay</a>
-                                                </div>
-                                            </div>
-                                            <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit
-                                                esse cillum. Excepteur in culp ao qui officia de serunt mollit anim id
-                                                est labo rum. Sed ut perspiciatis unde omnis iste natus error sit
-                                                voluptatem accusantium dolo</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!-- Comment Section End -->
@@ -244,10 +166,12 @@
                         <!-- Comment Form Start -->
                         <div class="comment-form wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
                             <h2 class="title">Yorum Ekle</h2>
-                            <form class="comment-form-inner" action="#">
+                            <form class="comment-form-inner"
+                                  action="{% url 'submit_review' request.user.username blog_detail.id %}" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <textarea name="message" placeholder="Yorumunuzu buraya yazınız..."></textarea>
+                                        <textarea name="review" placeholder="Yorumunuzu buraya yazınız..."></textarea>
                                     </div>
                                     <div class="col-12 text-left">
                                         <button class="btn btn-style-one"><span>Şimdi Gönder</span></button>

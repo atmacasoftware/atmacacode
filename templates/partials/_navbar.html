@@ -30,7 +30,7 @@
                                         <li class="has-children">
                                             <a href="{% url 'blog_pages' %}">Blog</a>
                                         </li>
-                                        <li><a href="contact.html">İletişim</a></li>
+                                        <li><a href="{% url 'contact' %}">İletişim</a></li>
                                         <li class="has-children">
                                             {% if request.user.is_authenticated %}
                                                 <a href="#">Hesabım</a>

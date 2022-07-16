@@ -16,9 +16,10 @@
                     <!-- Section Title End  -->
                     <div class="subcription-form-wrapper wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
                         <!-- Subscription Form Start -->
-                        <form id="mc-form" class="subscribe-form" action="#">
-                            <input class="email" type="email" placeholder="Email Adresiniz" name="EMAIL">
-                            <button class="button">Abone Ol</button>
+                        <form id="" class="subscribe-form" action="{% url 'mainpage' %}" method="post">
+                            {% csrf_token %}
+                            <input class="email" type="email" placeholder="Email Adresiniz" name="email">
+                            <button class="button" type="submit">Abone Ol</button>
                         </form>
                         <!-- Subscription Form End -->
                         <!-- mailchimp-alerts Start -->

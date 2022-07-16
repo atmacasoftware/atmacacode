@@ -29,3 +29,29 @@ class MainSlider(models.Model):
             return self.small_image.url
         else:
             return None
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=False, verbose_name="İsminiz")
+    email = models.EmailField(blank=False, null=True)
+    phone = models.CharField(max_length=11, blank=False, null=True)
+    content = models.TextField(blank=False, null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "İletişim"
+        verbose_name_plural = "İletişimler"
+
+
+    def __str__(self):
+        return f"{self.name}-{self.email}"
+
+class Subscribe(models.Model):
+    email = models.EmailField(blank=False, null=True)
+    is_subscribe = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Abonelik"
+        verbose_name_plural = "Abonelikler"
+
+    def __str__(self):
+        return f"{self.email}"
