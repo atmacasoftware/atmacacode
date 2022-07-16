@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block slider_details %}
+    <!-- Service Section Start -->
+    <div class="section-padding">
+        <div class="container">
+            <div class="row mb-n30">
+                <div class="col-lg-8 mb-30 standard-service">
+                    <div class="service-details">
+                        <!-- Thumbnail Start -->
+                        <div class="single-thumb wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <img src="{{ mainslider.get_detail }}" alt="Blog-Image">
+                        </div>
+                        <!-- Thumbnail End -->
+
+                        <div class="service-desc wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <p class="text mb-4">
+                                {{ mainslider.content|safe }}
+                            </p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 mb-30">
+                    <div class="sidebar-wrap">
+
+                        <!--Sidebar Contact Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Fiyat Teklifi Alın</h4>
+                            <form class="comment-form-inner p-0" action="#">
+                                <div class="row">
+                                    <div class="col-md-12 col-12 mb-3">
+                                        <input placeholder="İsminiz" name="name">
+                                    </div>
+                                    <div class="col-md-12 col-12 mb-3">
+                                        <input type="email" placeholder="Email adresiniz" name="email">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <textarea name="message" placeholder="Mesajınızı yazınız"></textarea>
+                                    </div>
+                                    <div class="col-12 text-left">
+                                        <button class="btn btn-style-four"><span>Şimdi Gönder</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--Sidebar Contact End-->
+
+                        <!--Sidebar Help Start-->
+                        <div class="sidebar sidebar-help wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title-two">Yardım & Destek</h4>
+                            <p class="sidebar-help-text mb-0">Yardıma veya desteğe ihtiyacınız varsa bizlere
+                                ulaşabilirsiniz.</p>
+                            <div class="sidebar-help-call">
+                                <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div class="call-area">
+                                    <a href="mailto:info@atmacacode.com" target="_blank">info@atmacacode.com</a>
+                                </div>
+                            </div>
+                            <div class="sidebar-help-call">
+                                <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+                                <div class="call-area">
+                                    <a href="https://wa.me/05525551106" target="_blank">Whatsapp</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Sidebar Help End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
