@@ -23,7 +23,7 @@
                                         <li class="has-children">
                                             <a href="{% url 'mainpage' %}">Anasayfa</a>
                                         </li>
-                                        <li><a href="about.html">Hakkında</a></li>
+                                        <li><a href="{% url 'about_page' %}">Hakkında</a></li>
                                         <li class="has-children">
                                             <a href="{% url 'mainpage' %}#services">Hizmetler</a>
                                         </li>
@@ -131,7 +131,7 @@
                 <li class="menu-item-has-children">
                     <a href="{% url 'mainpage' %}">Anasayfa</a>
                 </li>
-                <li><a href="about.html">Hakkında</a></li>
+                <li><a href="{% url 'about_page' %}">Hakkında</a></li>
                 <li class="menu-item-has-children">
                     <a href="{% url 'mainpage' %}#services">Hizmetler</a>
                 </li>

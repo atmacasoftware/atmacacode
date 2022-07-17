@@ -50,3 +50,6 @@ def details(request,slug):
     except:
         pass
     return render(request, "mainpage/slider_detail.html", {'mainslider': mainslider})
+
+def about_page(request):
+    return render(request, "mainpage/about_page.html")
