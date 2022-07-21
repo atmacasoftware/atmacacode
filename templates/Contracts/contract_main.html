@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block contract_main %}
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/conditions_privacy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contracts/general.css' %}">
+    <!--CSS End-->
+
+    <div class="section-padding mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="side_nav__sticky">
+                        <div class="side_nav__body">
+                            <div class="nav_menu_list">
+                                <a href="{% url 'member_contract' %}"
+                                   class="{% if request.path == '/atmacacode/uyelik-sozlesmesi' %}active{% endif %}">Üyelik
+                                    Sözleşmesi</a>
+                                <a href="{% url 'conditions' %}"
+                                   class="{% if request.path == '/atmacacode/site-kullanim-sartlari' %}active{% endif %}">Site
+                                    Kullanım Şartları</a>
+                                <a href="{% url 'privacy' %}"
+                                   class="{% if request.path == '/atmacacode/gizlilik-politikasi' %}active{% endif %}">Gizlilik
+                                    Politikası</a>
+                                <a href="{% url 'cookies' %}"
+                                   class="{% if request.path == '/atmacacode/cerezler' %}active{% endif %}">Çerezler</a>
+                                <a href="{% url 'kvkk' %}"
+                                   class="{% if request.path == '/atmacacode/kvkk-aydinlatma-metni' %}active{% endif %}">KVKK
+                                    Aydınlatma Metni</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    {% block conditions %}
+                    {% endblock %}
+                    {% block privacy %}
+                    {% endblock %}
+                    {% block cookie %}
+                    {% endblock %}
+                    {% block kvkk %}
+                    {% endblock %}
+                    {% block member_contract %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

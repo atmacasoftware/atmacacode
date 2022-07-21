@@ -82,3 +82,37 @@
     padding-right: 40px;
     margin-top: 10px;
 }
+
+.contracts {
+    width: 95% !important;
+}
+
+.ui.slider.checkbox {
+    margin-left: 10% !important;
+}
+
+.kvkk {
+    width: 95%;
+    margin-left: 5%;
+    text-align: start;
+    margin-top: 10px;
+}
+
+.contracts-btn{
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #FF914D;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

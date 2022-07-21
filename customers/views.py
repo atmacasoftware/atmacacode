@@ -41,6 +41,8 @@ class Signup(View):
         phone = postData.get('phone')
         email = postData.get('email')
         password = postData.get('password1')
+        ip = request.META.get('REMOTE_ADDR')
+        is_approved = postData.get('contract')
         extra = str(randint(1, 10000000))
         username = unidecode(first_name) + unidecode(last_name) + "-" + extra
         haspass = make_password(password)
@@ -54,10 +56,16 @@ class Signup(View):
             'phone': phone,
             'email': email
         }
+
+        if is_approved == 'on':
+            is_approved = True
+        else:
+            is_approved = False
+
         error_message = None
 
         customer = Customer(first_name=first_name, last_name=last_name, phone=phone, email=email, password=password,
-                            user=user)
+                            user=user,ip=ip,is_approved=is_approved)
         error_message = self.validateCustomer(customer)
 
         if not error_message:

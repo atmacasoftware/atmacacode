@@ -156,3 +156,72 @@ class PriceOffer(models.Model):
         return f"{self.name}-{self.email}"
 
 
+class WebSiteMemberContract(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name="Başlık")
+    content = RichTextUploadingField()
+    create_at = models.DateTimeField(auto_now_add=False)
+
+    class Meta:
+        verbose_name = "Üyelik Sözleşmesi"
+        verbose_name_plural = "Üyelik Sözleşmesi"
+
+    def __str__(self):
+        return f"{self.title}-{self.create_at}"
+
+class WebSiteConditions(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name="Başlık")
+    content = RichTextUploadingField()
+    create_at = models.DateTimeField(auto_now_add=False)
+
+    class Meta:
+        verbose_name = "Site Kullanım Şartları"
+        verbose_name_plural = "Site Kullanım Şartları"
+
+    def __str__(self):
+        return f"{self.title}-{self.create_at}"
+
+class WebSitePrivacy(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name="Başlık")
+    content = RichTextUploadingField()
+    create_at = models.DateTimeField(auto_now_add=False)
+    data_country = models.CharField(max_length=5000, null=True, blank=False, verbose_name="Verinin İşlendiği Ülkeler")
+    data_officer = models.CharField(max_length=255, null=True, blank=False, verbose_name="Veri Sorumlusu")
+    data_officer_address = models.CharField(max_length=500, null=True, blank=False, verbose_name="Veri Sorumlusu Adresi")
+
+    class Meta:
+        verbose_name = "Gizlilik Politikası"
+        verbose_name_plural = "Gizlilik Politikası"
+
+    def __str__(self):
+        return f"{self.title}-{self.create_at}"
+
+
+class WebSiteCookies(models.Model):
+    cookie_provider = models.CharField(max_length=500, null=True, blank=False, verbose_name="Cookie Sağlayıcısı")
+    cookie_name = models.CharField(max_length=500, null=True, blank=False, verbose_name="Cookie İsmi")
+    cookie_aim = models.CharField(max_length=500, null=True, blank=False, verbose_name="Cookie Amacı")
+    cookie_type = models.CharField(max_length=500, null=True, blank=False, verbose_name="Cookie Tipi")
+    create_at = models.DateTimeField(auto_now_add=False)
+
+    class Meta:
+        verbose_name = "Çerezler"
+        verbose_name_plural = "Çerezler"
+
+    def __str__(self):
+        return f"{self.cookie_provider}-{self.cookie_name}-{self.cookie_type}"
+
+class WebSiteKVKK(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=False, verbose_name="Başlık")
+    content = RichTextUploadingField()
+    create_at = models.DateTimeField(auto_now_add=False)
+
+
+    class Meta:
+        verbose_name = "KVKK Aydınlatma Metni"
+        verbose_name_plural = "KVKK Aydınlatma Metni"
+
+    def __str__(self):
+        return f"{self.title}-{self.create_at}"
+
+
+

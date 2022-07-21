@@ -12,15 +12,15 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-field">
-                            <label for="">Ad</label>
-                            <input type="text" name="first_name" value="{{ customer.first_name }}"
+                            <label for="first_name">Ad</label>
+                            <input type="text" name="first_name" id="first_name" value="{{ customer.first_name }}"
                                    required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-field">
-                            <label for="">Soyad</label>
-                            <input type="text" name="last_name" value="{{ customer.last_name }}"
+                            <label for="last_name">Soyad</label>
+                            <input type="text" name="last_name" id="last_name" value="{{ customer.last_name }}"
                                    required>
                         </div>
                     </div>
@@ -38,14 +38,14 @@
                 <div class="row mt-5">
                     <div class="col-lg-6">
                         <div class="form-field">
-                            <label for="">Email</label>
-                            <input type="email" name="email" value="{{ customer.email }}" required>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" value="{{ customer.email }}" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-field">
-                            <label for="">Telefon</label>
-                            <input type="text" name="phone" value="{{ customer.phone }}" required>
+                            <label for="phone">Telefon</label>
+                            <input type="text" maxlength="10" minlength="10" name="phone" id="phone" value="{{ customer.phone }}" required>
                         </div>
                     </div>
                 </div>
@@ -175,4 +175,8 @@
             </form>
         </div>
     </div>
+
+    <!--JS Start-->
+    <script src="{% static 'js/phone_mask.js' %}"></script>
+    <!--JS End-->
 {% endblock %}

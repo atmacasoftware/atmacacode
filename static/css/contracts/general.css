@@ -1,0 +1,25 @@
+.boxes .box ol.type-2 {
+    list-style-type: lower-alpha;
+}
+
+.boxes .box ol li {
+    line-height: 2;
+}
+
+.boxes .box ul.type-2 li {
+    list-style-type: none;
+    line-height: 2;
+}
+
+.boxes .box ol.type-3 {
+    list-style-type: decimal;
+}
+
+.boxes .box ol li, ul li, p{
+    color: #A3B6D6;
+}
+
+.boxes .box ul li{
+    list-style-type: decimal!important;
+    margin-left: 20px;
+}

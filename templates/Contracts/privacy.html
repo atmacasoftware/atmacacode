@@ -1,0 +1,28 @@
+{% extends 'Contracts/contract_main.html' %}
+{% load static %}
+
+{% block privacy %}
+
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/conditions_privacy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contracts/general.css' %}">
+    <!--CSS End-->
+
+    <div class="box-header">
+        <h4>{{ privacy.title }}</h4>
+    </div>
+    <h5>Yayın Tarihi: {{ privacy.create_at|date:"m/d/y" }}</h5>
+    <br>
+    <div class="boxes">
+        <div class="box">
+            {{ privacy.content|safe }}
+            <h5>Verilerinizin Depolandığı ve / veya İşlendiği Ülkeler</h5>
+            <p>{{ privacy.data_country }}</p>
+
+            <h5>Veri Koruma Sorumlusuna Ait Bilgiler </h5>
+            <p class="mt-2">{{ privacy.data_officer }}</p>
+            <p>Adres: {{ privacy.data_officer_address }}</p>
+        </div>
+    </div>
+
+{% endblock %}

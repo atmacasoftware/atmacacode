@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from blog.models import Blog
-from mainpage.forms import ContactForm, SubscribeForm
-from mainpage.models import MainSlider
+from mainpage.forms import *
+from mainpage.models import *
 from products.models import Services
 from user_accounts.models import Account
 # Create your views here.
@@ -53,3 +53,24 @@ def details(request,slug):
 
 def about_page(request):
     return render(request, "mainpage/about_page.html")
+
+def member_contract(request):
+    contract = WebSiteMemberContract.objects.all().last()
+    return render(request, "Contracts/member_contract.html",{'contract':contract})
+
+def conditions(request):
+    condition = WebSiteConditions.objects.all().last()
+    return render(request, 'Contracts/conditions.html',{'condition':condition})
+
+def privacy(request):
+    privacy = WebSitePrivacy.objects.all().last()
+    return render(request, 'Contracts/privacy.html',{'privacy':privacy})
+
+def cookies(request):
+    cookies = WebSiteCookies.objects.all()
+    return render(request, 'Contracts/cookies.html',{'cookies':cookies})
+
+def kvkk(request):
+    kvkk = WebSiteKVKK.objects.all().last()
+    return render(request, 'Contracts/kvkk_aydinlatma_metni.html',{'kvkk':kvkk})
+

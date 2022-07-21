@@ -1,0 +1,22 @@
+{% extends 'Contracts/contract_main.html' %}
+{% load static %}
+
+{% block kvkk %}
+
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/conditions_privacy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contracts/general.css' %}">
+    <!--CSS End-->
+
+    <div class="box-header">
+        <h4>{{ kvkk.title }}</h4>
+    </div>
+    <h5>Yayın Tarihi: {{ kvkk.create_at|date:"m/d/y" }}</h5>
+    <br>
+    <div class="boxes">
+        <div class="box">
+            {{ kvkk.content|safe }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -51,13 +51,13 @@
                     </ul>
                     <ul class="social-icon d-flex flex-start">
                         <li>
-                            <a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.facebook.com/atmacacode/" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
                         </li>
                         <li>
                             <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/atmacacode/" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -157,11 +157,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="copyright wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                    <p class="order-md-1 order-2">© Copyright 2021-2022 <span>atmacacode.com</span>. Tüm Hakları Saklıdır.</p>
+                    <p class="order-md-1 order-2">© Copyright 2022 <span>atmacacode.com</span>. Tüm Hakları Saklıdır.</p>
 
                     <ul class="footer-bootm-list order-md-2 order-1">
-                        <li><a href="contact.html">Terms & Condition</a></li>
-                        <li><a href="contact.html">Privecy Policy</a></li>
+                        <li><a href="{% url 'member_contract' %}">Üyelik Sözleşmesi</a></li>
+                        <li><a href="{% url 'conditions' %}">Site Kullanım Şartları</a></li>
+                        <li><a href="{% url 'privacy' %}">Gizlilik Politikası</a></li>
+                        <li><a href="{% url 'cookies' %}">Çerezler</a></li>
+                        <li><a href="{% url 'kvkk' %}">KVKK Aydınlatma Metni</a></li>
                     </ul>
                 </div>
             </div>

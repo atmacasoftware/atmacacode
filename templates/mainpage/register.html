@@ -27,12 +27,28 @@
                         </div>
                         <div class="box b-padding">
                             <label for="phone">Telefon</label>
-                            <input type="text" id="phone" name="phone" required>
+                            <input type="text" minlength="10" maxlength="10" id="phone" name="phone" placeholder="(555) 555-5555" required>
                         </div>
                         <div class="box b-padding">
                             <label for="password">Şifre</label>
                             <input type="password" id="password" name="password1" required>
                         </div>
+
+                        <div class="contracts">
+                            <div class="ui slider checkbox form-switch">
+                                <label for="contract-approved">
+                                    <input class="form-check-input" type="checkbox" role="switch" name="contract" id="contract-approved" state="unchecked"
+                                           required>
+                                    <a href="{% url 'member_contract' %}" target="_blank">Üyelik Sözleşmesini</a>, <a
+                                        href="{% url 'conditions' %}" target="_blank">Site
+                                    Kullanım Şartlarını</a>,
+                                    <a href="{% url 'cookies' %}" target="_blank">Çerezleri</a>, <a
+                                        href="{% url 'privacy' %}" target="_blank">Gizlilik Politikasını</a> ve <a
+                                        href="{% url 'kvkk' %}" target="_blank">KVKK
+                                    Aydınlatma Metnini</a> okudum ve kabul ediyorum.</label>
+                            </div>
+                        </div>
+
                         <div class="box buttons">
                             <button class="btn btn-style-one"><span>Kayıt Ol</span></button>
                             <a href="{% url 'customer_login' %}" class="btn btn-style-two"><span>Giriş Yap</span></a>
@@ -46,8 +62,8 @@
 
     <!--JS Start-->
 
-
-    <script src="{% static 'js/register.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="{% static 'js/phone_mask.js' %}"></script>
 
     <!--JS End-->
 {% endblock %}

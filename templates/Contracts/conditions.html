@@ -1,0 +1,15 @@
+{% extends 'Contracts/contract_main.html' %}
+{% load static %}
+
+{% block conditions %}
+
+    <div class="box-header">
+        <h4> {{ condition.title }}</h4>
+        <h6>Yayınlanma Tarihi: {{ condition.create_at|date:"d/m/y" }}</h6>
+    </div>
+    <div class="boxes mt-3">
+        <div class="box">
+            {{ condition.content|safe }}
+        </div>
+    </div>
+{% endblock %}

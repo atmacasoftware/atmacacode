@@ -1,0 +1,22 @@
+{% extends 'Contracts/contract_main.html' %}
+{% load static %}
+
+{% block member_contract %}
+
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/conditions_privacy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contracts/general.css' %}">
+    <!--CSS End-->
+
+    <div class="box-header">
+        <h4>{{ contract.title }}</h4>
+    </div>
+    <h5>Yayın Tarihi: {{ contract.create_at|date:"m/d/y" }}</h5>
+    <br>
+    <div class="boxes">
+        <div class="box">
+            {{ contract.content|safe }}
+        </div>
+    </div>
+
+{% endblock %}
