@@ -2,31 +2,35 @@
 {% load static %}
 
 {% block about_page %}
+
+    <!--CSS Start-->
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <!--CSS End-->
+
     <!-- Breadcrumb Section Start -->
     <div class="section breadcrumb-section">
         <span class="shape shape-one layer" data-speed="1">
-            <img src="assets/images/slider/shape-2.png" alt="Shape">
+            <img src="{% static 'img/slider/shape-1.png' %}" alt="Shape">
         </span>
         <span class="shape shape-two layer" data-speed="2">
-            <img src="assets/images/slider/shape-5.png" alt="Shape">
+            <img src="{% static 'img/slider/shape-5.png' %}" alt="Shape">
         </span>
         <span class="shape shape-three wow pulse" data-wow-duration="1s" data-wow-delay=".1s">
-            <img src="assets/images/slider/shape-7.png" alt="Shape">
+            <img src="{% static 'img/slider/shape-7.png' %}" alt="Shape">
         </span>
         <span class="shape shape-four wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
-            <img src="assets/images/slider/shape-9.png" alt="Shape">
+            <img src="{% static 'img/slider/shape-9.png' %}" alt="Shape">
         </span>
         <span class="shape shape-five wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".1s">
-            <img src="assets/images/slider/shape-10.png" alt="Shape">
+            <img src="{% static 'img/slider/shape-10.png' %}" alt="Shape">
         </span>
         <div class="container">
             <div class="row">
                 <div class="col-12 align-items-center text-center">
                     <!-- Breadcrumb Wrapper Start -->
                     <div class="breadcrumb-wrapper">
-                        <h1 class="title">About Us</h1>
-                        <p class="text mb-0">Sed do eiusmod tempor incididunt ut labore et when the musis dolore magna
-                            aliqua. </p>
+                        <h1 class="title">Hakkımda</h1>
+                        <p class="text mb-0">Sizlerin büyümesi için çalışıyoruz... </p>
                     </div>
                     <!-- Breadcrumb Wrapper End -->
                 </div>
@@ -39,37 +43,16 @@
     <div class="about section-padding">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="main-image">
-                        <img class="about-img js-tilt" src="assets/images/about/about.png" alt="about">
-                        <div class="shape-one wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                            <img src="assets/images/about/shape-one.png" alt="Shape">
-                        </div>
-                        <div class="shape-two wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                            <img src="assets/images/about/shape-two.png" alt="Shape">
-                        </div>
-                        <div class="about-icon icon-one wow flipInY" data-wow-duration="2s" data-wow-delay=".6s">
-                            <img src="assets/images/icons/icon-1.png" alt="Icon">
-                        </div>
-                        <div class="about-icon icon-two wow flipInY" data-wow-duration="2s" data-wow-delay=".6s">
-                            <img src="assets/images/icons/icon-2.png" alt="Icon">
-                        </div>
-                        <div class="circle-thumb wow pulse" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <span class="number">23</span>
-                            <span class="text">Years in the <br> Success</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="about-content">
                         <div class="section-head wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <span class="subtitle">We Are Egens</span>
-                            <h2 class="title">We Work to Ensure Your Success</h2>
-                            <p class="text">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <p class="text-two">Ut enim ad minim veniam, quis nostrud exercitation ullamco labor is
-                                tetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. </p>
-                            <a href="about.html" class="btn btn-style-one"> <span>Read More</span> </a>
+                            <span class="subtitle">Atmaca Code</span>
+                            <h2 class="title">Başarınızı Arttırmak İçin Çalışıyoruz</h2>
+                            <p class="text">Atmaca Code olarak sizlere en iyi şekilde websitenizi, e-ticaret sitenizi,
+                                e-pazaryeri mağazalarınızı seo uyumlu olarak hem frontend hem backend kısımlarını
+                                yapıyoruz.</p>
+                            <p class="text-two">Hatta sizlerin istekleri doğrultusunda ilgili sitelerinizin
+                                yayınlamasını ve bakımını yapıyoruz. </p>
                         </div>
                     </div>
                 </div>
@@ -85,70 +68,31 @@
                 <div class="col-lg-6 mb-30 wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
                     <!-- Section Title Start -->
                     <div class="section-title-center section-head text-start mb-0">
-                        <span class="subtitle">We Are Agens</span>
-                        <h2 class="title">We Work to Help You Grow</h2>
-                        <p class="text-two mw-100 mb-0">Ut enim ad minim veniam, quis nostrud exercitation ullamco labor
-                            is tetur adipisicing elit, sed do eiusmod</p>
+                        <span class="subtitle">Atmaca Code</span>
+                        <h2 class="title">İşlerinizi büyütmek için çalışıyoruz.</h2>
+
                     </div>
                     <!-- Section Title End  -->
                 </div>
                 <div class="col-lg-6 mb-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-
-                    <!-- Progress Area Start -->
-                    <div class="progress-area">
-                        <h5 class="progress-title">Website Development</h5>
-                        <div class="progress">
-                            <div class="progress-bar single-progress wow fadeInLeft" data-wow-duration="0.7s"
-                                 data-wow-delay=".1s" role="progressbar" style="width: 78%;" aria-valuenow="78"
-                                 aria-valuemin="0" aria-valuemax="100">
-                            </div>
-                            <span class="progress-number">78%</span>
-                        </div>
-                        <h5 class="progress-title">Digital Marketing</h5>
-                        <div class="progress">
-                            <div class="progress-bar single-progress wow fadeInLeft" data-wow-duration="0.7s"
-                                 data-wow-delay=".2s" role="progressbar" style="width: 88%;" aria-valuenow="88"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
-                            <span class="progress-number">88%</span>
-                        </div>
-                        <h5 class="progress-title">Search Engine Optimization</h5>
-                        <div class="progress">
-                            <div class="progress-bar single-progress wow fadeInLeft" data-wow-duration="0.7s"
-                                 data-wow-delay=".3s" role="progressbar" style="width: 65%;" aria-valuenow="65"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
-                            <span class="progress-number">65%</span>
-                        </div>
-                    </div>
-                    <!-- Progress Area End -->
-
+                    <p class="text-two mw-100 mb-0" style="font-size: 18px;">İşletmeniz var ancak bir websiteniz yok mu?
+                        Ürün satmak istiyorsunuz ve kendinize ait bir websitesin olmasını mı istiyorsunuz? Sizin için
+                        buradayız.</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Progress Section End -->
 
-    <!-- Video About Section Start -->
     <div class="section-padding">
         <div class="container">
             <div class="row align-items-center mb-n30">
-                <div class="col-xl-5 col-lg-5 mb-30 wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-                    <div class="divider-thumb" data-bg-image="">
-                        <div class="video-content-wrap">
-                            <img class="icon-img" src="assets/images/about/about-video.png" alt="Image">
-                            <a class="ht-popup-video video-popup"
-                               href="https://player.vimeo.com/video/172601404?autoplay=1"><i
-                                    class="fas fa-play"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-lg-6 offset-xl-2 offset-lg-1 mb-30 wow fadeIn" data-wow-duration="1s"
+                <div class="col-xl-12 col-lg-6 mb-30 wow fadeIn" data-wow-duration="1s"
                      data-wow-delay=".1s">
                     <!-- Section Title Start -->
                     <div class="section-title-center section-head text-start mb-0">
-                        <span class="subtitle">We Are Agens</span>
-                        <h2 class="title">We Work to Help You Grow</h2>
-                        <p class="text-two mw-100 mb-0">Ut enim ad minim veniam, quis nostrud exercitation ullamco labor
-                            is tetur adipisicing elit, sed do eiusmod</p>
+                        <span class="subtitle">Atmaca Code</span>
+                        <h2 class="title">İşletmenizin kalitesini arttırmak için çalışıyoruz.</h2>
+
                     </div>
                     <!-- Section Title End  -->
                     <div class="accordion about-accordion" id="faqone">
@@ -156,7 +100,7 @@
                             <h2 class="accordion-header faq-accordion-header" id="headingOne">
                                 <button class="accordion-button faq-accordion-button" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                        aria-controls="collapseOne">Our Mission & Vissioin
+                                        aria-controls="collapseOne">Misyonumuz
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show faq-accordion-collapse"
@@ -172,7 +116,7 @@
                                 <button class="accordion-button collapsed faq-accordion-button" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
                                         aria-controls="collapseTwo">
-                                    Work Eticks & Complimency
+                                    Vizyonumuz
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse faq-accordion-collapse"
@@ -188,7 +132,7 @@
                                 <button class="accordion-button collapsed faq-accordion-button" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree">
-                                    Strategy to Achive Goal
+                                    Hedefe Ulaşma Stratejimiz
                                 </button>
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse faq-accordion-collapse"
@@ -204,56 +148,7 @@
             </div>
         </div>
     </div>
-    <!-- Video About Section End -->
 
-    <!-- Funfact Section Start -->
-    <div class="funfact">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="funfact-bg funfact-bg-two">
-                        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 mb-n5">
-                            <div class="col mb-5 wow fadeInUp" data-wow-duration=".7s" data-wow-delay=".1s">
-                                <div class="single-funfact text-start">
-                                    <div class="funfact-inner">
-                                        <span class="odometer" data-count-to="120"></span>
-                                        <span class="increment">+</span>
-                                    </div>
-                                    <div class="funfact-content">
-                                        <p class="text">Total <br>Countries</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mb-5 wow fadeInUp" data-wow-duration=".7s" data-wow-delay=".3s">
-                                <div class="single-funfact text-start">
-                                    <div class="funfact-inner">
-                                        <span class="odometer" data-count-to="200"></span>
-                                        <span class="increment">+</span>
-                                    </div>
-                                    <div class="funfact-content">
-                                        <p class="text">Worldwide <br>Companies</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mb-5 wow fadeInUp" data-wow-duration=".7s" data-wow-delay=".5s">
-                                <div class="single-funfact text-start">
-                                    <div class="funfact-inner">
-                                        <span class="odometer" data-count-to="50"></span>
-                                        <span class="text">K</span>
-                                        <span class="increment">+</span>
-                                    </div>
-                                    <div class="funfact-content">
-                                        <p class="text">Yearly <br> Revinew</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Funfact Section End -->
 
     <!-- Team Section Start -->
     <div class="team-section section-padding team-about-section">
@@ -261,219 +156,24 @@
             <div class="row">
                 <div class="col-12 wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
                     <!-- Section Title Start -->
-                    <div class="section-title-center section-head text-center">
-                        <span class="subtitle">Team Members</span>
-                        <h2 class="title">Our Team Members</h2>
-                        <p class="text mx-auto mb-0">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            when the musics over turn off the light</p>
+                    <div class="section-title-center section-head text-center d-flex flex-column flex-center">
+                        <h5 class="title">Site Sahibi</h5>
+                        <img src="{% static 'img/owner.jpg' %}" class="site-owner mt-2" alt="owner">
+                        <span class="subtitle mt-2">Ahmet Atmaca</span>
+                        <p class="text mx-auto mb-0">Ben Ahmet Atmaca. Selçuk Üniversitesi Harita Mühendisliği
+                            Bölümünden mezun olduktan sonra Erciyes Üniversitesi'nde yine aynı alanda yüksek lisans
+                            yapmaya başladım. Çocukluk hayalim ve en büyük tutkum olan yazılımı üniversitede lisans
+                            olarak okumadım fakat hiç bir zaman yazılımı bırakmadım. Profesyonel olarak yazılım ile
+                            ilgili kendimi yetkin bir konuma getirdikten sonra büyük bir pazaryeri sitesi
+                            geliştirdim. Şu anda bakmakta olduğunuz bu sitede de tarafım tarafından yapıldıktan sonra
+                            sizlerin işlerini büyütmeye karar verdim.</p>
                     </div>
                     <!-- Section Title End  -->
-                </div>
-            </div>
-            <div class="row mb-n30">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-30 team-wrapper wow fadeInUp" data-wow-duration=".6s"
-                     data-wow-delay=".1s">
-                    <!-- Single Team Wrapper Start -->
-                    <div class="single-team">
-                        <div class="team-thumb">
-                            <a class="image" href="member-details.html"><img src="assets/images/team/team-1.png"
-                                                                             alt="Team"></a>
-                        </div>
-                        <ul class="sidebar-social">
-                            <li>
-                                <a href="https://www.facebook.com/" class="facebook"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/" class="instagram"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                        <div class="team-content">
-                            <h4 class="title">
-                                <a href="member-details.html">Jewel Hafiz</a>
-                            </h4>
-                            <span class="subtitle">Founder & CEO</span>
-                        </div>
-                    </div>
-                    <!-- Single Team Wrapper End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-30 team-wrapper wow fadeInUp" data-wow-duration="0.8s"
-                     data-wow-delay=".1s">
-                    <!-- Single Team Wrapper Start -->
-                    <div class="single-team">
-                        <div class="team-thumb">
-                            <a class="image" href="member-details.html"><img src="assets/images/team/team-2.png"
-                                                                             alt="Team"></a>
-                        </div>
-                        <ul class="sidebar-social">
-                            <li>
-                                <a href="https://www.facebook.com/" class="facebook"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/" class="instagram"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                        <div class="team-content">
-                            <h4 class="title">
-                                <a href="member-details.html">Jenny Alex</a>
-                            </h4>
-                            <span class="subtitle">Founder & CEO</span>
-                        </div>
-                    </div>
-                    <!-- Single Team Wrapper End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-30 team-wrapper wow fadeInUp" data-wow-duration="1s"
-                     data-wow-delay=".1s">
-                    <!-- Single Team Wrapper Start -->
-                    <div class="single-team">
-                        <div class="team-thumb">
-                            <a class="image" href="member-details.html"><img src="assets/images/team/team-3.png"
-                                                                             alt="Team"></a>
-                        </div>
-                        <ul class="sidebar-social">
-                            <li>
-                                <a href="https://www.facebook.com/" class="facebook"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/" class="instagram"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                        <div class="team-content">
-                            <h4 class="title">
-                                <a href="member-details.html">John Pretty</a>
-                            </h4>
-                            <span class="subtitle">Founder & CEO</span>
-                        </div>
-                    </div>
-                    <!-- Single Team Wrapper End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-30 team-wrapper wow fadeInUp" data-wow-duration="1.2s"
-                     data-wow-delay=".1s">
-                    <!-- Single Team Wrapper Start -->
-                    <div class="single-team">
-                        <div class="team-thumb">
-                            <a class="image" href="member-details.html"><img src="assets/images/team/team-4.png"
-                                                                             alt="Team"></a>
-                        </div>
-                        <ul class="sidebar-social">
-                            <li>
-                                <a href="https://www.facebook.com/" class="facebook"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/" class="twitter"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/" class="instagram"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                        <div class="team-content">
-                            <h4 class="title">
-                                <a href="member-details.html">Catherin Betty</a>
-                            </h4>
-                            <span class="subtitle">Founder & CEO</span>
-                        </div>
-                    </div>
-                    <!-- Single Team Wrapper End -->
                 </div>
             </div>
         </div>
     </div>
     <!-- Team Section End -->
 
-    <!-- Work Banner Start -->
-    <div class="section-margin-bottom wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="work-banner">
-                        <!-- Section Title Start -->
-                        <div class="section-title-center section-head text-start mb-0">
-                            <span class="subtitle">We Are Here For You</span>
-                            <h2 class="title">Let’s Get Back to Work</h2>
-                            <p class="text mb-0">Gom ad minim veniam, quis nostrud exercitation ullamco labor is tetur
-                                adip isicing elit, sed do eiusmod</p>
-                        </div>
-                        <!-- Section Title End  -->
-                        <!-- Portfolio Button Start -->
-                        <a class="btn-style-three" href="service.html">Read More</a>
-                        <!-- Portfolio Button End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Work Banner End -->
-
-    <!-- Brand Section Start -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="brand-slider brand-style swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <!-- Single Brand Start -->
-                            <a class="brand-after" href="#"><img src="assets/images/brand/1.png" alt="Brand-Image"></a>
-                            <a class="brand-before" href="#"><img src="assets/images/brand/1-1.png"
-                                                                  alt="Brand-Image"></a>
-                            <!-- Single Brand End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Brand Start -->
-                            <a class="brand-after" href="#"><img src="assets/images/brand/2.png" alt="Brand-Image"></a>
-                            <a class="brand-before" href="#"><img src="assets/images/brand/2-1.png"
-                                                                  alt="Brand-Image"></a>
-                            <!-- Single Brand End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Brand Start -->
-                            <a class="brand-after" href="#"><img src="assets/images/brand/3.png" alt="Brand-Image"></a>
-                            <a class="brand-before" href="#"><img src="assets/images/brand/3-1.png"
-                                                                  alt="Brand-Image"></a>
-                            <!-- Single Brand End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Brand Start -->
-                            <a class="brand-after" href="#"><img src="assets/images/brand/4.png" alt="Brand-Image"></a>
-                            <a class="brand-before" href="#"><img src="assets/images/brand/4-1.png"
-                                                                  alt="Brand-Image"></a>
-                            <!-- Single Brand End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Brand Start -->
-                            <a class="brand-after" href="#"><img src="assets/images/brand/5.png" alt="Brand-Image"></a>
-                            <a class="brand-before" href="#"><img src="assets/images/brand/5-1.png"
-                                                                  alt="Brand-Image"></a>
-                            <!-- Single Brand End -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Brand Section End -->
 
 {% endblock %}

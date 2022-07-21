@@ -3626,7 +3626,6 @@ hr {
 }
 
 .service-two .service-layer {
-    background-image: url(../images/service/service-side.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -7915,6 +7914,12 @@ hr {
     opacity: 1;
     visibility: visible;
     transition: 0.5s;
+}
+
+.footer-widget .instagrm li a img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
 }
 
 .footer-widget .footer-text {

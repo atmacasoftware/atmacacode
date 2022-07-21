@@ -46,18 +46,23 @@
                         </a>
                     </div>
                     <ul class="footer-widget-list-icon">
-                        <li><i class="fa-solid fa-envelope fa-2x"></i><a href="mailto:info@atmacacode.com" target="_blank"><span>info@atmacacode.com</span></a></li>
-                        <li><i class="fa-brands fa-whatsapp fa-2x"></i><a href="https://wa.me/05525551106" target="_blank"><span>Whatsapp</span></a></li>
+                        <li><i class="fa-solid fa-envelope fa-2x"></i><a href="mailto:info@atmacacode.com"
+                                                                         target="_blank"><span>info@atmacacode.com</span></a>
+                        </li>
+                        <li><i class="fa-brands fa-whatsapp fa-2x"></i><a href="https://wa.me/05525551106"
+                                                                          target="_blank"><span>Whatsapp</span></a></li>
                     </ul>
                     <ul class="social-icon d-flex flex-start">
                         <li>
-                            <a href="https://www.facebook.com/atmacacode/" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.facebook.com/atmacacode/" target="_blank" class="facebook"><i
+                                    class="fab fa-facebook-f"></i></a>
                         </li>
                         <li>
                             <a href="https://www.linkedin.com/" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/atmacacode/" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/atmacacode/" target="_blank" class="instagram"><i
+                                    class="fab fa-instagram"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -100,54 +105,16 @@
                 <div class="footer-widget">
                     <h5 class="footer-widget-title">Bizi Takip Edin</h5>
                     <ul class="instagrm">
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-one.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-two.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-three.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-four.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-five.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="assets/images/footer/insta-six.png" alt="Insta-Image">
-                                <div class="add-action">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
+                        {% for sm in instagram %}
+                            <li>
+                                <a href="{{ sm.url }}">
+                                    <img src="{{ sm.get_instagram_image }}" alt="Insta-Image">
+                                    <div class="add-action">
+                                        <i class="fab fa-instagram"></i>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -157,7 +124,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="copyright wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                    <p class="order-md-1 order-2">© Copyright 2022 <span>atmacacode.com</span>. Tüm Hakları Saklıdır.</p>
+                    <p class="order-md-1 order-2">© Copyright 2022 <span>atmacacode.com</span>. Tüm Hakları Saklıdır.
+                    </p>
 
                     <ul class="footer-bootm-list order-md-2 order-1">
                         <li><a href="{% url 'member_contract' %}">Üyelik Sözleşmesi</a></li>
