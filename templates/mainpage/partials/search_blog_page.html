@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block blog %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <div class="section-padding mt-5">
+
+        <div class="container">
+            <div class="row mb-n30">
+                <div class="col-lg-8 mb-30">
+                    <div class="row">
+                        {% if blog_count != 0 %}
+                            {% for cb in blog %}
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <a href="{% url 'blog_details' cb.slug %}">
+                                            <img src="{{ cb.get_blog_photos }}" class="card-img-top" alt="Blog İmages">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ cb.title|truncatechars:15 }}</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-lg-12">
+                                <div class="gif text-center">
+                                    <img src="{% static 'img/notfound.gif' %}" alt="Not Found">
+                                </div>
+                                <div class="text-body text-center">
+                                    <h5>"{{ keyword }}" ile ilgili maalesef herhangi bir blog bulamadık.</h5>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-30">
+                    <div class="sidebar-wrap">
+                        <!--Sidebar Search Start-->
+                        {% include 'mainpage/partials/blog_search.html' %}
+                        <!--Sidebar Search End-->
+
+                        <!--Sidebar Post Start-->
+                        {% include 'mainpage/partials/recent_blog.html' %}
+                        <!--Sidebar Post End-->
+
+                        <!--Sidebar Category Start-->
+                        {% include 'mainpage/partials/blog_categories.html' %}
+                        <!--Sidebar Category End-->
+
+                        <!--Sidebar Instagram Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Instagram</h4>
+                            <ul class="sidebar-instagram">
+                                {% for im in instagram_image %}
+                                    <li>
+                                        <a href="{{ im.url }}">
+                                            <img src="{{ im.get_instagram_image }}" alt="Insta-Image">
+                                            <div class="add-action">
+                                                <i class="fab fa-instagram"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!--Sidebar Instagram End-->
+
+                        <!--Sidebar Social Start-->
+                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                            <h4 class="sidebar-title">Bizi Takip Edin</h4>
+                            {% include 'mainpage/partials/social_fallow.html' %}
+                        </div>
+                        <!--Sidebar Social End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+    <script src="{% static 'js/blog.js' %}"></script>
+{% endblock %}
+

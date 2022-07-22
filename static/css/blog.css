@@ -141,3 +141,9 @@
     font-weight: bold;
     font-size: 18px;
 }
+
+.sidebar-instagram li a img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}

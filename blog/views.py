@@ -1,5 +1,7 @@
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.db.models import Q
 from blog.form import ReviewForm
 from blog.models import Blog,ReviewRating
 # Create your views here.
@@ -11,11 +13,12 @@ from user_accounts.models import Account
 def blog_page(request):
     mainblog = None
     single_blog = None
-    recent_blog = None
-    instagram_image = None
     blog_count = None
     try:
         mainblog = Blog.objects.filter(is_main_slider=True)[:10]
+        paginator = Paginator(mainblog, 15)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
     except:
         pass
     try:
@@ -23,22 +26,13 @@ def blog_page(request):
     except:
         pass
     try:
-        recent_blog = Blog.objects.filter().order_by("-id")[:5]
-    except:
-        pass
-    try:
-        instagram_image = Instagram.objects.all().order_by("-id")[:6]
-    except:
-        pass
-    try:
         blog_count = Blog.objects.all().count()
     except:
         pass
-    return render(request,"mainpage/blog.html",{'mainblog':mainblog,'single_blog':single_blog,'recent_blog':recent_blog,'instagram_image':instagram_image,'blog_count':blog_count})
+    return render(request,"mainpage/blog.html",{'mainblog':mainblog,'single_blog':single_blog,'blog_count':blog_count})
 
 def blog_details(request,slug):
     blog_detail = None
-    recent_blog = None
     blog_tags = None
     previous_post = None
     next_post = None
@@ -48,10 +42,6 @@ def blog_details(request,slug):
         blog_detail = Blog.objects.get(slug=slug)
         next_post = Blog.objects.filter(id=blog_detail.id + 1)
         previous_post = Blog.objects.filter(id=blog_detail.id - 1)
-    except:
-        pass
-    try:
-        recent_blog = Blog.objects.filter().order_by("-id")[:5]
     except:
         pass
     try:
@@ -71,7 +61,7 @@ def blog_details(request,slug):
         review_count = ReviewRating.objects.filter(blog=blog_detail).count()
     except:
         pass
-    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'recent_blog':recent_blog,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post,'review':review,'review_count':review_count})
+    return render(request,'mainpage/blog_details.html',{'blog_detail':blog_detail,'blog_tags':blog_tags,'next_post':next_post,'previous_post':previous_post,'review':review,'review_count':review_count})
 
 
 def submit_review(request, username, blog_id):
@@ -96,3 +86,43 @@ def submit_review(request, username, blog_id):
                 data.save()
                 return redirect(url)
 
+
+def category_details(request, slug):
+    blog = None
+    message = None
+    blog_count = 0
+    try:
+        blog = Blog.objects.filter(category_slug=slug)
+        blog_count = blog.count()
+    except:
+        message = "Bu kategoride henüz blog yazısı bulunmamaktadır."
+
+    return render(request, "mainpage/category_details.html",{'blog':blog,'message':message,'blog_count':blog_count})
+
+def search(request):
+    context = {}
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            blog = Blog.objects.order_by('-created_at').filter(
+                Q(content__icontains=keyword) | Q(keywords__icontains=keyword) | Q(title__icontains=keyword))
+            blog_count = blog.count()
+
+            context = {
+                'blog': blog,
+                'blog_count': blog_count,
+                'keyword': keyword,
+            }
+    return render(request, 'mainpage/partials/search_blog_page.html', context)
+
+def blog_tags(request, keyword):
+    blog = None
+    message = None
+    blog_count = 0
+    try:
+        blog = Blog.objects.filter(keywords=keyword)
+        blog_count = blog.count()
+    except:
+        message = "Bu kategoride henüz blog yazısı bulunmamaktadır."
+
+    return render(request, "mainpage/partials/tags_blog_page.html",{'blog':blog,'message':message,'blog_count':blog_count})

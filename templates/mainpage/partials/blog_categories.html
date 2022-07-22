@@ -3,11 +3,12 @@
 <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
     <h4 class="sidebar-title">Kategoriler</h4>
     <ul class="sidebar-category">
-        <li><a href="blog-details.html">Genel</a></li>
-        <li><a href="blog-details.html">HTML / Css</a></li>
-        <li><a href="blog-details.html">Javascript</a></li>
-        <li><a href="blog-details.html">Python</a></li>
-        <li><a href="blog-details.html">Django</a></li>
-        <li><a href="blog-details.html">Yapay Zeka</a></li>
+        <li><a href="{% url 'category_details' 'genel' %}">Genel</a></li>
+        <li><a href="{% url 'category_details' 'html-css' %}">HTML / Css</a></li>
+        <li><a href="{% url 'category_details' 'javascript' %}">Javascript</a></li>
+        <li><a href="{% url 'category_details' 'python' %}">Python</a></li>
+        <li><a href="{% url 'category_details' 'django' %}">Django</a></li>
+        <li><a href="{% url 'category_details' 'yapay-zeka' %}">Yapay Zeka</a></li>
+        <li><a href="{% url 'category_details' 'teknoloji' %}">Teknoloji</a></li>
     </ul>
 </div>

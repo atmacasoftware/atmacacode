@@ -61,7 +61,7 @@
                                 </li>
                                 <li>
                                     <span><i class="fas fa-user"></i></span>
-                                    <a href="blog-details.html">Admin</a>
+                                    <p>Admin</p>
                                 </li>
                                 <li>
                                     <span><i class="fas fa-clock"></i></span>
@@ -112,13 +112,7 @@
                 <div class="col-lg-4 mb-30">
                     <div class="sidebar-wrap">
                         <!--Sidebar Search Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">Arama</h4>
-                            <form class="sidebar-search" action="#">
-                                <input class="sidebar-input" placeholder="Search you keywords" type="text">
-                                <button class="sidebar-search-btn"><i class="fas fa-search"></i></button>
-                            </form>
-                        </div>
+                        {% include 'mainpage/partials/blog_search.html' %}
                         <!--Sidebar Search End-->
 
                         <!--Sidebar Post Start-->
@@ -128,23 +122,6 @@
                         <!--Sidebar Category Start-->
                         {% include 'mainpage/partials/blog_categories.html' %}
                         <!--Sidebar Category End-->
-
-                        <!--Sidebar Tags Start-->
-                        <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <h4 class="sidebar-title">tags</h4>
-                            <div class="sidebar-tags">
-                                <a href="blog-details.html" class="active">Website</a>
-                                <a href="blog-details.html">Development</a>
-                                <a href="blog-details.html">Marketing</a>
-                                <a href="blog-details.html">Application</a>
-                                <a href="blog-details.html">Design</a>
-                                <a href="blog-details.html">Web</a>
-                                <a href="blog-details.html">Template</a>
-                                <a href="blog-details.html">WordPress</a>
-                                <a href="blog-details.html">Themeforest</a>
-                            </div>
-                        </div>
-                        <!--Sidebar Tags End-->
 
                         <!--Sidebar Instagram Start-->
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
@@ -167,20 +144,7 @@
                         <!--Sidebar Social Start-->
                         <div class="sidebar wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
                             <h4 class="sidebar-title">Bizi Takip Edin</h4>
-                            <ul class="sidebar-social d-flex flex-start">
-                                <li>
-                                    <a href="https://www.facebook.com/" class="facebook"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/" class="linkedin"><i
-                                            class="fab fa-linkedin-in"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/" class="instagram"><i
-                                            class="fab fa-instagram"></i></a>
-                                </li>
-                            </ul>
+                            {% include 'mainpage/partials/social_fallow.html' %}
                         </div>
                         <!--Sidebar Social End-->
                     </div>
