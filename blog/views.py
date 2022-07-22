@@ -14,11 +14,12 @@ def blog_page(request):
     mainblog = None
     single_blog = None
     blog_count = None
+    paged_blog = None
     try:
         mainblog = Blog.objects.filter(is_main_slider=True)[:10]
-        paginator = Paginator(mainblog, 15)
+        paginator = Paginator(mainblog, 10)
         page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
+        paged_blog = paginator.get_page(page)
     except:
         pass
     try:
@@ -29,7 +30,7 @@ def blog_page(request):
         blog_count = Blog.objects.all().count()
     except:
         pass
-    return render(request,"mainpage/blog.html",{'mainblog':mainblog,'single_blog':single_blog,'blog_count':blog_count})
+    return render(request,"mainpage/blog.html",{'mainblog':mainblog,'single_blog':single_blog,'blog_count':blog_count,'paged_blog':paged_blog})
 
 def blog_details(request,slug):
     blog_detail = None

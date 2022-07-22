@@ -75,10 +75,10 @@
                 <div class="footer-widget">
                     <h5 class="footer-widget-title">Hizmetler</h5>
                     <ul class="footer-widget-list">
-                        <li><a href="about.html">Web Tasarımı</a></li>
-                        <li><a href="about.html">Django Backend</a></li>
-                        <li><a href="about.html">E-Ticaret</a></li>
-                        <li><a href="about.html">E-Pazaryeri</a></li>
+                        <li><a href="{% url 'mainpage' %}#services">Web Tasarımı</a></li>
+                        <li><a href="{% url 'mainpage' %}#services">Django Backend</a></li>
+                        <li><a href="{% url 'mainpage' %}#services">E-Ticaret</a></li>
+                        <li><a href="{% url 'mainpage' %}#services">E-Pazaryeri</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,10 +90,10 @@
                 <div class="footer-widget">
                     <h5 class="footer-widget-title">Hızlı Menu</h5>
                     <ul class="footer-widget-list">
-                        <li><a href="about.html">Hakkında</a></li>
-                        <li><a href="contact.html">Destek</a></li>
-                        <li><a href="contact.html">İletişim</a></li>
-                        <li><a href="contact.html">Blog</a></li>
+                        <li><a href="{% url 'about_page' %}">Hakkında</a></li>
+                        <li><a href="{% url 'contact' %}">Destek</a></li>
+                        <li><a href="{% url 'contact' %}">İletişim</a></li>
+                        <li><a href="{% url 'blog_pages' %}">Blog</a></li>
                     </ul>
                 </div>
             </div>
