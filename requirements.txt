@@ -13,3 +13,4 @@ django-robots
 jwt
 PyJWT
 readtime
+mysqlclient

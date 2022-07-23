@@ -23,7 +23,7 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,8 +89,12 @@ WSGI_APPLICATION = 'atmacacode.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'atmacacode_db',
+        'USER': 'atmacacode_admin',
+        'PASSWORD': '206031aAb%&+9235',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
