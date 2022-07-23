@@ -7370,7 +7370,7 @@ hr {
 .sidebar-help-call {
     display: flex;
     align-items: center;
-    margin-top: 90px;
+    margin-top: 40px;
 }
 
 .sidebar-help-call .icon {
@@ -7381,7 +7381,6 @@ hr {
     align-items: center;
     justify-content: center;
     color: #1c1c1c;
-    transform: rotate(90deg);
     background-color: #dfd7fd;
     font-size: 21px;
     margin-right: 20px;

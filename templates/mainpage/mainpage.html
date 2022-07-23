@@ -114,7 +114,7 @@
 </div>
 <div class="service-section section-padding-bottom">
     <div class="service-shape wow fadeInRight" data-wow-duration="2s" data-wow-delay=".6s">
-        <img src="assets/images/service/shape-one.png" alt="">
+        <img src="{% static 'img/slider/shape-1.png' %}" alt="Shape">
     </div>
     <div class="container">
         <div class="row">
@@ -137,12 +137,11 @@
                             <img src="{% static 'img/mainpage/website.png' %}" alt="icon">
                         </div>
                         <h4 class="title">
-                            <a href="service-details.html">Web Sitesi Geliştirme</a>
+                            Web Sitesi Geliştirme
                         </h4>
                     </div>
                     <p class="single-service-text">Websiteleriniz istedikleriniz doğrultusunda özenle hazırlanarak
                         sizlere teslim edilmektedir. Kodların uyarlanması için destek sağlanmaktadır.</p>
-                    <a class="readmore-btn" href="service-details.html"><i class="fas fa-angle-right"></i> Detaylar</a>
                 </div>
                 <!-- Single Service End -->
             </div>
@@ -154,12 +153,11 @@
                             <img src="{% static 'img/mainpage/ecommerce.png' %}" alt="icon">
                         </div>
                         <h4 class="title">
-                            <a href="service-details.html">E-Ticaret Paketleri</a>
+                            E-Ticaret Paketleri
                         </h4>
                     </div>
                     <p class="single-service-text">E-ticaret veya E-pazaryeri siteleriniz sizlerin istekleri
                         doğrultusunda, kullanıcıların memnum kalacağı websiteleri geliştirilmektedir.</p>
-                    <a class="readmore-btn" href="service-details.html"><i class="fas fa-angle-right"></i> Detaylar</a>
                 </div>
                 <!-- Single Service End -->
             </div>
@@ -171,13 +169,12 @@
                             <img src="{% static 'img/mainpage/cloud.png' %}" alt="icon">
                         </div>
                         <h4 class="title">
-                            <a href="service-details.html">Web Sitesi Yayınlama</a>
+                            Web Sitesi Yayınlama
                         </h4>
                     </div>
                     <p class="single-service-text">Websiteleriniz için sunucu özellikleri belirlenerek güvenli
                         şekilde yayın hayatına geçirilmesi sağlanmaktadır. Bu hizmette 1 yıl ücretsiz bakım hizmeti
                         yer almaktadır.</p>
-                    <a class="readmore-btn" href="service-details.html"><i class="fas fa-angle-right"></i> Detaylar</a>
                 </div>
                 <!-- Single Service End -->
             </div>
@@ -189,13 +186,12 @@
                             <img src="{% static 'img/mainpage/solution.png' %}" alt="icon">
                         </div>
                         <h4 class="title">
-                            <a href="service-details.html">Yazılım Çözümleri</a>
+                            Yazılım Çözümleri
                         </h4>
                     </div>
                     <p class="single-service-text">Mevcut çalışmalarınızda yapamadığınız veya ek geliştirme
                         işlemleri için sizlere destek oluyoruz. En kısa sürede yazılan
                         kodları sizlere gönderiyoruz.</p>
-                    <a class="readmore-btn" href="service-details.html"><i class="fas fa-angle-right"></i> Detaylar</a>
                 </div>
                 <!-- Single Service End -->
             </div>
@@ -257,7 +253,7 @@
                             <li>{{ b.created_at }}</li>
                         </ul>
                         <h3 class="title">
-                            <a href="blog-details.html">{{ b.title|truncatechars:60 }}</a>
+                            <a href="{% url 'blog_details' b.slug %}">{{ b.title|truncatechars:60 }}</a>
                         </h3>
                     </div>
                 </div>

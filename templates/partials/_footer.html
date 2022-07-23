@@ -18,7 +18,7 @@
                         <!-- Subscription Form Start -->
                         <form id="" class="subscribe-form" action="{% url 'mainpage' %}" method="post">
                             {% csrf_token %}
-                            <input class="email" type="email" placeholder="Email Adresiniz" name="email">
+                            <input class="email" type="email" id="footerEmail" placeholder="Email Adresiniz" name="email">
                             <button class="button" type="submit">Abone Ol</button>
                         </form>
                         <!-- Subscription Form End -->
@@ -41,8 +41,8 @@
                  data-wow-delay=".1s">
                 <div class="footer-widget negative-margin">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/logo.png" alt="">
+                        <a href="{% url 'mainpage' %}">
+                            <img src="{% static 'img/logo/logo2.png' %}" alt="">
                         </a>
                     </div>
                     <ul class="footer-widget-list-icon">
