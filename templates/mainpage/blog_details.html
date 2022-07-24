@@ -141,6 +141,7 @@
 
                         <!-- Comment Form Start -->
                         <div class="comment-form wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+                            {% if request.user.is_authenticated %}
                             <h2 class="title">Yorum Ekle</h2>
                             <form class="comment-form-inner"
                                   action="{% url 'submit_review' request.user.username blog_detail.id %}" method="post">
@@ -155,6 +156,9 @@
                                     </div>
                                 </div>
                             </form>
+                            {% else %}
+                            <h4>Yorum yapabilmeniz için giriş yapmanız gerekmektedir. <a href="{% url 'customer_login' %}">Giriş Yap</a></h4>
+                            {% endif %}
                         </div>
                         <!-- Comment Form End -->
                     </div>

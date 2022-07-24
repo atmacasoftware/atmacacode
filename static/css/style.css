@@ -8139,12 +8139,14 @@ hr {
     .copyright .footer-bootm-list {
         margin-bottom: 20px;
         justify-content: center;
+        display: flex;
+        flex-direction: column;
     }
 }
 
 .copyright .footer-bootm-list li {
     position: relative;
-    margin-right: 40px;
+    margin-right: 0px;
 }
 
 .copyright .footer-bootm-list li:last-child {

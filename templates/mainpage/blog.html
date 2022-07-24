@@ -14,9 +14,8 @@
                                 <div class="slide active">
                                     <img src="{{ i.get_blog_photos }}" alt="Slide Image">
                                     <div class="info">
-                                        <h2>{{ i.title }}</h2>
-                                        <p>{{ i.content|truncatechars:250|safe }}</p>
-                                        <a href="" class="slider-link">Devamını Oku</a>
+                                        <h2 class="mb-2">{{ i.title }}</h2>
+                                        <a href="{% url 'blog_details' i.slug %}" class="slider-link">Devamını Oku</a>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -36,9 +35,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Blog Section Start -->
-        <div class="container">
+
+            <!-- Blog Section Start -->
             <div class="row mb-n30">
                 <div class="col-lg-8 mb-30 standard-blog">
                     <!-- Single Blog Start -->
@@ -77,7 +75,9 @@
                             <div class="single-blog-content">
                                 <h2 class="title"><a href="{% url 'blog_details' sb.slug %}">{{ sb.title }}</a>
                                 </h2>
-                                <p class="text">{{ sb.content|truncatechars:320|safe }} </p>
+                                <div>
+                                    <p class="text">{{ sb.content|safe|truncatechars:320 }}</p>
+                                </div>
                                 <div class="content-bottom">
                                     <a href="{% url 'blog_details' sb.slug %}" class="read-more"><i
                                             class="fas fa-angle-right"></i>Devamını
@@ -116,7 +116,9 @@
                                             {% endfor %}
                                             {% if paged_blog.has_next %}
                                                 <li class="page-item">
-                                                    <a class="page-link" href="?page={{ paged_blog.next_page_number }}" aria-label="Next">
+                                                    <a class="page-link"
+                                                       href="?page={{ paged_blog.next_page_number }}"
+                                                       aria-label="Next">
                                                         <span aria-hidden="true"><i
                                                                 class="fas fa-arrow-right"></i></span>
                                                     </a>
