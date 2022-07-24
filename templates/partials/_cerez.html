@@ -1,0 +1,18 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/cookkie.css' %}">
+
+<div class="cerez-container">
+    <div class="close">
+        <button class="cerez-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="content">
+        <h4>Çerez Bilgilendirmesi</h4>
+        <p>Sizlere daha iyi hizmet verebilmek ve deneyimlerinizi arttırmak için yasal prosedürlere uygun çerezler
+            kullanmaktayız.
+            atmacacode.com'u kullanarak bu çerezleri kabul etmiş sayılırsınız.</p>
+        <span>Daha fazla bilgi için <a href="{% url 'cookies' %}">Çerez Politikamızı</a> okuyunuz.</span>
+    </div>
+</div>
+
+<script src="{% static 'js/cookkie.js' %}"></script>

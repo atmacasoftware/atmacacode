@@ -1,0 +1,58 @@
+.cerez-container{
+    position: fixed;
+    z-index: 999999999;
+    left: 30px;
+    bottom: 7%;
+    width: 350px;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+}
+
+.cerez-container .content h4{
+    color: #fff;
+    font-weight: bold;
+}
+
+.cerez-container .content p{
+    color: #fff;
+    font-size: 12px;
+}
+
+.cerez-container .content span{
+    font-size: 12px;
+    color: #fff;
+}
+
+.cerez-container .content span a{
+    font-weight: bold;
+}
+
+.cerez-container .close{
+    position: relative;
+    width: 100%;
+}
+
+.cerez-container .close button{
+    position: absolute;
+    right: 0;
+    top: -12px;
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.passive{
+    display: none;
+}
+
+@media screen and (max-width: 768px){
+    .cerez-container{
+        width: 100%;
+        background: #000;
+        left: 0;
+        bottom: 0;
+    }
+}

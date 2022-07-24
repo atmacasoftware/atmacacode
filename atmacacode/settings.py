@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'import_export',
     'ckeditor_uploader',
     'ckeditor',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'announcement',
     'chat',
     'supports',
+    'site_map',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +84,8 @@ TEMPLATES = [
     },
 ]
 
+SITE_ID = 1
+
 WSGI_APPLICATION = 'atmacacode.wsgi.application'
 
 # Database
@@ -93,7 +97,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 AUTH_USER_MODEL = 'user_accounts.Account'
 

@@ -7374,8 +7374,8 @@ hr {
 }
 
 .sidebar-help-call .icon {
-    height: 65px;
-    width: 65px;
+    height: 55px;
+    width: 55px;
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -7391,9 +7391,10 @@ hr {
     flex-direction: column;
 }
 
+
 .sidebar-help-call .text {
     font-family: "Jost", sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     color: white;
     font-weight: 400;
 }
@@ -7403,6 +7404,12 @@ hr {
     font-size: 24px;
     color: white;
     font-weight: 500;
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar-help-call a {
+        font-size: 16px;
+    }
 }
 
 .sidebar-help-call a:hover {
@@ -7915,7 +7922,7 @@ hr {
     transition: 0.5s;
 }
 
-.footer-widget .instagrm li a img{
+.footer-widget .instagrm li a img {
     width: 90px;
     height: 90px;
     object-fit: cover;
@@ -8135,6 +8142,10 @@ hr {
     display: flex;
 }
 
+.copyright .footer-bootm-list li a {
+    margin-right: 15px;
+}
+
 @media only screen and (max-width: 767px) {
     .copyright .footer-bootm-list {
         margin-bottom: 20px;
@@ -8146,7 +8157,7 @@ hr {
 
 .copyright .footer-bootm-list li {
     position: relative;
-    margin-right: 0px;
+    margin-right: 0px !important;
 }
 
 .copyright .footer-bootm-list li:last-child {
