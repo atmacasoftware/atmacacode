@@ -65,7 +65,7 @@ class Signup(View):
         error_message = None
 
         customer = Customer(first_name=first_name, last_name=last_name, phone=phone, email=email, password=password,
-                            user=user,ip=ip,is_approved=is_approved)
+                            user=user, ip=ip, is_approved=is_approved)
         error_message = self.validateCustomer(customer)
 
         if not error_message:
@@ -169,11 +169,13 @@ def profile_page(request, username):
                 if update_form.is_valid():
                     update_form.save(commit=True)
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
+                                  {'customer': customer, 'update_form': update_form,
+                                   'announcement_count': announcement_count})
 
                 else:
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
+                                  {'customer': customer, 'update_form': update_form,
+                                   'announcement_count': announcement_count})
             elif 'change_password' in request.POST:
                 postData = request.POST
                 password = postData.get('password')
@@ -207,17 +209,34 @@ def profile_page(request, username):
                             delete_error = "Silme nedeniniz boş bırakılamaz!"
                             return render(request, "mainpage/customer_edit.html",
                                           {'customer': customer, 'update_form': update_form,
-                                           'delete_error': delete_error,'announcement_count':announcement_count})
+                                           'delete_error': delete_error, 'announcement_count': announcement_count})
+
                 else:
                     delete_error = "Mevcut şifre boş bırakılamaz!"
                     return render(request, "mainpage/customer_edit.html",
-                                  {'customer': customer, 'update_form': update_form, 'delete_error': delete_error,'announcement_count':announcement_count})
+                                  {'customer': customer, 'update_form': update_form, 'delete_error': delete_error,
+                                   'announcement_count': announcement_count})
+            elif 'is_subscribe' in request.POST:
+                postData = request.POST
+                is_checked = postData.get('subscribe')
+                if is_checked == 'on':
+                    customer.is_subscribe = True
+                    customer.save()
+                else:
+                    customer.is_subscribe = False
+                    customer.save()
+
+                return render(request, "mainpage/customer_edit.html",
+                              {'customer': customer, 'update_form': update_form,
+                               'announcement_count': announcement_count})
             else:
                 return render(request, "mainpage/customer_edit.html",
-                              {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
+                              {'customer': customer, 'update_form': update_form,
+                               'announcement_count': announcement_count})
         except:
             pass
-        return render(request, "mainpage/customer_edit.html", {'customer': customer, 'update_form': update_form,'announcement_count':announcement_count})
+        return render(request, "mainpage/customer_edit.html",
+                      {'customer': customer, 'update_form': update_form, 'announcement_count': announcement_count})
     else:
         redirect("mainpage")
 
@@ -228,7 +247,9 @@ def order_page(request, username):
         customer = Customer.objects.get(user=user)
         orders = Order.objects.filter(customer=customer)
         announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
-        return render(request, "mainpage/order_page.html", {'customer': customer, 'orders': orders,'announcement_count':announcement_count})
+        return render(request, "mainpage/order_page.html",
+                      {'customer': customer, 'orders': orders, 'announcement_count': announcement_count})
+
 
 def announcement_page(request, username):
     user = get_object_or_404(Account, username=username)
@@ -236,9 +257,11 @@ def announcement_page(request, username):
         customer = Customer.objects.get(user=user)
         announcement = Announcement.objects.filter(users=user)
         announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
-        return render(request, "mainpage/announcement_page.html", {'customer': customer, 'announcement': announcement,'announcement_count':announcement_count})
+        return render(request, "mainpage/announcement_page.html",
+                      {'customer': customer, 'announcement': announcement, 'announcement_count': announcement_count})
 
-def read_announcement_page(request, username,id):
+
+def read_announcement_page(request, username, id):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
@@ -246,7 +269,9 @@ def read_announcement_page(request, username,id):
         announcement.is_read = True
         announcement.save()
         announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
-        return render(request, "mainpage/read_announcement.html", {'customer': customer, 'announcement': announcement,'announcement_count':announcement_count})
+        return render(request, "mainpage/read_announcement.html",
+                      {'customer': customer, 'announcement': announcement, 'announcement_count': announcement_count})
+
 
 def delete_announcement_page(request, username, id):
     user = get_object_or_404(Account, username=username)
@@ -255,10 +280,10 @@ def delete_announcement_page(request, username, id):
         announcement = Announcement.objects.get(users=user, id=id)
         announcement.is_active = False
         announcement.save()
-        return redirect('customer_announcement',user)
+        return redirect('customer_announcement', user)
 
 
-def support_page(request,username):
+def support_page(request, username):
     user = get_object_or_404(Account, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
@@ -270,12 +295,15 @@ def support_page(request,username):
             new_room = SupportRoom.objects.create(user=request.user)
             new_room.save()
 
-            new_support = Support.objects.create(room_id=new_room.room_id,sender=user, body=body)
+            new_support = Support.objects.create(room_id=new_room.room_id, sender=user, body=body)
             new_support.save()
-            return render(request, "mainpage/partials/create_support.html", {'customer': customer, 'room': room,'announcement_count':announcement_count})
-        return render(request, "mainpage/partials/create_support.html", {'customer': customer,'room':room,'announcement_count':announcement_count})
+            return render(request, "mainpage/partials/create_support.html",
+                          {'customer': customer, 'room': room, 'announcement_count': announcement_count})
+        return render(request, "mainpage/partials/create_support.html",
+                      {'customer': customer, 'room': room, 'announcement_count': announcement_count})
 
-def support_page_message(request,username,room_id):
+
+def support_page_message(request, username, room_id):
     user = get_object_or_404(Account, username=username)
     other_user = get_object_or_404(Account, username=username)
     if user.is_customer:
@@ -288,9 +316,11 @@ def support_page_message(request,username,room_id):
         if request.method == 'POST':
             postData = request.POST
             body = postData.get('body')
-            msg = Support.objects.create(room_id=room_id,sender=user, body=body)
+            msg = Support.objects.create(room_id=room_id, sender=user, body=body)
             msg.save()
-            return render(request, "mainpage/partials/support.html", {'customer': customer,'room':room,'supports':supports,'answer':answer,'select_room':select_room,'announcement_count':announcement_count})
+            return render(request, "mainpage/partials/support.html",
+                          {'customer': customer, 'room': room, 'supports': supports, 'answer': answer,
+                           'select_room': select_room, 'announcement_count': announcement_count})
         return render(request, "mainpage/partials/support.html",
                       {'customer': customer, 'room': room, 'supports': supports, 'answer': answer,
-                       'select_room': select_room,'announcement_count':announcement_count})
+                       'select_room': select_room, 'announcement_count': announcement_count})

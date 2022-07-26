@@ -14,6 +14,7 @@ class Customer(models.Model):
     password = models.CharField(max_length=100)
     user = models.OneToOneField(User, verbose_name='Müşteri', on_delete=models.CASCADE, null=True)
     is_approved = models.BooleanField(verbose_name="Sözleşmelerin Onayı", default=False, null=True)
+    is_subscribe = models.BooleanField(verbose_name="İletişim ve Reklam Onayı", default=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, null=True)
     last_login = models.DateTimeField(auto_now_add=True,null=True)
     ip = models.CharField(max_length=20, blank=True)
