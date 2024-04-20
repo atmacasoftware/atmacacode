@@ -12,7 +12,7 @@ User = AUTH_USER_MODEL
 # Create your models here.
 
 class AdminUser(models.Model):
-    authorizedperson = models.OneToOneField(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, verbose_name='İsim')
     last_name = models.CharField(max_length=60, verbose_name='Soyisim')
     phone = models.CharField(max_length=15, verbose_name='Telefon Numarası')
@@ -30,7 +30,7 @@ class AdminUser(models.Model):
         verbose_name_plural = "Yöneticiler"
 
     def __str__(self):
-        return f"{self.authorizedperson.username}"
+        return f"{self.user}"
 
     def get_profil_photo(self):
         if self.photo:
@@ -46,17 +46,8 @@ class AdminUser(models.Model):
             return False
 
 
-def task_create_id():
-    now = datetime.now()
-    d = now.strftime("%Y%d%m")
-    n = random.randint(10000, 99999)
-    task_id = d + str(n)
-    return task_id
-
-
 class Task(models.Model):
-    task_id = models.TextField(primary_key=True, default=task_create_id, editable=False, max_length=255)
-    authorizedperson = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
     customer_name = models.CharField(max_length=500, null=True, blank=False, verbose_name="Müşteri İsmi")
     customer_email = models.EmailField(max_length=250, null=True, blank=True, verbose_name="Müşteri Email")
     customer_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Müşteri Telefon")
@@ -78,17 +69,8 @@ class Task(models.Model):
         return self.estimated_deliver_date - self.task_start_date
 
 
-def note_create_id():
-    now = datetime.now()
-    d = now.strftime("%Y%d%m")
-    n = random.randint(10000, 99999)
-    task_id = d + str(n)
-    return task_id
-
-
 class Note(models.Model):
-    authorizedperson = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
-    note_id = models.TextField(primary_key=True, default=note_create_id, editable=False, max_length=255)
+    user = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
     note_title = models.CharField(max_length=100, null=True, blank=False, verbose_name="Not Başlık")
     note_content = models.TextField(verbose_name="Not İçerik", null=True, blank=True, max_length=10000)
     task_start_date = models.DateField(auto_now=True)
@@ -99,5 +81,5 @@ class Note(models.Model):
         verbose_name_plural = "Notlar"
 
     def __str__(self):
-        return f"{self.authorizedperson + '-' + self.note_title}"
+        return f"{self.user + '-' + self.note_title}"
 

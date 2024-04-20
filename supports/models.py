@@ -3,7 +3,7 @@ from atmacacode.settings import AUTH_USER_MODEL
 from django.db.models import Max
 
 from customers.models import Customer
-from user_accounts.models import Account
+from user_accounts.models import User
 from datetime import datetime
 
 User = AUTH_USER_MODEL

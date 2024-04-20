@@ -19,7 +19,7 @@ from customers.forms import CustomerProfileUpdateForm
 from customers.models import Customer, WhyDelete
 from order.models import Order
 from supports.models import SupportRoom, Support, AnswerSupport
-from user_accounts.models import Account
+from user_accounts.models import User
 
 
 def customer_login(request):
@@ -46,7 +46,7 @@ class Signup(View):
         extra = str(randint(1, 10000000))
         username = unidecode(first_name) + unidecode(last_name) + "-" + extra
         haspass = make_password(password)
-        user = Account(username=username, password=haspass, email=email, first_name=first_name, last_name=last_name)
+        user = User(username=username, password=haspass, email=email, first_name=first_name, last_name=last_name)
         user.is_customer = True
         user.save()
         # validation
@@ -156,7 +156,7 @@ def logout(request):
 
 @login_required
 def profile_page(request, username):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         announcement_count = Announcement.objects.filter(users=user, is_active=True).count()
@@ -242,7 +242,7 @@ def profile_page(request, username):
 
 
 def order_page(request, username):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         orders = Order.objects.filter(customer=customer)
@@ -252,7 +252,7 @@ def order_page(request, username):
 
 
 def announcement_page(request, username):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         announcement = Announcement.objects.filter(users=user)
@@ -262,7 +262,7 @@ def announcement_page(request, username):
 
 
 def read_announcement_page(request, username, id):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         announcement = Announcement.objects.get(users=user, id=id)
@@ -274,7 +274,7 @@ def read_announcement_page(request, username, id):
 
 
 def delete_announcement_page(request, username, id):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         announcement = Announcement.objects.get(users=user, id=id)
@@ -284,7 +284,7 @@ def delete_announcement_page(request, username, id):
 
 
 def support_page(request, username):
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         room = SupportRoom.objects.filter(user=user)
@@ -304,8 +304,8 @@ def support_page(request, username):
 
 
 def support_page_message(request, username, room_id):
-    user = get_object_or_404(Account, username=username)
-    other_user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
+    other_user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         room = SupportRoom.objects.filter(user=user)

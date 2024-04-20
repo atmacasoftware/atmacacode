@@ -3,7 +3,7 @@ from blog.models import Blog
 from mainpage.forms import *
 from mainpage.models import *
 from products.models import Services
-from user_accounts.models import Account
+from user_accounts.models import User
 # Create your views here.
 
 def index(request):

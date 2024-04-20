@@ -3,8 +3,7 @@ from adminpage.views import *
 
 urlpatterns = [
     path('yonetim-paneli/<username>/',admin_main_page,name="admin_main_page"),
-    path('yonetim-paneli-giris/',SigninAdmin.as_view(),name="admin_login"),
-    path('yonetim-paneli-kayit/',SignupAdmin.as_view(),name="admin_register"),
+    path('yonetim-paneli-giris/',admin_login ,name="admin_login"),
     path('takvim',calender_page,name="calender"),
     path('gorev-ekle/<username>/',add_task,name="add_task"),
     path('cikis-yap/',logout,name="logout"),

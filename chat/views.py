@@ -9,13 +9,13 @@ import json
 
 from chat.models import Message
 from customers.models import Customer
-from user_accounts.models import Account
+from user_accounts.models import User
 from atmacacode.settings import AUTH_USER_MODEL
 User = AUTH_USER_MODEL
 
 def main_chat(request, username):
     context = {}
-    user = get_object_or_404(Account, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         chat_messages = Message.objects.filter(Q(receiver__username=request.user.username)).values("sender").annotate(
             Count('sender_id')).order_by().filter(sender_id__gt=1)
@@ -31,8 +31,8 @@ def main_chat(request, username):
         return render(request,'error_page.html')
 
 def chatroom(request, username):
-    other_user = get_object_or_404(Account, username=username)
-    user = get_object_or_404(Account, username=username)
+    other_user = get_object_or_404(User, username=username)
+    user = get_object_or_404(User, username=username)
     if user.is_customer:
         customer = Customer.objects.get(user=user)
         messages = Message.objects.filter(Q(receiver__username=request.user.username, sender=other_user))
@@ -50,8 +50,8 @@ def chatroom(request, username):
         return render(request,'error_page.html')
 
 def ajax_load_messages(request, username):
-    other_user = get_object_or_404(Account, username=username)
-    request_user = get_object_or_404(Account, username=request.session['username'])
+    other_user = get_object_or_404(User, username=username)
+    request_user = get_object_or_404(User, username=request.session['username'])
     messages = Message.objects.filter(seen=False, receiver=request_user)
 
     message_list = [{

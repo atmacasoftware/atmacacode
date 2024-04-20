@@ -7,7 +7,7 @@ from blog.models import Blog,ReviewRating
 # Create your views here.
 from customers.models import Customer
 from social_media.models import Instagram
-from user_accounts.models import Account
+from user_accounts.models import User
 
 
 def blog_page(request):
@@ -66,7 +66,7 @@ def blog_details(request,slug):
 
 
 def submit_review(request, username, blog_id):
-    user = get_object_or_404(Account,username=username)
+    user = get_object_or_404(User,username=username)
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         try:

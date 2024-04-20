@@ -14,3 +14,4 @@ jwt
 PyJWT
 readtime
 mysqlclient
+python-decouple
