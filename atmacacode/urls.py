@@ -44,6 +44,6 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
 
-admin.site.site_title = 'Atmaca Code Yönetimi'
+admin.site.site_title = 'Atmaca Code'
 admin.site.site_header = 'Atmaca Code Yönetimi Paneli'
 admin.site.index_title = 'Atmaca Code Yönetimi Paneline Hoş Geldiniz'
