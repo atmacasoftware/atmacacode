@@ -93,11 +93,11 @@ WSGI_APPLICATION = 'atmacacode.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': config("ENGINE"),
-        'NAME': config("NAME"),
-        'USER': config("USER"),
-        'PASSWORD': config("PASSWORD"),
-        'HOST': config("HOST"),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'atmaca_db',
+        'USER': 'admin',
+        'PASSWORD': '~Nt=e7Q=~!!Q',
+        'HOST': 'localhost',
         'PORT': '3306',
         "OPTION": {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
