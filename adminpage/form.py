@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import widgets
 
-from adminpage.models import Task,Note
+from adminpage.models import Task, Note, Blog
 
 
 class TaskForm(forms.ModelForm):

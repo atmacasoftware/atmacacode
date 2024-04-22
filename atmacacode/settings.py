@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'mainpage',
     'adminpage',
     'customers',
-    'blog',
     'products',
     'social_media',
     'order',
@@ -52,6 +51,9 @@ INSTALLED_APPS = [
     'chat',
     'supports',
     'site_map',
+    'django_ckeditor_5',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +66,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = '/'
+
 ROOT_URLCONF = 'atmacacode.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "https://atmacacode.com",
+    "https://www.atmacacode.com",
+    "https://blog.atmacacode.com"
+]
 
 TEMPLATES = [
     {
@@ -76,15 +88,12 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'social_media.context_processors.social_share',
-                'blog.context_processors.blog_context',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
-
-SITE_ID = 1
 
 WSGI_APPLICATION = 'atmacacode.wsgi.application'
 
@@ -133,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
@@ -146,16 +155,28 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': None,
-        'height': 450,
-        'width': 'auto',
-    }
+        'toolbar': [['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+                    ['Link', 'Unlink', 'Anchor'],
+                    ['Image', 'Flash', 'Table', 'HorizontalRule'],
+                    ['TextColor', 'BGColor'],
+                    ['Smiley', 'SpecialChar'], ['Source'],
+                    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                    ['NumberedList', 'BulletedList'],
+                    ['Indent', 'Outdent'],
+                    ['Maximize']],
+        'height': '100%',
+        'width': '100%',
+    },
 }
 
-CKEDITOR_UPLOAD_PATH = "static/img/ckeditor/"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "img/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 if DEBUG:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
@@ -166,3 +187,26 @@ else:
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
+USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
+SERVER_EMAIL = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'

@@ -19,13 +19,13 @@ from django.urls import path, re_path, include
 from django.views.generic import RedirectView
 from django.views.static import serve
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 from site_map.views import RobotsTxtView
 from site_map.sitemaps import *
 
 sitemaps = {
     'products': ProductMap,
-    'blog':BlogMap,
 }
 
 urlpatterns = [
@@ -33,13 +33,29 @@ urlpatterns = [
     path('', include('mainpage.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}),
     path('robots.txt/', RobotsTxtView.as_view()),
-    path('blog/', include('blog.urls')),
     path('hesap/', include('customers.urls')),
     path('hizmetler', include('products.urls')),
     path('yonetim-paneli/', include('adminpage.urls')),
     path('mesajlasma/', include('chat.urls')),
-    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
+
     path('favicon.ico', RedirectView.as_view(url='/static/img/logo/small_logo.png')),
+
+    path('reset_password/',
+         auth_views.PasswordResetView.as_view(template_name="backend/pages/account/forgot_password.html"),
+         name="reset_password"),
+    path('reset_password_sent/',
+         auth_views.PasswordResetDoneView.as_view(template_name="backend/pages/account/password_reset_send.html"),
+         name="password_reset_done"),
+    path('reset/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name="backend/pages/account/set_password.html"),
+         name="password_reset_confirm"),
+    path('reset_password_complate/',
+         auth_views.PasswordResetCompleteView.as_view(template_name="backend/pages/account/password_reset_complate.html"),
+         name="password_reset_complete"),
+
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]

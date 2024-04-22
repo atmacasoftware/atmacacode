@@ -1,0 +1,129 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Blog Yönetimi | Tüm Yazılar{% endblock %}
+
+{% block blog %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Tüm Yazılar</h1>
+                <div class="section-header-button">
+                    <a href="{% url 'blog_yeni_yazi' %}" class="btn btn-primary">Yazı Ekle
+                    </a>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Tüm Yazılar</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Tüm Yazılar</h2>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Tüm Yazılar</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Blog Başlık</th>
+                                            <th>Kategori</th>
+                                            <th>Yazar</th>
+                                            <th>Görüntülenme Sayısı</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                        </tr>
+                                        {% for b in blogs %}
+                                            <tr>
+                                                <td>{{ b.name }}
+                                                    <div class="table-links">
+                                                        <a href="{% url 'blog_view_and_update' b.id %}">Görüntüle ve Güncelle</a>
+                                                        <div class="bullet"></div>
+                                                        {% if b.status == "Yayınla" %}
+                                                            <a href="{% url 'blog_change_status' b.id 'taslak' %}">Taslağa Al</a>
+                                                        {% elif b.status == "Taslak" %}
+                                                            <a href="{% url 'blog_change_status' b.id 'yayinla' %}">Yayınla</a>
+                                                            <a href="{% url 'blog_change_status' b.id 'aski' %}">Askıya Al</a>
+                                                        {% else %}
+                                                            <a href="{% url 'blog_change_status' b.id 'yayinla' %}">Yayınla</a>
+                                                        {% endif %}
+                                                        <div class="bullet"></div>
+                                                        <a href="{% url 'blog_delete' b.id %}" class="text-danger">Sil</a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{{ b.category.name }}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <div class="d-inline-block ml-1">{{ b.user.get_full_name }}</div>
+                                                    </a>
+                                                </td>
+                                                <td>{{ b.created_at|date:"d-m-Y H:i" }}</td>
+                                                <td>
+                                                    <div class="badge badge-{% if b.status == "Yayınla" %}success{% elif b.status == "Taslak" %}primary{% else %}danger{% endif %}">{{ b.status }}</div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addCategory" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kategori Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row mb-4">
+                            <label for="name"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategori Adı</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                            <div class="col-sm-12 col-md-7">
+                                <button name="saveBtn" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İpta Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from blog.models import Blog
+
 from mainpage.forms import *
 from mainpage.models import *
 from products.models import Services
@@ -10,10 +10,7 @@ def index(request):
     blog = None
     services = None
     mainslider = None
-    try:
-        blog = Blog.objects.all()[:3]
-    except:
-        pass
+
     try:
         services = Services.objects.all()
     except:
@@ -26,7 +23,7 @@ def index(request):
         form = SubscribeForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "mainpage/mainpage.html", {'blog': blog, 'services': services,'mainslider':mainslider})
+            return render(request, "mainpage/mainpage.html", {'services': services,'mainslider':mainslider})
     return render(request, "mainpage/mainpage.html",{'blog':blog,'services':services,'mainslider':mainslider})
 
 

@@ -1,9 +1,14 @@
 import datetime
 from datetime import datetime
+
+from django.template import defaultfilters
 from django.utils import timezone
 import random
 
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
+from unidecode import unidecode
+
 from atmacacode.settings import AUTH_USER_MODEL
 
 User = AUTH_USER_MODEL
@@ -83,3 +88,61 @@ class Note(models.Model):
     def __str__(self):
         return f"{self.user + '-' + self.note_title}"
 
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Kategori Adı")
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.slug:
+            slug = defaultfilters.slugify(unidecode(self.name))
+            slug_exists = True
+            counter = 1
+            self.slug = slug
+            while slug_exists:
+                try:
+                    slug_exits = BlogCategory.objects.get(slug=slug)
+                    if slug_exits:
+                        slug = self.slug + '_' + str(counter)
+                        counter += 1
+                except BlogCategory.DoesNotExist:
+                    self.slug = slug
+                    break
+        super(BlogCategory, self).save(*args, **kwargs)
+
+
+class Blog(models.Model):
+    STATUS = (
+        ("Yayınla", "Yayınla"),
+        ("Taslak", "Taslak"),
+        ("Askıya Al", "Askıya Al")
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Yazar", null=True)
+    category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name="Kategori", null=True)
+    name = models.CharField(max_length=255, verbose_name="Başlık", null=True, blank=False)
+    text = CKEditor5Field('Yazı', config_name='extends', null=True)
+    image = models.ImageField(upload_to='static/img/blog/', blank=True, verbose_name="Kapak")
+    view_count = models.PositiveIntegerField(default=0, verbose_name="Gösterim Sayısı", null=True)
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
+    status = models.CharField(choices=STATUS, max_length=100, null=True, default="Yayınla")
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.slug:
+            slug = defaultfilters.slugify(unidecode(self.name))
+            slug_exists = True
+            counter = 1
+            self.slug = slug
+            while slug_exists:
+                try:
+                    slug_exits = Blog.objects.get(slug=slug)
+                    if slug_exits:
+                        slug = self.slug + '_' + str(counter)
+                        counter += 1
+                except Blog.DoesNotExist:
+                    self.slug = slug
+                    break
+        super(Blog, self).save(*args, **kwargs)

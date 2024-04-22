@@ -16,21 +16,24 @@
                     <div class="form-container">
                         <div class="col-3">
                             <div class="form-group">
-                                <input type="email" name="email-signin" class="email form-field">
+                                <input type="email" name="email" class="email form-field">
                                 <span><i class="fa-solid fa-envelope"></i></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <input type="password" name="password-signin" class="password form-field">
+                                <input type="password" name="password" class="password form-field">
                                 <span><i class="fa-solid fa-lock"></i></span>
                             </div>
                         </div>
                         <div class="col-3">
-                            <button type="submit">Giriş Yap</button>
+                            <div class="w-100 float-left">
+                                <input type="checkbox" id="remember_me">
+                                <label for="remember_me">Beni Hatırla</label>
+                            </div>
                         </div>
                         <div class="col-3">
-                            Çalışan kaydı için <a href="{% url 'admin_register' %}">Tıklayınız</a>
+                            <button type="submit">Giriş Yap</button>
                         </div>
                     </div>
                 </form>

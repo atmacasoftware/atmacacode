@@ -1,0 +1,118 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Blog Yönetimi | Kategoriler{% endblock %}
+
+{% block blog %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Blog Kategoriler</h1>
+                <div class="section-header-button">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addCategory">Kategori Ekle
+                    </button>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item"><a href="{% url 'blog_all' %}">Tüm Yazılar</a></div>
+                    <div class="breadcrumb-item">Blog Kategorileri</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Blog Kategoriler</h2>
+                <p class="section-lead">
+                    Bu sayfada blog yazılarına ilişkin kategoriler yer almaktadır. "Kategori Ekle" butonu ile yeni
+                    kategori ekleyebilirsiniz.
+                </p>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Tüm Kategoriler</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Kategori Adı</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                            <th>Güncellenme Tarihi</th>
+                                        </tr>
+                                        {% for category in blog_category %}
+                                            <tr>
+                                                <td>{{ category.name }}
+                                                    <div class="table-links">
+                                                        <a href="#">Güncelle</a>
+                                                        <div class="bullet"></div>
+                                                        <a href="{% url 'blog_category_delete' category.id %}" class="text-danger">Sil</a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ category.created_at|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    {{ category.updated_at|date:"d-m-Y H:i" }}
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addCategory" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kategori Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row mb-4">
+                            <label for="name"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategori Adı</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                            <div class="col-sm-12 col-md-7">
+                                <button name="saveBtn" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İpta Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

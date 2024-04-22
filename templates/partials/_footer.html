@@ -93,7 +93,7 @@
                         <li><a href="{% url 'about_page' %}">Hakkında</a></li>
                         <li><a href="{% url 'contact' %}">Destek</a></li>
                         <li><a href="{% url 'contact' %}">İletişim</a></li>
-                        <li><a href="{% url 'blog_pages' %}">Blog</a></li>
+                        <li><a href="">Blog</a></li>
                     </ul>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 <div class="footer-widget">
                     <h5 class="footer-widget-title">Bizi Takip Edin</h5>
                     <ul class="instagrm">
-                        {% for sm in instagram %}
+
                             <li>
                                 <a href="{{ sm.url }}">
                                     <img src="{{ sm.get_instagram_image }}" alt="Insta-Image">
@@ -114,7 +114,7 @@
                                     </div>
                                 </a>
                             </li>
-                        {% endfor %}
+
                     </ul>
                 </div>
             </div>
