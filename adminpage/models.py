@@ -122,6 +122,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Yazar", null=True)
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name="Kategori", null=True)
     name = models.CharField(max_length=255, verbose_name="Başlık", null=True, blank=False)
+    description = models.CharField(max_length=255, verbose_name="Açıklama", null=True, blank=False)
     text = CKEditor5Field('Yazı', config_name='extends', null=True)
     image = models.ImageField(upload_to='static/img/blog/', blank=True, verbose_name="Kapak")
     view_count = models.PositiveIntegerField(default=0, verbose_name="Gösterim Sayısı", null=True)
@@ -129,6 +130,9 @@ class Blog(models.Model):
     status = models.CharField(choices=STATUS, max_length=100, null=True, default="Yayınla")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def get_user(self):
+        return self.user
 
     def save(self, *args, **kwargs):
         if not self.id and not self.slug:
@@ -146,3 +150,7 @@ class Blog(models.Model):
                     self.slug = slug
                     break
         super(Blog, self).save(*args, **kwargs)
+
+class BlogUserIp(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="Blog", null=True)
+    ip = models.CharField(max_length=100, verbose_name="Kullanıcı IP Adres", null=True, blank=True)

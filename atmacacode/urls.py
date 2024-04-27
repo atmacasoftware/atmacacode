@@ -35,7 +35,7 @@ urlpatterns = [
     path('robots.txt/', RobotsTxtView.as_view()),
     path('hesap/', include('customers.urls')),
     path('hizmetler', include('products.urls')),
-    path('yonetim-paneli/', include('adminpage.urls')),
+    path('', include('adminpage.urls')),
     path('mesajlasma/', include('chat.urls')),
 
     path('ckeditor/', include('ckeditor_uploader.urls')),

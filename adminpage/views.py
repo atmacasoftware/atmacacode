@@ -7,8 +7,6 @@ from unidecode import unidecode
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-
-import blog
 from adminpage.form import TaskForm, NoteForm
 from adminpage.models import AdminUser, Task, BlogCategory, Blog
 from user_accounts.models import User
@@ -132,6 +130,7 @@ def blog_view_and_update(request, id):
 
     if 'saveBtn' in request.POST:
         name = request.POST.get("name")
+        description = request.POST.get("description")
         category = request.POST.get("category")
         content = request.POST.get("content")
         status = request.POST.get("status")
@@ -139,6 +138,7 @@ def blog_view_and_update(request, id):
 
         blog_category = get_object_or_404(BlogCategory, id=int(category))
         blog.name = name
+        blog.description = description
         blog.category = blog_category
         blog.text = content
         blog.status = status
@@ -160,6 +160,7 @@ def blog_yeni_yazi(request):
 
     if 'saveBtn' in request.POST:
         name = request.POST.get("name")
+        description = request.POST.get("description")
         category = request.POST.get("category")
         content = request.POST.get("content")
         status = request.POST.get("status")
@@ -167,7 +168,7 @@ def blog_yeni_yazi(request):
 
         blog_category = get_object_or_404(BlogCategory, id=int(category))
 
-        Blog.objects.create(user=request.user, name=name, category=blog_category, text=content, status=status,
+        Blog.objects.create(user=request.user, name=name, description=description, category=blog_category, text=content, status=status,
                             image=image)
         messages.add_message(request, messages.SUCCESS, "Blog yazısı başarıyla eklendi.")
         return redirect('blog_yeni_yazi')

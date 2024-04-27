@@ -49,6 +49,7 @@
                                             <th>Yazar</th>
                                             <th>Görüntülenme Sayısı</th>
                                             <th>Oluşturulma Tarihi</th>
+                                            <th>Durum</th>
                                         </tr>
                                         {% for b in blogs %}
                                             <tr>
@@ -76,6 +77,7 @@
                                                         <div class="d-inline-block ml-1">{{ b.user.get_full_name }}</div>
                                                     </a>
                                                 </td>
+                                                <td>{{ b.view_count }}</td>
                                                 <td>{{ b.created_at|date:"d-m-Y H:i" }}</td>
                                                 <td>
                                                     <div class="badge badge-{% if b.status == "Yayınla" %}success{% elif b.status == "Taslak" %}primary{% else %}danger{% endif %}">{{ b.status }}</div>

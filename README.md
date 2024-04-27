@@ -1,9 +1,11 @@
 # My Personal Website
 
 ### Used Technologies
-* Django
+* Django Framework
 * MySQL
 * HTML
 * CSS
 * JS
 * Bootstrap
+
+

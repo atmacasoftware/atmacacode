@@ -38,19 +38,30 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser, PermissionsMixin):
-    email = models.EmailField(db_index=True, unique=True, max_length=255)
+
+    GENDER = (
+        ("Erkek", "Erkek"),
+        ("Kadın/Kız", "Kadın/Kız"),
+        ("Unisex", "Unisex"),
+    )
+
+    email = models.EmailField(db_index=True, unique=True, max_length=255, verbose_name="E-Posta")
     username = models.CharField(max_length=100, unique=False, blank=True, null=True, default=None)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    mobile = models.CharField(max_length=50)
-    address = models.CharField(max_length=500, blank=False)
-    birthday = models.DateField(blank=True, null=True)
-    gender = models.BooleanField(null=True, blank=True)
+    first_name = models.CharField(max_length=255, verbose_name="Ad")
+    last_name = models.CharField(max_length=255, verbose_name="Soyad")
+    image = models.ImageField(upload_to='static/img/user/', blank=True, null=True, verbose_name="Profil Resmi")
+    mobile = models.CharField(max_length=50, verbose_name="Telefon Numarası", blank=True)
+    address = models.CharField(max_length=500, blank=True, verbose_name="Adres")
+    birthday = models.DateField(blank=True, null=True, verbose_name="Doğum Tarihi")
+    gender = models.CharField(choices=GENDER, max_length=50, verbose_name="Cinsiyet", default="Erkek")
+    github = models.CharField(max_length=255, blank=True, null=True, verbose_name="Github Linki")
+    linkedin = models.CharField(max_length=255, blank=True, null=True, verbose_name="Linkedin Linki")
+    bio = models.CharField(blank=True, null=True, verbose_name="Bio", max_length=255)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
-    is_customer = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=False, verbose_name="Müşteri")
+    is_staff = models.BooleanField(default=True, verbose_name="Personel")
+    is_active = models.BooleanField(default=True, verbose_name="Aktif")
+    is_superuser = models.BooleanField(default=False, verbose_name="Admin")
     is_activated = models.BooleanField(default=False)
 
     objects = CustomUserManager()
