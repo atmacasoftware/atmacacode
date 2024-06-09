@@ -3,7 +3,6 @@ from django.forms import widgets
 
 from adminpage.models import Task, Note, Blog
 
-
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task

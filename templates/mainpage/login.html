@@ -1,26 +1,28 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block customer_login %}
+{% block title %}Giriş Yap{% endblock %}
 
-    <!--CSS Start-->
+{% block extra_style %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <!--CSS End-->
+{% endblock %}
+
+{% block customer_login %}
 
     <!--Code Start-->
     <div class="section-padding mt-5">
         <div class="container account">
             <div class="account-container">
-                <form action="{% url 'customer_login' %}" method="post">
+                <form method="post">
                     {% csrf_token %}
                     <div class="boxes">
                         <div class="box b-padding">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="customer-email">
+                            <input type="email" id="email" name="email">
                         </div>
                         <div class="box flex">
                             <label for="password">Şifre</label>
-                            <input type="password" id="password" name="customer-password">
+                            <input type="password" id="password" name="password">
                         </div>
 
                         <div class="box">
@@ -33,7 +35,7 @@
                             </div>
                         {% endif %}
                         <div class="box buttons">
-                            <button class="btn btn-style-one" id="loginBtn" data-url="{% url 'customer_login' %}"><span>Giriş Yap</span>
+                            <button class="btn btn-style-one" id="loginBtn" name="login-btn" type="submit"><span>Giriş Yap</span>
                             </button>
                             <a href="{% url 'customer_register' %}" class="btn btn-style-two"><span>Kayıt Ol</span></a>
                         </div>

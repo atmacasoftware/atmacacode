@@ -57,8 +57,10 @@ class User(AbstractUser, PermissionsMixin):
     github = models.CharField(max_length=255, blank=True, null=True, verbose_name="Github Linki")
     linkedin = models.CharField(max_length=255, blank=True, null=True, verbose_name="Linkedin Linki")
     bio = models.CharField(blank=True, null=True, verbose_name="Bio", max_length=255)
+    is_contract = models.BooleanField(default=False, verbose_name="Sözleşme Onayı")
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     is_customer = models.BooleanField(default=False, verbose_name="Müşteri")
+    is_student = models.BooleanField(default=False, verbose_name="Öğrenci")
     is_staff = models.BooleanField(default=True, verbose_name="Personel")
     is_active = models.BooleanField(default=True, verbose_name="Aktif")
     is_superuser = models.BooleanField(default=False, verbose_name="Admin")
@@ -67,7 +69,7 @@ class User(AbstractUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'mobile']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta:
         verbose_name = 'Kullanıcı'

@@ -1,24 +1,49 @@
 <div class="main-sidebar sidebar-style-2">
-            <aside id="sidebar-wrapper">
-                <div class="sidebar-brand">
-                    <a href="{% url 'admin_main_page' %}">Atmaca Code</a>
-                </div>
-                <div class="sidebar-brand sidebar-brand-sm">
-                    <a href="{% url 'admin_main_page' %}">AC</a>
-                </div>
-                <ul class="sidebar-menu">
-                    <li><a class="nav-link" href="{% url 'admin_main_page' %}"><i class="fas fa-fire"></i> <span>Anasayfa</span></a>
-                    <li class="dropdown {% if 'blog' in request.path %}active{% endif %}">
-                        <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
-                            <span>Blog Yönetimi</span></a>
-                        <ul class="dropdown-menu">
-                            <li {% if 'blog/tum-yazilar/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'blog_all' %}">Tüm Yazılar</a></li>
-                            <li {% if 'blog/yeni-yazi-ekle/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'blog_yeni_yazi' %}">Yeni Yazı</a></li>
-                            <li {% if 'blog/kategoriler/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'blog_category' %}">Kategoriler</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-
-            </aside>
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="{% url 'admin_main_page' %}">Atmaca Code</a>
         </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="{% url 'admin_main_page' %}">AC</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a class="nav-link" href="{% url 'admin_main_page' %}"><i class="fas fa-fire"></i> <span>Anasayfa</span></a>
+            <li class="dropdown {% if 'site-yonetimi' in request.path %}active{% endif %}">
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Site Yönetimi</span></a>
+                <ul class="dropdown-menu">
+                    <li {% if 'site-yonetimi/duyurular/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                 href="{% url 'general_announcement' %}">Duyurular</a></li>
+                    <li {% if 'site-yonetimi/site-ayarlari/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                    href="{% url 'general_settings' %}">Genel Bilgiler</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {% if 'blog' in request.path %}active{% endif %}">
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Blog Yönetimi</span></a>
+                <ul class="dropdown-menu">
+                    <li {% if 'blog/tum-yazilar/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                 href="{% url 'blog_all' %}">Tüm
+                        Yazılar</a></li>
+                    <li {% if 'blog/yeni-yazi-ekle/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                    href="{% url 'blog_yeni_yazi' %}">Yeni
+                        Yazı</a></li>
+                    <li {% if 'blog/kategoriler/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                 href="{% url 'blog_category' %}">Kategoriler</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown {% if 'egitim-yonetimi' in request.path %}active{% endif %}">
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Eğitim Yönetimi</span></a>
+                <ul class="dropdown-menu">
+                    <li {% if request.path == '/yonetim-paneli/egitim-yonetimi/' %}class="active"{% endif %}><a
+                            class="nav-link" href="{% url 'education' %}">Eğitimler</a></li>
+                    <li {% if 'egitim-yonetimi/duyurular/' in request.path %}class="active"{% endif %}><a
+                            class="nav-link" href="{% url 'student_announcement' %}">Duyurular</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </aside>
+</div>

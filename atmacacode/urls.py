@@ -34,6 +34,8 @@ urlpatterns = [
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}),
     path('robots.txt/', RobotsTxtView.as_view()),
     path('hesap/', include('customers.urls')),
+    path('bildirim-servisi/', include('announcement.urls')),
+    path('ogrenci/', include('student.urls')),
     path('hizmetler', include('products.urls')),
     path('', include('adminpage.urls')),
     path('mesajlasma/', include('chat.urls')),

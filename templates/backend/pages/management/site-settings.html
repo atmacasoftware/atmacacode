@@ -1,0 +1,109 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Site Yönetimi | Site Ayarları{% endblock %}
+
+{% block management %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Site Ayarları</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Site Ayarları</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-lg-6 offset-3">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4>Site Ayarları</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="site_name">Site Adı</label>
+                                        <input type="text" id="site_name" value="{{ setting.site_name }}"
+                                               name="site_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sub_title">Site Başlık</label>
+                                        <input type="text" id="site_title" name="site_title"
+                                               value="{{ setting.site_title }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_description">Site Açıklaması</label>
+                                        <textarea name="site_description" class="form-control" id="site_description"
+                                                  cols="30" rows="5">{{ setting.site_description }}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_keywords">Site Anahtar Kelimeleri</label>
+                                        <input type="text" id="site_keywords" name="site_keywords"
+                                               value="{{ setting.site_keywords }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_author">Yazar</label>
+                                        <input type="text" id="site_author" name="site_author"
+                                               value="{{ setting.site_author }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_logo">Logo</label>
+                                        {% if setting.get_logo %}
+                                            <a href="{{ setting.get_logo }}" target="_blank" class="d-block">Mevcut:
+                                                <img
+                                                        src="{{ setting.get_logo }}" alt="Logo"
+                                                        style="height: 100px; width: 150px;"></a>
+                                            Değiştir:
+                                        {% endif %}
+                                        <input type="file" accept="image/*" id="site_logo" name="site_logo"
+                                               class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_email">Email</label>
+                                        <input type="text" id="site_email" name="site_email"
+                                               value="{{ setting.site_email }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="site_whatsapp">Whatsapp</label>
+                                        <input type="text" id="site_whatsapp" name="site_whatsapp"
+                                               value="{{ setting.site_whatsapp }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="instagram_link">İnstagram Link</label>
+                                        <input type="text" id="instagram_link" name="instagram_link"
+                                               value="{{ setting.site_author }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="linkedin_link">Linkedin Link</label>
+                                        <input type="text" id="linkedin_link" name="linkedin_link"
+                                               value="{{ setting.linkedin_link }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="facebook_link">Facebook Link</label>
+                                        <input type="text" id="facebook_link" name="facebook_link"
+                                               value="{{ setting.facebook_link }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="youtube_link">Youtube Link</label>
+                                        <input type="text" id="youtube_link" name="youtube_link"
+                                               value="{{ setting.youtube_link }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="udemy_link">Udemy Link</label>
+                                        <input type="text" id="udemy_link" name="udemy_link"
+                                               value="{{ setting.udemy_link }}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button name="submit" type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

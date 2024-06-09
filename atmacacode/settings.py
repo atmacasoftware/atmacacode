@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool, default=True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'announcement',
     'chat',
     'supports',
+    'student',
     'site_map',
     'django_ckeditor_5',
     'rest_framework',
@@ -93,6 +94,8 @@ TEMPLATES = [
                 'social_media.context_processors.social_share',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'mainpage.context_processors.site_settings',
+                'announcement.context_processors.not_read_announcement',
             ],
         },
     },

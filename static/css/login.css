@@ -84,12 +84,9 @@
 }
 
 .contracts {
-    width: 95% !important;
+    width: 100% !important;
 }
 
-.ui.slider.checkbox {
-    margin-left: 10% !important;
-}
 
 .kvkk {
     width: 95%;
@@ -115,4 +112,69 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.tab-form .tab-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.tab-form .tab-header > div{
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+}
+
+.tab-form .tab-header > div.active{
+    border: 1px solid var(--link-active-color);
+    color: var(--link-active-color);
+    background: #e9f4ff;
+}
+
+.tab-form .tab-body{
+    position: relative;
+    min-height: 580px;
+    overflow-y: auto;
+}
+
+.tab-form .tab-body > div{
+    position: absolute;
+    width: 100%;
+    top: -150vh;
+    opacity: 0;
+    padding: 5px 25px;
+    transition: opacity 300ms ease-in-out 0ms;
+}
+
+.tab-form .tab-body > div.active{
+    top: 0px;
+    opacity: 1;
+    transition: opacity 300ms ease-in-out 0ms;
+}
+
+.tab-form .tab-body > div h2{
+    font-size: 20px;
+    color: #222;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tab-form .tab-body > div .form-input{
+    margin: 10px 0;
+}
+
+.tab-form .tab-body > div .form-input label{
+    display: block;
+    font-size: 15px;
+}
+
+.tab-form .tab-body > div .form-input input:not(input[type="checkbox"]){
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px;
 }

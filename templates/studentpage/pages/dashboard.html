@@ -1,0 +1,193 @@
+{% extends 'studentpage/layout.html' %}
+{% load static %}
+
+{% block title %}Öğrenci Paneli | Anasayfa{% endblock %}
+
+{% block extra_style %}
+{% endblock %}
+
+{% block dashboard %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Anasayfa</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Duyurular</h4>
+                            <div class="card-header-action">
+                                <a href="#" class="btn btn-primary">Tüm Duyurular</a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th width="80">Duyuru</th>
+                                        <th width="20">Tarih</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for a in all_announcements %}
+                                        <tr>
+                                            <td width="80">
+                                                {{ a.title }}
+                                                <div class="table-links">
+                                                    <div class="bullet"></div>
+                                                    <a href="#">Görüntüle</a>
+                                                </div>
+                                            </td>
+                                            <td width="20">
+                                                {{ a.created_at|date:"d-m-Y" }}
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="text-center">
+                                                    <img src="{% static 'img/student/announcement.png' %}" alt="Lesson"
+                                                         style="width: 200px; height: 200px;">
+                                                </div>
+                                                <div class="text-center"><h5>Duyuru bulunmamaktadır.</h5>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Eğitimlerim</h4>
+                            <div class="card-header-action">
+                                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#addEducation"><i
+                                        class="fa fa-plus mr-2"></i>Eğitim
+                                    Ekle</a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Eğitim Adı</th>
+                                        <th>Onay Durumu</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for e in student_education %}
+                                        <tr>
+                                            <td>
+                                                {{ e.education.name }}
+                                            </td>
+                                            <td>
+                                                {% if e.is_approved %}
+                                                    <span class="badge badge-success">Onaylandı</span>
+                                                {% else %}
+                                                    <span class="badge badge-warning">Bekliyor</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="text-center">
+                                                    <img src="{% static 'img/student/online_lesson.png' %}" alt="Lesson"
+                                                         style="width: 200px; height: 200px;">
+                                                </div>
+                                                <div class="text-center"><h5>Kayıtlı eğitiminiz bulunmamaktadır.</h5>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-12 col-sm-12">
+                    <form method="post" class="needs-validation" novalidate="">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Hızlı Soru Sor</h4>
+                            </div>
+                            <div class="card-body pb-0">
+                                <div class="form-group">
+                                    <label>Kayıtlı Olduğun Eğitim</label>
+                                    <select class="form-control" name="education">
+                                        <option value="None">--------</option>
+                                        {% for e in student_education %}
+                                            <option value="{{ e.education.id }}">{{ e.education.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Soru Başlığı</label>
+                                    <input type="text" name="title" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Lütfen soru başlığı giriniz.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Content</label>
+                                    <textarea name="content" class="summernote-simple"></textarea>
+                                </div>
+                            </div>
+                            <div class="card-footer pt-0">
+                                <button type="submit" name="addQuestion" class="btn btn-primary">İlet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addEducation" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eğitim Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Eğitim Seçimi</label>
+                            <select required name="select_education" class="custom-select">
+                                <option value="None">--------</option>
+                                {% for e in all_educations %}
+                                    <option value="{{ e.id }}">{{ e.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Eğitime Kayıtlı E-Posta</label>
+                            <input type="email" name="select_email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="newEducationAdd" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

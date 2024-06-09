@@ -32,10 +32,13 @@
             {% include 'backend/partials/__sidebar.html' %}
         {% endif %}
 
+        {% include 'backend/partials/__messages.html' %}
 
         {% block login %}
         {% endblock %}
         {% block mainpage %}
+        {% endblock %}
+        {% block management %}
         {% endblock %}
         {% block blog %}
         {% endblock %}
@@ -68,6 +71,7 @@
 <!-- Template JS File -->
 <script src="{% static 'backend/js/scripts.js' %}"></script>
 <script src="{% static 'backend/js/custom.js' %}"></script>
+<script src="{% static 'backend/js/announcement.js' %}"></script>
 {% block extra_script %}
 {% endblock %}
 </body>

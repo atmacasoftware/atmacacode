@@ -1,55 +1,31 @@
-import datetime
-from datetime import datetime
-
 from django.template import defaultfilters
-from django.utils import timezone
-import random
-
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from unidecode import unidecode
-
 from atmacacode.settings import AUTH_USER_MODEL
 
 User = AUTH_USER_MODEL
-
-
 # Create your models here.
 
-class AdminUser(models.Model):
-    user = models.OneToOneField(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, verbose_name='İsim')
-    last_name = models.CharField(max_length=60, verbose_name='Soyisim')
-    phone = models.CharField(max_length=15, verbose_name='Telefon Numarası')
-    email = models.EmailField(verbose_name='Email')
-    password = models.CharField(max_length=100)
-    address = models.TextField(max_length=300, verbose_name='Adres', null=True)
-    is_admin = models.BooleanField(default=True, null=True)
-    photo = models.ImageField(upload_to='static/img/admin_photo/', null=True, blank=True,
-                              verbose_name='Yönetici Fotoğrafı')
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    is_exist = models.BooleanField(default=False, null=True)
+class SiteSettings(models.Model):
+    site_name = models.CharField(max_length=100, null=True, blank=True)
+    site_title = models.CharField(max_length=100, null=True, blank=True)
+    site_description = models.TextField(null=True, blank=True)
+    site_author = models.CharField(max_length=100, null=True, blank=True)
+    site_keywords = models.CharField(max_length=125, null=True, blank=True)
+    site_logo = models.ImageField(upload_to='img/logo', null=True, blank=True)
+    site_email = models.EmailField(max_length=254, null=True, blank=True)
+    site_whatsapp = models.CharField(max_length=100, null=True, blank=True)
+    instagram_link = models.CharField(max_length=150,null=True, blank=True)
+    linkedin_link = models.CharField(max_length=150, null=True, blank=True)
+    facebook_link = models.CharField(max_length=150, null=True, blank=True)
+    youtube_link = models.CharField(max_length=150, null=True, blank=True)
+    udemy_link = models.CharField(max_length=150, null=True, blank=True)
 
-    class Meta:
-        verbose_name = "Yönetici"
-        verbose_name_plural = "Yöneticiler"
-
-    def __str__(self):
-        return f"{self.user}"
-
-    def get_profil_photo(self):
-        if self.photo:
-            return self.photo.url
-        else:
-            return "/static/img/empty_standart.png"
-
-    @staticmethod
-    def get_admin_by_email(email):
-        try:
-            return AdminUser.objects.get(email=email)
-        except:
-            return False
-
+    def get_logo(self):
+        if self.site_logo:
+            return self.site_logo.url
+        return None
 
 class Task(models.Model):
     user = models.ForeignKey(User, verbose_name='Yetkili Kişi', on_delete=models.CASCADE)
@@ -154,3 +130,32 @@ class Blog(models.Model):
 class BlogUserIp(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="Blog", null=True)
     ip = models.CharField(max_length=100, verbose_name="Kullanıcı IP Adres", null=True, blank=True)
+
+class Education(models.Model):
+    name = models.CharField(max_length=300, verbose_name="Eğitim Adı")
+    status = models.BooleanField(default=False, verbose_name="Yayın Durumu")
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def student_oferring_count(self):
+        return self.studentEducation.filter(is_approved=False).count()
+    def student_registred_count(self):
+        return self.studentEducation.filter(is_approved=True).count()
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.slug:
+            slug = defaultfilters.slugify(unidecode(self.name))
+            slug_exists = True
+            counter = 1
+            self.slug = slug
+            while slug_exists:
+                try:
+                    slug_exits = Education.objects.get(slug=slug)
+                    if slug_exits:
+                        slug = self.slug + '_' + str(counter)
+                        counter += 1
+                except Education.DoesNotExist:
+                    self.slug = slug
+                    break
+        super(Education, self).save(*args, **kwargs)

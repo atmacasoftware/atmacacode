@@ -46,22 +46,22 @@
                         </a>
                     </div>
                     <ul class="footer-widget-list-icon">
-                        <li><i class="fa-solid fa-envelope fa-2x"></i><a href="mailto:info@atmacacode.com"
-                                                                         target="_blank"><span>info@atmacacode.com</span></a>
+                        <li><i class="fa-solid fa-envelope fa-2x"></i><a href="mailto:{{ site_settings.site_email }}"
+                                                                         target="_blank"><span>{{ site_settings.site_email }}</span></a>
                         </li>
-                        <li><i class="fa-brands fa-whatsapp fa-2x"></i><a href="https://api.whatsapp.com/send?phone=905525551106"
+                        <li><i class="fa-brands fa-whatsapp fa-2x"></i><a href="https://api.whatsapp.com/send?phone={{ site_settings.site_whatsapp }}"
                                                                           target="_blank"><span>Whatsapp</span></a></li>
                     </ul>
                     <ul class="social-icon d-flex flex-start">
                         <li>
-                            <a href="https://www.facebook.com/atmacacode/" target="_blank" class="facebook"><i
+                            <a href="{{ site_settings.facebook_link }}" target="_blank" class="facebook"><i
                                     class="fab fa-facebook-f"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/company/atmacacode/" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="{{ site_settings.linkedin_link }}" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/atmacacode/" target="_blank" class="instagram"><i
+                            <a href="{{ site_settings.instagram_link }}" target="_blank" class="instagram"><i
                                     class="fab fa-instagram"></i></a>
                         </li>
                     </ul>
@@ -124,7 +124,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="copyright wow fadeIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                    <p class="order-md-1 order-2">© Copyright 2022 <span>atmacacode.com</span>. Tüm Hakları Saklıdır.
+                    <p class="order-md-1 order-2">© Copyright 2022 <span>{{ site_settings.site_name }}</span>. Tüm Hakları Saklıdır.
                     </p>
 
                     <ul class="footer-bootm-list order-md-2 order-1">

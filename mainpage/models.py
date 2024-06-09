@@ -1,5 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.template import defaultfilters
 from django.utils.text import slugify
 from unidecode import unidecode
 # Create your models here.
@@ -8,35 +9,37 @@ class MainSlider(models.Model):
     slider_title = models.CharField(max_length=150, verbose_name='Slider Başlık', null=True)
     sub_title = models.CharField(max_length=255, verbose_name='Alt Başlık', null=True)
     text = models.CharField(max_length=300, verbose_name='Text', null=True)
-    image1 = models.ImageField(upload_to='img/', verbose_name='1. Fotoğraf (424 x 502)', null=True, blank=True)
-    image2 = models.ImageField(upload_to='img/', verbose_name='2. Fotoğraf (376 x 376)', null=True, blank=True)
+    image1 = models.ImageField(upload_to='img/slider/', verbose_name='1. Fotoğraf (424 x 502)', null=True, blank=True)
+    image2 = models.ImageField(upload_to='img/slider', verbose_name='2. Fotoğraf (376 x 376)', null=True, blank=True)
     details_img = models.ImageField(upload_to='img/detay/', verbose_name='Detay Fotoğraf (872 x 510)', null=True,
                                     blank=True)
-    shape1 = models.ImageField(upload_to='img/', verbose_name='1. Shape', null=True, blank=True)
-    shape2 = models.ImageField(upload_to='img/', verbose_name='2. Shape', null=True, blank=True)
-    shape3 = models.ImageField(upload_to='img/', verbose_name='3. Shape', null=True, blank=True)
-    shape4 = models.ImageField(upload_to='img/', verbose_name='4. Shape', null=True, blank=True)
-    shape5 = models.ImageField(upload_to='img/', verbose_name='5. Shape', null=True, blank=True)
-    shape6 = models.ImageField(upload_to='img/', verbose_name='6. Shape', null=True, blank=True)
-    shape7 = models.ImageField(upload_to='img/', verbose_name='7. Shape', null=True, blank=True)
-    shape8 = models.ImageField(upload_to='img/', verbose_name='8. Shape', null=True, blank=True)
-    shape9 = models.ImageField(upload_to='img/', verbose_name='9. Shape', null=True, blank=True)
-    shape10 = models.ImageField(upload_to='img/', verbose_name='10. Shape', null=True, blank=True)
     content = RichTextUploadingField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    slider_ids = models.IntegerField(default=0)
     slug = models.SlugField(max_length=1000, unique=False, null=True)
 
     class Meta:
         verbose_name = "Ana Slider"
         verbose_name_plural = "Ana Slider"
+        ordering = ['-create_at']
 
     def save(self, *args, **kwargs):
-        value = self.slider_title
-        self.slug = slugify(unidecode(value), allow_unicode=True)
-        super().save(*args, **kwargs)
+        if not self.id and not self.slug:
+            slug = defaultfilters.slugify(unidecode(self.slider_title))
+            slug_exists = True
+            counter = 1
+            self.slug = slug
+            while slug_exists:
+                try:
+                    slug_exits = MainSlider.objects.get(slug=slug)
+                    if slug_exits:
+                        slug = self.slug + '_' + str(counter)
+                        counter += 1
+                except MainSlider.DoesNotExist:
+                    self.slug = slug
+                    break
+        super(MainSlider, self).save(*args, **kwargs)
 
     def get_image1(self):
         if self.image1:
@@ -53,66 +56,6 @@ class MainSlider(models.Model):
     def get_detail(self):
         if self.details_img:
             return self.details_img.url
-        else:
-            return None
-
-    def get_shape1(self):
-        if self.shape1:
-            return self.shape1.url
-        else:
-            return None
-
-    def get_shape2(self):
-        if self.shape2:
-            return self.shape2.url
-        else:
-            return None
-
-    def get_shape3(self):
-        if self.shape3:
-            return self.shape3.url
-        else:
-            return None
-
-    def get_shape4(self):
-        if self.shape4:
-            return self.shape4.url
-        else:
-            return None
-
-    def get_shape5(self):
-        if self.shape5:
-            return self.shape5.url
-        else:
-            return None
-
-    def get_shape6(self):
-        if self.shape6:
-            return self.shape6.url
-        else:
-            return None
-
-    def get_shape7(self):
-        if self.shape7:
-            return self.shape7.url
-        else:
-            return None
-
-    def get_shape8(self):
-        if self.shape8:
-            return self.shape8.url
-        else:
-            return None
-
-    def get_shape9(self):
-        if self.shape9:
-            return self.shape9.url
-        else:
-            return None
-
-    def get_shape10(self):
-        if self.shape10:
-            return self.shape10.url
         else:
             return None
 

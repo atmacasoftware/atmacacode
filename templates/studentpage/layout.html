@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{% static 'backend/modules/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/modules/fontawesome/css/all.min.css' %}">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{% static 'backend/modules/jqvmap/dist/jqvmap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/modules/summernote/summernote-bs4.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/modules/owlcarousel2/dist/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/modules/owlcarousel2/dist/assets/owl.theme.default.min.css' %}">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'student/css/student.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'backend/css/components.css' %}">
+
+    {% block extra_style %}
+    {% endblock %}
+
+<body>
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        {% include 'studentpage/partials/__navbar.html' %}
+        {% include 'studentpage/partials/__messages.html' %}
+
+        {% block dashboard %}
+        {% endblock %}
+
+        {% include 'studentpage/partials/__footer.html' %}
+    </div>
+</div>
+
+<!-- General JS Scripts -->
+<script src="{% static 'backend/modules/jquery.min.js' %}"></script>
+<script src="{% static 'backend/modules/popper.js' %}"></script>
+<script src="{% static 'backend/modules/tooltip.js' %}"></script>
+<script src="{% static 'backend/modules/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'backend/modules/nicescroll/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'backend/modules/moment.min.js' %}"></script>
+<script src="{% static 'backend/js/stisla.js' %}"></script>
+
+<!-- JS Libraies -->
+<script src="{% static 'backend/modules/jquery.sparkline.min.js' %}"></script>
+<script src="{% static 'backend/modules/chart.min.js' %}"></script>
+<script src="{% static 'backend/modules/owlcarousel2/dist/owl.carousel.min.js' %}"></script>
+<script src="{% static 'backend/modules/summernote/summernote-bs4.js' %}"></script>
+<script src="{% static 'backend/modules/chocolat/dist/js/jquery.chocolat.min.js' %}"></script>
+
+<!-- Page Specific JS File -->
+<script src="{% static 'backend/js/page/index.js' %}"></script>
+
+<!-- Template JS File -->
+<script src="{% static 'backend/js/scripts.js' %}"></script>
+<script src="{% static 'backend/js/custom.js' %}"></script>
+{% block extra_script %}
+{% endblock %}
+</body>
+</html>

@@ -150,12 +150,16 @@
                     {% if request.user.is_authenticated %}
                         <a href="#">Hesabım</a>
                         <ul class="sub-menu">
-                            <li>
-                                <a href="{% url 'customer_profile' request.user %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
-                            </li>
-                            <li><a href="{% url 'customer_order' request.user %}">Siparişlerim</a></li>
-                            <li><a href="{% url 'customer_announcement' request.user %}">Duyurularım</a></li>
-                            <li><a href="{% url 'create_support' request.user %}">Destek Taleplerim</a></li>
+                            {% if request.user.is_student %}
+                                <li><a href="{% url 'student_dashboard' %}">Çalışma Paneli</a></li>
+                            {% else %}
+                                <li>
+                                    <a href="{% url 'customer_profile' request.user %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                                </li>
+                                <li><a href="{% url 'customer_order' request.user %}">Siparişlerim</a></li>
+                                <li><a href="{% url 'customer_announcement' request.user %}">Duyurularım</a></li>
+                                <li><a href="{% url 'create_support' request.user %}">Destek Taleplerim</a></li>
+                            {% endif %}
                             <li><a href="{% url 'customer_logout' %}">Çıkış Yap</a></li>
                         </ul>
                     {% else %}

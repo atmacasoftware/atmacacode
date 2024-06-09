@@ -1,0 +1,231 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Site Yönetimi | Duyurular{% endblock %}
+
+{% block management %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Tüm Duyurular</h1>
+                <div class="section-header-button">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addAnnouncement">Duyuru Ekle
+                    </button>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Tüm Duyurular</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Tüm Duyurular</h4>
+                                <div class="card-header-action">
+                                    <a href="#" class="btn btn-danger" type="button" data-toggle="modal"
+                                       data-target="#modal-select-delete">Tümünü Sil</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-md">
+                                        <tbody>
+                                        <tr>
+                                            <th>Resim 1</th>
+                                            <th>Resim 2</th>
+                                            <th>Başlık</th>
+                                            <th>Alt Başlık</th>
+                                            <th>Text</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                            <th>Güncellenme Tarihi</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                        {% for a in mainslider %}
+                                            <tr>
+                                                <td><img src="{{ a.get_image1 }}" alt="Resim 1" style="width: 50px; height: 50px;"></td>
+                                                <td><img src="{{ a.get_image2 }}" alt="Resim 2" style="width: 50px; height: 50px;"></td>
+                                                <td>{{ a.slider_title }}</td>
+                                                <td>{{ a.sub_title }}</td>
+                                                <td>{{ a.text|truncatechars_html:50 }}</td>
+                                                <td>{{ a.create_at|date:"d-m-Y" }}</td>
+                                                <td>{{ a.update_at|date:"d-m-Y" }}</td>
+                                                <td>
+                                                    <a href="{% url 'announcement_update' a.id %}"
+                                                       class="btn btn-primary">Güncelle</a>
+                                                    <a href="{% url 'announcement_delete' a.id %}"
+                                                       class="btn btn-danger">Sil</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <nav aria-label="pagination" class="pagination_area">
+                                    <div class="row">
+                                        {% if mainslider.end_index > 0 %}
+                                            <div class="col-sm-12 col-md-5 d-none d-md-block">
+                                                <p class="float-left">Showing {{ mainslider.start_index }}
+                                                    to {{ mainslider.end_index }}
+                                                    of {{ mainslider.paginator.count }}.</p>
+                                            </div>
+                                        {% endif %}
+                                        {% if mainslider.paginator.num_pages > 1 %}
+                                            <div class="col-sm-12 col-md-7 dataTables_pager">
+                                                <ul class="pagination float-right">
+                                                    {% if mainslider.has_previous %}
+
+                                                        <li class="page-item">
+                                                            <a class="page-link" data-page="1"
+                                                               href="?page=1">
+                                                                <i class="fa fa-angle-double-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        {% if mainslider.previous_page_number > 1 %}
+                                                            <li class="page-item">
+                                                                <a class="page-link "
+                                                                   data-page="{{ mainslider.previous_page_number }}"
+                                                                   href="?page={{ mainslider.previous_page_number }}">
+                                                                    <i class="fa fa-angle-left"></i>
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                    {% endif %}
+
+                                                    {% if mainslider.previous_page_number > 2 %}
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.number|add:'-2' }}"
+                                                               href="?page={{ mainslider.number|add:'-2' }}"> {{ mainslider.number|add:"-2" }} </a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.number|add:'-1' }}"
+                                                               href="?page={{ mainslider.number|add:'-1' }}"> {{ mainslider.number|add:"-1" }} </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    <li class="page-item active"><span
+                                                            class="page-link ">{{ mainslider.number }}</span></li>
+
+                                                    {% if mainslider.paginator.num_pages > mainslider.number|add:"2" %}
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.number|add:'1' }}"
+                                                               href="?page={{ mainslider.number|add:'1' }}"> {{ mainslider.number|add:"1" }} </a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.number|add:'2' }}"
+                                                               href="?page={{ mainslider.number|add:'2' }}"> {{ mainslider.number|add:"2" }} </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% if mainslider.has_next %}
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.next_page_number }}"
+                                                               href="?page={{ mainslider.next_page_number }}">
+                                                                <i class="fa fa-angle-right"></i>
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="page-item">
+                                                            <a class="page-link "
+                                                               data-page="{{ mainslider.paginator.num_pages }}"
+                                                               href="?page={{ mainslider.paginator.num_pages }}">
+                                                                <i class="fa fa-angle-double-right"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="modal-select-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Emin misin?</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tüm duyurular silenecektir.</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{% url 'announcement_all_delete' %}" id="deleteNow" class="btn btn-danger">
+                        Sil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="addAnnouncement" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Duyuru Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="slider_title">Başlık</label>
+                            <input type="text" id="slider_title" name="slider_title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="sub_title">Alt Başlık</label>
+                            <input type="text" id="sub_title" name="sub_title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Kısa Metin</label>
+                            <input type="text" id="text" name="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="image1">1. Fotoğraf (424 x 502)</label>
+                            <input type="file" accept="image/*" id="image1" name="image1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="image2">2. Fotoğraf (376 x 376)</label>
+                            <input type="file" accept="image/*" id="image2" name="image2" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="details_img">Detay Fotoğraf (872 x 510)</label>
+                            <input type="file" accept="image/*" id="details_img" name="details_img" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>İçerik</label>
+                            <textarea name="content" class="summernote"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button name="submit" type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
