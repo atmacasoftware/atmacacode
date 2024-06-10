@@ -1,0 +1,139 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Kullanıcı Yönetimi | Kullanıcılar{% endblock %}
+
+{% block users %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Tüm Kullanıcılar</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Tüm Kullanıcılar</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Kullanıcılar</h2>
+                <p class="section-lead">
+                    Bu sayfada kullanıcılar görüntüleyebilirsiniz.
+                </p>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if 'hepsi' in request.path %}active{% endif %} user-type" data-value="all" href="{% url 'admin_users' %}">Hepsi <span
+                                                class="badge badge-{% if 'hepsi' in request.path %}white{% else %}primary{% endif %}">{{ user_count.user_count }}</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link user-type {% if 'ogrenci' in request.path %}active{% endif %}" data-value="student" href="{% url 'admin_users_student' %}">Öğrenci <span
+                                                class="badge badge-{% if 'ogrenci' in request.path %}white{% else %}primary{% endif %}">{{ user_count.student_count }}</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link user-type {% if 'musteri' in request.path %}active{% endif %}" data-value="customer" href="{% url 'admin_users_customer' %}">Müşteri <span
+                                                class="badge badge-{% if 'musteri' in request.path %}white{% else %}primary{% endif %}">{{ user_count.customer_count }}</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link user-type {% if 'admin' in request.path %}active{% endif %}" data-value="admin" href="{% url 'admin_users_admin' %}">Admin <span
+                                                class="badge badge-{% if 'admin' in request.path %}white{% else %}primary{% endif %}">{{ user_count.admin_count }}</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Tüm Kullanıcılar</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="search" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th class="text-center pt-2">
+                                                <div class="custom-checkbox custom-checkbox-table custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup"
+                                                           data-checkbox-role="dad" class="custom-control-input"
+                                                           id="checkbox-all">
+                                                    <label for="checkbox-all"
+                                                           class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                            <th>Kullanıcı Tipi</th>
+                                            <th>Ad-Soyad</th>
+                                            <th>Email</th>
+                                            <th>Telefon</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                            <th>Durum</th>
+                                        </tr>
+                                        {% for u in paginating %}
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-checkbox custom-control">
+                                                        <input type="checkbox" data-checkboxes="mygroup"
+                                                               class="custom-control-input" id="checkbox-2">
+                                                        <label for="checkbox-2"
+                                                               class="custom-control-label">&nbsp;</label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-{% if u.is_superuser %}danger{% elif u.is_customer %}warning{% elif u.is_student %}primary{% endif %}">
+                                                    {% if u.is_superuser %}Yönetici{% elif u.is_customer %}
+                                                        Müşteri{% elif u.is_student %}Öğrenci{% endif %}
+                                                    </span>
+                                                </td>
+                                                <td>{{ u.first_name }} {{ u.last_name }}
+                                                    <div class="table-links">
+                                                        <a href="#">Görüntüle</a>
+                                                        <div class="bullet"></div>
+                                                        <a href="#" class="text-danger">Sil</a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ u.email }}
+                                                </td>
+                                                <td>
+                                                    {{ u.mobile }}
+                                                </td>
+                                                <td>{{ u.created_date|date:"d-m-Y" }}</td>
+                                                <td>
+                                                    <div class="badge badge-{% if u.is_active %}success{% else %}danger{% endif %}">
+                                                        {% if u.is_active %}Aktif{% else %}Pasif{% endif %}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="">
+                                    {% include 'backend/partials/__pagination.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from online_users.models import OnlineUserActivity
 
@@ -10,6 +11,7 @@ from adminpage.models import Task, BlogCategory, Blog, Education, SiteSettings
 from mainpage.models import MainSlider, Subscribe
 from student.models import StudentAnnouncements, StudentEducation, StudentQuestions
 from user_accounts.models import User
+from user_accounts.views import user_count
 
 
 def admin_login(request):
@@ -62,7 +64,8 @@ def admin_main_page(request):
 
     return render(request, "backend/pages/mainpage.html",
                   {'user': user, 'student_count': student_count, 'customer_count': customer_count,
-                   'number_of_active_users': number_of_active_users, 'blog_views': blog_views, 'last_ten_blog':last_ten_blog})
+                   'number_of_active_users': number_of_active_users, 'blog_views': blog_views,
+                   'last_ten_blog': last_ten_blog})
 
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
@@ -434,6 +437,83 @@ def student_announcement_showing(request, id):
     context.update({'announcement': announcement})
     return render(request, 'backend/pages/education/announcement_show.html', context)
 
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def users(request):
+    context = {}
+
+    search = request.GET.get('search')
+    users = User.objects.all()
+
+    if search:
+        users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
+
+
+    p = Paginator(users, 30)
+    page = request.GET.get('page')
+    all_users = p.get_page(page)
+
+
+    context.update({'paginating': all_users, 'user_count': user_count(request)})
+
+    return render(request, 'backend/pages/users/users.html', context)
+
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def users_student(request):
+    context = {}
+
+    search = request.GET.get('search')
+    users = User.objects.filter(is_student=True)
+
+    if search:
+        users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
+
+    p = Paginator(users, 30)
+    page = request.GET.get('page')
+    all_users = p.get_page(page)
+
+    context.update({'paginating': all_users, 'user_count': user_count(request)})
+
+    return render(request, 'backend/pages/users/users.html', context)
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def users_customer(request):
+    context = {}
+
+    search = request.GET.get('search')
+    users = User.objects.filter(is_customer=True)
+
+    if search:
+        users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
+
+    p = Paginator(users, 30)
+    page = request.GET.get('page')
+    all_users = p.get_page(page)
+
+    context.update({'paginating': all_users, 'user_count': user_count(request)})
+
+    return render(request, 'backend/pages/users/users.html', context)
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def users_admin(request):
+    context = {}
+
+    search = request.GET.get('search')
+    users = User.objects.filter(is_superuser=True)
+
+    if search:
+        users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
+
+
+    p = Paginator(users, 30)
+    page = request.GET.get('page')
+    all_users = p.get_page(page)
+
+    context.update({'paginating': all_users, 'user_count': user_count(request)})
+
+    return render(request, 'backend/pages/users/users.html', context)
+
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def profile(request):
     context = {}
@@ -445,7 +525,7 @@ def profile(request):
     education_count = StudentEducation.objects.filter(user=request.user).count()
     question_count = StudentQuestions.objects.filter(user=request.user).count()
 
-    context.update({'subscribe': subscribe, 'education_count':education_count, 'question_count':question_count})
+    context.update({'subscribe': subscribe, 'education_count': education_count, 'question_count': question_count})
 
     if 'submit' in request.POST:
         first_name = request.POST.get("first_name")

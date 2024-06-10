@@ -13,13 +13,15 @@
                     <span>Site Yönetimi</span></a>
                 <ul class="dropdown-menu">
                     <li {% if 'site-yonetimi/duyurular/' in request.path %}class="active"{% endif %}><a class="nav-link"
-                                                                                                 href="{% url 'general_announcement' %}">Duyurular</a></li>
-                    <li {% if 'site-yonetimi/site-ayarlari/' in request.path %}class="active"{% endif %}><a class="nav-link"
-                                                                                                    href="{% url 'general_settings' %}">Genel Bilgiler</a></li>
+                                                                                                        href="{% url 'general_announcement' %}">Duyurular</a>
+                    </li>
+                    <li {% if 'site-yonetimi/site-ayarlari/' in request.path %}class="active"{% endif %}><a
+                            class="nav-link"
+                            href="{% url 'general_settings' %}">Genel Bilgiler</a></li>
                 </ul>
             </li>
             <li class="dropdown {% if 'blog' in request.path %}active{% endif %}">
-                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-align-left"></i>
                     <span>Blog Yönetimi</span></a>
                 <ul class="dropdown-menu">
                     <li {% if 'blog/tum-yazilar/' in request.path %}class="active"{% endif %}><a class="nav-link"
@@ -34,13 +36,25 @@
                 </ul>
             </li>
             <li class="dropdown {% if 'egitim-yonetimi' in request.path %}active{% endif %}">
-                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-graduation-cap"></i>
                     <span>Eğitim Yönetimi</span></a>
                 <ul class="dropdown-menu">
                     <li {% if request.path == '/yonetim-paneli/egitim-yonetimi/' %}class="active"{% endif %}><a
                             class="nav-link" href="{% url 'education' %}">Eğitimler</a></li>
                     <li {% if 'egitim-yonetimi/duyurular/' in request.path %}class="active"{% endif %}><a
                             class="nav-link" href="{% url 'student_announcement' %}">Duyurular</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {% if 'kullanici-yonetimi' in request.path %}active{% endif %}">
+                <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i class="fas fa-users"></i>
+                    <span>Kullanıcı Yönetimi</span></a>
+                <ul class="dropdown-menu">
+                    <li {% if 'kullanici-yonetimi/tum-kullanicilar/' in request.path %}class="active"{% endif %}><a class="nav-link"
+                                                                                                        href="{% url 'admin_users' %}">Tüm Kullanıcılar</a>
+                    </li>
+                    <li {% if 'site-yonetimi/site-ayarlari/' in request.path %}class="active"{% endif %}><a
+                            class="nav-link"
+                            href="{% url 'general_settings' %}">Genel Bilgiler</a></li>
                 </ul>
             </li>
         </ul>

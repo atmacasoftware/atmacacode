@@ -29,6 +29,10 @@ urlpatterns = [
     path('yonetim-paneli/egitim-yonetimi/duyurular/hepsini-sil/', student_announcement_delete_all, name="student_announcement_delete_all"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/goruntule/<int:id>/', student_announcement_showing, name="student_announcement_showing"),
     path('yonetim-paneli/hesabim/', profile, name="admin_profile"),
+    path('yonetim-paneli/kullanici-yonetimi/tum-kullanicilar/hepsi/', users, name="admin_users"),
+    path('yonetim-paneli/kullanici-yonetimi/tum-kullanicilar/ogrenci/', users_student, name="admin_users_student"),
+    path('yonetim-paneli/kullanici-yonetimi/tum-kullanicilar/musteri/', users_customer, name="admin_users_customer"),
+    path('yonetim-paneli/kullanici-yonetimi/tum-kullanicilar/admin/', users_admin, name="admin_users_admin"),
 
     ## API
     path('blog/api/tum-yazilar/', BlogApiView.as_view()),
