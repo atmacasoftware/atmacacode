@@ -1,0 +1,103 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}{{ announcement.title|truncatechars_html:50 }}{% endblock %}
+
+{% block annoucement %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Duyuru Görüntüle</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item active"><a href="{% url 'all_announcements' %}">Tüm Duyurular</a></div>
+                    <div class="breadcrumb-item">{{ announcement.title|truncatechars_html:30 }}</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="{% url 'all_announcements' %}"><i class="fa fa-arrow-circle-left fa-2x"></i></a>
+                        <div class="card mt-2">
+                            <div class="card-header">
+                                <h4>{{ announcement.title|truncatechars_html:50 }}</h4>
+                                <div class="card-header-action">
+                                    <a href="{% url 'delete_announcement' announcement.id %}" class="btn btn-danger" type="button" data-toggle="modal"
+                                       data-target="#modal-select-delete">Sil</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <p><b>Başlık: </b> {{ announcement.title }}</p>
+                                </div>
+                                <div>
+                                    <p><b>Duyuru Tipi: </b> {{ announcement.type_choices }}</p>
+                                </div>
+                                <div>
+                                    <p><b>Kullanıcı: </b> <a href="">{{ announcement.users.email }} ({{ announcement.users.first_name }} {{ announcement.users.last_name }})</a></p>
+                                </div>
+                                <div>
+                                    <p><b>İçerik: </b> {{ announcement.content|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="modal-select-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Emin misin?</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tüm duyurular silenecektir.</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{% url 'student_announcement_delete_all' %}" id="deleteNow" class="btn btn-danger">
+                        Sil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="addAnnouncement" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Duyuru Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="title">Başlık</label>
+                            <input type="text" id="title" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>İçerik</label>
+                            <textarea name="content" class="summernote-simple"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button name="submit" type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

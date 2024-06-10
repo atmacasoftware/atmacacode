@@ -3,10 +3,12 @@ from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from online_users.models import OnlineUserActivity
+
 from adminpage.form import TaskForm, NoteForm
 from adminpage.models import Task, BlogCategory, Blog, Education, SiteSettings
-from mainpage.models import MainSlider
-from student.models import StudentAnnouncements
+from mainpage.models import MainSlider, Subscribe
+from student.models import StudentAnnouncements, StudentEducation, StudentQuestions
 from user_accounts.models import User
 
 
@@ -46,10 +48,21 @@ def logout(request):
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def admin_main_page(request):
     user = request.user
-    task = Task.objects.filter(user=user)
-    task_count = task.count()
+    student_count = User.objects.filter(is_student=True).count()
+    customer_count = User.objects.filter(is_customer=True).count()
+    user_activity_objects = OnlineUserActivity.get_user_activities()
+    number_of_active_users = user_activity_objects.count()
+
+    blog_views = 0
+
+    for b in Blog.objects.all():
+        blog_views += b.view_count
+
+    last_ten_blog = Blog.objects.all().order_by('-view_count')[:10]
+
     return render(request, "backend/pages/mainpage.html",
-                  {'user': user, 'task': task, 'task_count': task_count})
+                  {'user': user, 'student_count': student_count, 'customer_count': customer_count,
+                   'number_of_active_users': number_of_active_users, 'blog_views': blog_views, 'last_ten_blog':last_ten_blog})
 
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
@@ -94,7 +107,11 @@ def general_settings(request):
             return redirect('general_settings')
 
         if site is None:
-            SiteSettings.objects.create(site_name=site_name, site_title=site_title, site_description=site_description, site_author=site_author, site_keywords=site_keywords, site_logo=site_logo, site_email=site_email, site_whatsapp=site_whatsapp, instagram_link=instagram_link, linkedin_link=linkedin_link, facebook_link=facebook_link, udemy_link=udemy_link)
+            SiteSettings.objects.create(site_name=site_name, site_title=site_title, site_description=site_description,
+                                        site_author=site_author, site_keywords=site_keywords, site_logo=site_logo,
+                                        site_email=site_email, site_whatsapp=site_whatsapp,
+                                        instagram_link=instagram_link, linkedin_link=linkedin_link,
+                                        facebook_link=facebook_link, udemy_link=udemy_link)
             messages.success(request, "Site ayarları oluşturuldu!")
         messages.error(request, "Bir hata meydana geldi!")
         return redirect('general_settings')
@@ -160,6 +177,7 @@ def add_note_page(request, username):
                 pass
         return render(request, "adminpage/partials/add_note.html",
                       {'user': user, 'form': note_form, 'task_count': task_count})
+
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def general_announcement(request):
@@ -415,3 +433,50 @@ def student_announcement_showing(request, id):
 
     context.update({'announcement': announcement})
     return render(request, 'backend/pages/education/announcement_show.html', context)
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def profile(request):
+    context = {}
+    try:
+        subscribe = Subscribe.objects.get(email=request.user.email)
+    except:
+        subscribe = None
+
+    education_count = StudentEducation.objects.filter(user=request.user).count()
+    question_count = StudentQuestions.objects.filter(user=request.user).count()
+
+    context.update({'subscribe': subscribe, 'education_count':education_count, 'question_count':question_count})
+
+    if 'submit' in request.POST:
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        mobile = request.POST.get("mobile")
+        birthday = request.POST.get("birthday")
+        job = request.POST.get("job")
+        linkedin = request.POST.get("linkedin")
+        github = request.POST.get("github")
+        bio = request.POST.get("bio")
+        form_subscribe = request.POST.get("subscribe")
+
+        request.user.first_name = first_name
+        request.user.last_name = last_name
+        request.user.mobile = mobile
+        if birthday:
+            request.user.birthday = birthday
+        request.user.job_title = job
+        request.user.linkedin = linkedin
+        request.user.github = github
+        request.user.bio = bio
+        request.user.save()
+
+        if form_subscribe == "on":
+            if subscribe is None:
+                Subscribe.objects.create(email=request.user.email)
+        else:
+            if subscribe is not None:
+                subscribe.delete()
+
+        messages.success(request, 'Hesap başarıyla güncellendi!')
+        return redirect('admin_profile')
+
+    return render(request, 'backend/pages/profile/account.html', context)

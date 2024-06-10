@@ -28,6 +28,7 @@ urlpatterns = [
     path('yonetim-paneli/egitim-yonetimi/duyurular/sil/<int:id>/', student_announcement_delete, name="student_announcement_delete"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/hepsini-sil/', student_announcement_delete_all, name="student_announcement_delete_all"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/goruntule/<int:id>/', student_announcement_showing, name="student_announcement_showing"),
+    path('yonetim-paneli/hesabim/', profile, name="admin_profile"),
 
     ## API
     path('blog/api/tum-yazilar/', BlogApiView.as_view()),

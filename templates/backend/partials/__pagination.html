@@ -1,0 +1,83 @@
+<nav aria-label="pagination" class="pagination_area">
+    <div class="row">
+        {% if paginating.end_index > 0 %}
+            <div class="col-sm-12 col-md-5 d-none d-md-block">
+                <p class="float-left">Showing {{ paginating.start_index }}
+                    to {{ paginating.end_index }}
+                    of {{ paginating.paginator.count }}.</p>
+            </div>
+        {% endif %}
+        {% if paginating.paginator.num_pages > 1 %}
+            <div class="col-sm-12 col-md-7 dataTables_pager">
+                <ul class="pagination float-right">
+                    {% if paginating.has_previous %}
+
+                        <li class="page-item">
+                            <a class="page-link" data-page="1"
+                               href="?page=1">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        {% if paginating.previous_page_number > 1 %}
+                            <li class="page-item">
+                                <a class="page-link "
+                                   data-page="{{ paginating.previous_page_number }}"
+                                   href="?page={{ paginating.previous_page_number }}">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    {% endif %}
+
+                    {% if paginating.previous_page_number > 2 %}
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.number|add:'-2' }}"
+                               href="?page={{ paginating.number|add:'-2' }}"> {{ paginating.number|add:"-2" }} </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.number|add:'-1' }}"
+                               href="?page={{ paginating.number|add:'-1' }}"> {{ paginating.number|add:"-1" }} </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item active"><span
+                            class="page-link ">{{ paginating.number }}</span></li>
+
+                    {% if v.paginator.num_pages > paginating.number|add:"2" %}
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.number|add:'1' }}"
+                               href="?page={{ paginating.number|add:'1' }}"> {{ paginating.number|add:"1" }} </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.number|add:'2' }}"
+                               href="?page={{ paginating.number|add:'2' }}"> {{ paginating.number|add:"2" }} </a>
+                        </li>
+                    {% endif %}
+
+                    {% if paginating.has_next %}
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.next_page_number }}"
+                               href="?page={{ paginating.next_page_number }}">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link "
+                               data-page="{{ paginating.paginator.num_pages }}"
+                               href="?page={{ paginating.paginator.num_pages }}">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</nav>

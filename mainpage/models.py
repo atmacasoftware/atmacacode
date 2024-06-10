@@ -75,7 +75,7 @@ class Contact(models.Model):
         return f"{self.name}-{self.email}"
 
 class Subscribe(models.Model):
-    email = models.EmailField(blank=False, null=True)
+    email = models.EmailField(blank=False, null=True, unique=True)
     is_subscribe = models.BooleanField(default=True)
 
     class Meta:

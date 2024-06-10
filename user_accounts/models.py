@@ -56,6 +56,7 @@ class User(AbstractUser, PermissionsMixin):
     gender = models.CharField(choices=GENDER, max_length=50, verbose_name="Cinsiyet", default="Erkek")
     github = models.CharField(max_length=255, blank=True, null=True, verbose_name="Github Linki")
     linkedin = models.CharField(max_length=255, blank=True, null=True, verbose_name="Linkedin Linki")
+    job_title = models.CharField(max_length=100, blank=True, null=True, verbose_name="İş Ünvanı")
     bio = models.CharField(blank=True, null=True, verbose_name="Bio", max_length=255)
     is_contract = models.BooleanField(default=False, verbose_name="Sözleşme Onayı")
     created_date = models.DateTimeField(auto_now_add=True, null=True)

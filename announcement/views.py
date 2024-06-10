@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -31,8 +32,13 @@ def refresh_bildirim(request):
 def all_announcements(request):
     context = {}
     announcement = Announcement.objects.all()
-    context.update({'announcement': announcement})
-    return render(request, '', context)
+
+    p = Paginator(announcement, 30)
+    page = request.GET.get('page')
+    announcements = p.get_page(page)
+
+    context.update({'paginating': announcements})
+    return render(request, "backend/pages/announcement.html", context)
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def all_read_announcement(request):
@@ -68,4 +74,4 @@ def show_announcement(request, id):
         'announcement': announcement,
     })
 
-    return render(request, "backend/yonetim/sayfalar/bildirim_oku.html", context)
+    return render(request, "backend/pages/show_announcement.html", context)

@@ -1,0 +1,169 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Hesabım{% endblock %}
+
+{% block profile %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Hesabım</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Hesabım</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Selam, {{ request.user.first_name }} {{ request.user.last_name }}!</h2>
+                <p class="section-lead">
+                    Bu sayfada kendinizle ilgili bilgileri değiştirebilirsiniz.
+                </p>
+
+                <div class="row mt-sm-4">
+                    <div class="col-12 col-md-12 col-lg-5">
+                        <div class="card profile-widget">
+                            <div class="profile-widget-header">
+                                <div class="profile-widget-items p-3 border-0" style="position: unset">
+                                    <div class="bg-primary text-white font-weight-bold"
+                                         style="height: 75px; width: 75px; border-radius: 50%; display: flex; justify-content: center; align-items: center">
+                                        {{ request.user.first_name|slice:1 }} {{ request.user.last_name|slice:1 }}
+                                    </div>
+                                    <div class="profile-widget-item">
+                                        <div class="profile-widget-item-label">Eğitimlerim</div>
+                                        <div class="profile-widget-item-value">{{ education_count }}</div>
+                                    </div>
+                                    <div class="profile-widget-item">
+                                        <div class="profile-widget-item-label">Sorularım</div>
+                                        <div class="profile-widget-item-value">{{ question_count }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-widget-description">
+                                <div class="profile-widget-name">{{ request.user.first_name }} {{ request.user.last_name }}
+                                    <div class="text-muted d-inline font-weight-normal">
+                                        <div class="slash"></div>
+                                        {{ request.user.email }}
+                                    </div>
+                                    {% if request.user.job_title %}
+                                        <div class="text-muted d-inline font-weight-normal">
+                                            <div class="slash"></div>
+                                            {{ request.user.job_title }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if request.user.bio %}
+                                    {{ request.user.bio|safe }}
+                                {% endif %}
+                            </div>
+                            <div class="card-footer text-center">
+                                {% if request.user.github or request.user.linkedin %}
+                                    <div class="font-weight-bold mb-2">Sosyal Medya</div>
+                                    {% if request.user.linkedin %}
+                                        <a href="{{ request.user.linkedin }}"
+                                           class="btn btn-linkedin">
+                                            <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if request.user.github %}
+                                        <a href="{{ request.user.github }}" class="btn text-black btn-github">
+                                            <i class="bi bi-github" style="font-size: 1.5rem; color: black;"></i>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-7">
+                        <div class="card">
+                            <form method="post" class="needs-validation" novalidate="">
+                                {% csrf_token %}
+                                <div class="card-header">
+                                    <h4>Hesabı Düzenle</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="first_name">Ad</label>
+                                            <input type="text" id="first_name" name="first_name" class="form-control"
+                                                   value="{{ request.user.first_name }}" required="">
+                                            <div class="invalid-feedback">
+                                                Lütfen adınızı yazınız.
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="last_name">Soyad</label>
+                                            <input type="text" id="last_name" name="last_name" class="form-control"
+                                                   value="{{ request.user.last_name }}" required="">
+                                            <div class="invalid-feedback">
+                                                Lütfen soyadınızı yazınız.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-7 col-12">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email" class="form-control"
+                                                   value="{{ request.user.email }}" disabled
+                                                   required="">
+                                        </div>
+                                        <div class="form-group col-md-5 col-12">
+                                            <label for="mobile">Telefon</label>
+                                            <input type="tel" name="mobile" id="mobile" class="form-control"
+                                                   value="{% if request.user.mobile %}{{ request.user.mobile }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 col-12">
+                                            <label for="birthday">Doğum Tarihi</label>
+                                            <input type="date" id="birthday" name="birthday" class="form-control"
+                                                   value="{{ request.user.birthday }}">
+                                        </div>
+                                        <div class="form-group col-md-7 col-12">
+                                            <label for="job">İş Ünvanı</label>
+                                            <input type="text" id="job" name="job" class="form-control"
+                                                   value="{% if request.user.job_title %}{{ request.user.job_title }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="linkedin">Linkedin</label>
+                                            <input type="url" id="linkedin" name="linkedin" class="form-control"
+                                                   value="{% if request.user.linkedin %}{{ request.user.linkedin }}{% endif %}">
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="github">Github</label>
+                                            <input type="url" id="github" name="github" class="form-control"
+                                                   value="{% if request.user.github %}{{ request.user.github }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>Bio</label>
+                                            <textarea name="bio" class="form-control">{% if request.user.bio %}{{ request.user.bio }}{% endif %}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group mb-0 col-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="subscribe"
+                                                       {% if subscribe %}checked{% endif %} class="custom-control-input"
+                                                       id="newsletter">
+                                                <label class="custom-control-label" for="newsletter">Kampanya, kupon ve
+                                                    eğitim duyuruları için abone ol!</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-right">
+                                    <button type="submit" name="submit" class="btn btn-primary">Değişiklikleri Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
