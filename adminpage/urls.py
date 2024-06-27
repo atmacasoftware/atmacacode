@@ -24,6 +24,8 @@ urlpatterns = [
     path('yonetim-paneli/blog/kategoriler/', blog_category, name="blog_category"),
     path('yonetim-paneli/blog/kategoriler/kategori-sil/id=<int:id>/', blog_category_delete, name="blog_category_delete"),
     path('yonetim-paneli/egitim-yonetimi/', education, name="education"),
+    path('yonetim-paneli/egitim-yonetimi/istekler/egitim-id=<int:education_id>/', view_education_request, name="view_education_request"),
+    path('yonetim-paneli/egitim-yonetimi/istekler/istek-onayla/', view_education_request_approved, name="view_education_request_approved"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/', student_announcement, name="student_announcement"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/sil/<int:id>/', student_announcement_delete, name="student_announcement_delete"),
     path('yonetim-paneli/egitim-yonetimi/duyurular/hepsini-sil/', student_announcement_delete_all, name="student_announcement_delete_all"),

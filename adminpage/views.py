@@ -3,6 +3,7 @@ from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from online_users.models import OnlineUserActivity
 
@@ -392,6 +393,42 @@ def education(request):
             return redirect('education')
     return render(request, 'backend/pages/education/education.html', context)
 
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def view_education_request(request, education_id):
+    context = {}
+    education = get_object_or_404(Education, id=education_id)
+    student_education = StudentEducation.objects.filter(education=education, is_approved=False)
+
+    search = request.GET.get('search')
+
+    if search:
+        student_education = student_education.filter(user__first_name__icontains=search)
+
+    p = Paginator(student_education, 30)
+    page = request.GET.get('page')
+    studenteducation = p.get_page(page)
+
+    context.update({'education': education, 'paginating':studenteducation})
+
+    return render(request, 'backend/pages/education/view_education_request.html', context)
+
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def view_education_request_approved(request):
+    student_id = request.GET.get('student_id')
+    education_id = request.GET.get('education_id')
+    user_id = request.GET.get('user_id')
+    status = request.GET.get('status')
+
+    user = get_object_or_404(User, id=int(user_id))
+    education = get_object_or_404(Education, id=int(education_id))
+    student_education = StudentEducation.objects.get(user=user, education=education)
+
+    if status == "True" or status == True:
+        student_education.is_approved = True
+    else:
+        student_education.is_approved = False
+    student_education.save()
+    return JsonResponse(data="success", safe=False)
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def student_announcement(request):

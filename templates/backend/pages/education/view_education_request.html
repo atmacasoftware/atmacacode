@@ -1,0 +1,160 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}{{ education.name }} Kayıt İstekleri{% endblock %}
+
+{% block blog %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>{{ education.name }} Kayıt İstekleri</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item active"><a href="{% url 'education' %}">Eğitimler</a></div>
+                    <div class="breadcrumb-item">Kayıt İstekleri</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Kayıt İstekleri</h2>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{ education.name }} Kayıt İstekleri</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" name="search" class="form-control" placeholder="Ad-Soyad Ara">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Eğitim Adı</th>
+                                            <th>Ad-Soyad</th>
+                                            <th>Kullanıcı E-Posta</th>
+                                            <th>Eğitim E-Posta</th>
+                                            <th>İşlem</th>
+                                        </tr>
+                                        {% for e in paginating %}
+                                            <tr>
+                                                <td>{{ education.name }}
+                                                </td>
+                                                <td>{{ e.user.first_name }} {{ e.user.last_name }}</td>
+                                                <td>{{ e.user.email }}</td>
+                                                <td>{{ e.email }}</td>
+                                                <td>
+                                                    <button type="button" id="success-{{ e.id }}" class="btn btn-success">Onayla</button>
+                                                    <script>
+                                                        $("#success-{{ e.id }}").on('click', function (e) {
+                                                            e.preventDefault();
+                                                            $.ajax({
+                                                                type: "GET",
+                                                                url: `/yonetim-paneli/egitim-yonetimi/istekler/istek-onayla/`,
+                                                                data: {
+                                                                    'student_id': {{ e.id }},
+                                                                    'education_id': {{ education.id }},
+                                                                    'user_id': {{ e.user.id }},
+                                                                    'status': "True"
+                                                                },
+                                                                dataType: 'json',
+                                                                beforeSend: function () {
+                                                                    $(".waiting").css('display',
+                                                                        'flex')
+                                                                    $(".waiting").css('visibility',
+                                                                        'visible')
+                                                                },
+                                                                success: function (data) {
+                                                                    $(".waiting").css('display',
+                                                                        'none')
+                                                                    $(".waiting").css('visibility',
+                                                                        'hidden')
+                                                                    swal('Kategori Güncellendi', '',
+                                                                        'success');
+                                                                    if (data === 'success') {
+                                                                        window.location.reload()
+                                                                    }
+                                                                },
+                                                                error: function (e) {
+                                                                    iziToast.error({
+                                                                        title: 'Hata !',
+                                                                        message: `Bir hata meydana geldi. ${e}.`,
+                                                                        position: 'topRight'
+                                                                    });
+                                                                }
+                                                            });
+                                                        })
+                                                    </script>
+                                                    <button id="danger-{{ e.id }}" class="btn btn-danger">Reddet</button>
+                                                    <script>
+                                                        $("#danger-{{ e.id }}").on('click', function (e) {
+                                                            e.preventDefault();
+                                                            $.ajax({
+                                                                type: "GET",
+                                                                url: `/yonetim-paneli/egitim-yonetimi/istekler/istek-onayla/`,
+                                                                data: {
+                                                                    'student_id': {{ e.id }},
+                                                                    'education_id': {{ education.id }},
+                                                                    'user_id': {{ e.user.id }},
+                                                                    'status': "False"
+                                                                },
+                                                                dataType: 'json',
+                                                                beforeSend: function () {
+                                                                    $(".waiting").css('display',
+                                                                        'flex')
+                                                                    $(".waiting").css('visibility',
+                                                                        'visible')
+                                                                },
+                                                                success: function (data) {
+                                                                    $(".waiting").css('display',
+                                                                        'none')
+                                                                    $(".waiting").css('visibility',
+                                                                        'hidden')
+                                                                    swal('Kategori Güncellendi', '',
+                                                                        'success');
+                                                                    if (data === 'success') {
+                                                                        window.location.reload()
+                                                                    }
+                                                                },
+                                                                error: function (e) {
+                                                                    iziToast.error({
+                                                                        title: 'Hata !',
+                                                                        message: `Bir hata meydana geldi. ${e}.`,
+                                                                        position: 'topRight'
+                                                                    });
+                                                                }
+                                                            });
+                                                        })
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                {% include 'backend/partials/__pagination.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{% static 'backend/modules/sweetalert/sweetalert.min.js' %}"></script>
+{% endblock %}
