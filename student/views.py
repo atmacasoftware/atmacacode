@@ -19,6 +19,10 @@ def dashboard(request):
         email = request.POST.get('select_email')
         if education_id and email:
             education = get_object_or_404(Education, id=int(education_id))
+
+            if StudentEducation.objects.filter(user=request.user, education=education).exists():
+                messages.warning(request,'İlgili eğitim zaten eklidir.')
+                return redirect('student_dashboard')
             StudentEducation.objects.create(user=request.user,education=education, email=email)
             messages.success(request,
                              'Eğitim eklendi. Admin kontrolü sonrasında panelinizde eğitiminizi görebilirsiniz.')
