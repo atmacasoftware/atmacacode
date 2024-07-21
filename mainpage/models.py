@@ -13,7 +13,10 @@ class MainSlider(models.Model):
     image2 = models.ImageField(upload_to='img/slider', verbose_name='2. Fotoğraf (376 x 376)', null=True, blank=True)
     details_img = models.ImageField(upload_to='img/detay/', verbose_name='Detay Fotoğraf (872 x 510)', null=True,
                                     blank=True)
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(blank=True, null=True)
+    redirecting = models.BooleanField(default=False)
+    button_text = models.CharField(max_length=50, verbose_name="Buton Yazısı", null=True, blank=True)
+    button_url = models.CharField(max_length=255, verbose_name="Buton URL", null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

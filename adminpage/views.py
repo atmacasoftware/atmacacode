@@ -203,10 +203,18 @@ def general_announcement(request):
         image1 = request.FILES.get("image1")
         image2 = request.FILES.get("image2")
         details_img = request.FILES.get("details_img")
+        redirecting_radio = request.POST.get("redirecting_radio")
+        redirecting = False
+        button_text = request.POST.get("button_text")
+        button_url = request.POST.get("button_url")
 
-        if slider_title and sub_title and text and content and image1 and details_img:
-            MainSlider.objects.create(slider_title=slider_title, sub_title=sub_title, text=text, content=content,
-                                      image1=image1, image2=image2, details_img=details_img)
+        if redirecting_radio == 'on':
+            redirecting = True
+
+        if slider_title and sub_title and text and image1:
+            MainSlider.objects.create(slider_title=slider_title, sub_title=sub_title, content=content, text=text,
+                                      image1=image1, image2=image2, details_img=details_img, redirecting=redirecting,
+                                      button_text=button_text, button_url=button_url)
             messages.success(request, "Duyuru eklendi!")
             return redirect('general_announcement')
         messages.error(request, "Bir hata meydana geldi!")
@@ -243,10 +251,19 @@ def announcement_update(request, id):
         image1 = request.FILES.get("image1")
         image2 = request.FILES.get("image2")
         details_img = request.FILES.get("details_img")
+        button_text = request.POST.get("button_text")
+        button_url = request.POST.get("button_url")
+        redirecting_radio = request.POST.get("redirecting_radio")
+        redirecting = False
+        if redirecting_radio == 'on':
+            redirecting = True
         slider.slider_title = slider_title
         slider.sub_title = sub_title
         slider.text = text
         slider.content = content
+        slider.redirecting=redirecting
+        slider.button_url=button_url
+        slider.button_text=button_text
 
         if image1:
             slider.image1 = image1
@@ -393,6 +410,7 @@ def education(request):
             return redirect('education')
     return render(request, 'backend/pages/education/education.html', context)
 
+
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def view_education_request(request, education_id):
     context = {}
@@ -408,9 +426,10 @@ def view_education_request(request, education_id):
     page = request.GET.get('page')
     studenteducation = p.get_page(page)
 
-    context.update({'education': education, 'paginating':studenteducation})
+    context.update({'education': education, 'paginating': studenteducation})
 
     return render(request, 'backend/pages/education/view_education_request.html', context)
+
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def view_education_request_approved(request):
@@ -429,6 +448,7 @@ def view_education_request_approved(request):
         student_education.is_approved = False
     student_education.save()
     return JsonResponse(data="success", safe=False)
+
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def student_announcement(request):
@@ -485,11 +505,9 @@ def users(request):
     if search:
         users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
 
-
     p = Paginator(users, 30)
     page = request.GET.get('page')
     all_users = p.get_page(page)
-
 
     context.update({'paginating': all_users, 'user_count': user_count(request)})
 
@@ -514,6 +532,7 @@ def users_student(request):
 
     return render(request, 'backend/pages/users/users.html', context)
 
+
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def users_customer(request):
     context = {}
@@ -532,6 +551,7 @@ def users_customer(request):
 
     return render(request, 'backend/pages/users/users.html', context)
 
+
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def users_admin(request):
     context = {}
@@ -542,7 +562,6 @@ def users_admin(request):
     if search:
         users = users.filter(Q(first_name__icontains=search) or Q(last_name__icontains=search))
 
-
     p = Paginator(users, 30)
     page = request.GET.get('page')
     all_users = p.get_page(page)
@@ -550,6 +569,7 @@ def users_admin(request):
     context.update({'paginating': all_users, 'user_count': user_count(request)})
 
     return render(request, 'backend/pages/users/users.html', context)
+
 
 @login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def profile(request):

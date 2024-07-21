@@ -44,8 +44,10 @@
                                         </tr>
                                         {% for a in mainslider %}
                                             <tr>
-                                                <td><img src="{{ a.get_image1 }}" alt="Resim 1" style="width: 50px; height: 50px;"></td>
-                                                <td><img src="{{ a.get_image2 }}" alt="Resim 2" style="width: 50px; height: 50px;"></td>
+                                                <td><img src="{{ a.get_image1 }}" alt="Resim 1"
+                                                         style="width: 50px; height: 50px;"></td>
+                                                <td><img src="{{ a.get_image2 }}" alt="Resim 2"
+                                                         style="width: 50px; height: 50px;"></td>
                                                 <td>{{ a.slider_title }}</td>
                                                 <td>{{ a.sub_title }}</td>
                                                 <td>{{ a.text|truncatechars_html:50 }}</td>
@@ -209,13 +211,26 @@
                             <label for="image2">2. Fotoğraf (376 x 376)</label>
                             <input type="file" accept="image/*" id="image2" name="image2" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="details_img">Detay Fotoğraf (872 x 510)</label>
-                            <input type="file" accept="image/*" id="details_img" name="details_img" class="form-control">
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="custom-control-input" name="redirecting_radio" id="redirecting_radio">
+                            <label class="custom-control-label" for="redirecting_radio">Site dışı yönlendirme</label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group detail__img">
+                            <label for="details_img">Detay Fotoğraf (872 x 510)</label>
+                            <input type="file" accept="image/*" id="details_img" name="details_img"
+                                   class="form-control">
+                        </div>
+                        <div class="form-group text-content">
                             <label>İçerik</label>
                             <textarea name="content" class="summernote"></textarea>
+                        </div>
+                        <div class="form-group button__text">
+                            <label for="button_text">Buton Yazısı</label>
+                            <input type="text" id="button_text" name="button_text" class="form-control">
+                        </div>
+                        <div class="form-group button__url">
+                            <label for="button_url">Buton Url</label>
+                            <input type="text" id="button_url" name="button_url" class="form-control">
                         </div>
                         <div class="form-group">
                             <button name="submit" type="submit" class="btn btn-primary">Kaydet</button>
@@ -228,4 +243,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{% static 'backend/js/sliderform.js' %}"></script>
 {% endblock %}

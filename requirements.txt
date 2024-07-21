@@ -15,3 +15,7 @@ PyJWT
 readtime
 mysqlclient
 python-decouple
+django-ckeditor-5
+djangorestframework
+django-cors-headers
+django-online-users

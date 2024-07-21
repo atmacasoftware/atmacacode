@@ -113,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'atmaca_db',
         'USER': 'admin',
-        'PASSWORD': '~Nt=e7Q=~!!Q',
+        'PASSWORD': '206031aAb%',
         'HOST': 'localhost',
         'PORT': '3306',
         "OPTION": {
