@@ -39,6 +39,8 @@ urlpatterns = [
     path('hizmetler', include('products.urls')),
     path('', include('adminpage.urls')),
     path('mesajlasma/', include('chat.urls')),
+    path("", include('user_accounts.urls')),
+    path("", include('ecommerce.urls')),
 
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),

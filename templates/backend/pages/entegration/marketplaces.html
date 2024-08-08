@@ -1,0 +1,128 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Entegrasyon Yönetimi | Pazaryerleri{% endblock %}
+
+{% block entegration %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Pazaryeri</h1>
+                <div class="section-header-button">
+                    <button data-toggle="modal" data-target="#addMarketplace" class="btn btn-primary">Pazaryeri Ekle
+                    </button>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Pazaryerleri</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Pazaryerleri</h2>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Pazaryerleri</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Pazaryeri Adı</th>
+                                            <th>Aktif mi?</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                            <th>Güncellenme Tarihi</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                        {% for m in marketplace %}
+                                            <tr>
+                                                <td>
+                                                    {{ m.name }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-{% if m.is_active %}success{% else %}danger{% endif %}">{% if m.is_active %}Evet{% else %}Hayır{% endif %}</span>
+                                                </td>
+                                                <td>
+                                                    {{ m.created_at|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    {{ m.updated_at|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-danger">Sil</a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="4" class="text-center">Herhangi bir kayıt
+                                                    bulunmamaktadır.
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addMarketplace" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pazaryeri Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="subscription_name"
+                                   class="col-form-label">Pazaryeri Adı</label>
+                            <input type="text" id="name" name="name" class="form-control">
+                        </div>
+                        <div class="form-group mb-4">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="active" class="custom-control-input" value="True"
+                                       id="active">
+                                <label class="custom-control-label" for="active">Aktif mi?</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="col-form-label"></label>
+                            <div class="col-sm-12 col-md-7">
+                                <button name="submitBtn" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

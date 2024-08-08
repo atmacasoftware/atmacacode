@@ -135,4 +135,7 @@ class Favorite(models.Model):
     def __str__(self):
         return "%s %s" % (self.customer, self.service)
 
+class Product(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ürün Adı", null=True, blank=False)
+
 

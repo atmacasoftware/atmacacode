@@ -1,0 +1,126 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Entegrasyon Yönetimi | Desteklenen XML Tipleri{% endblock %}
+
+{% block entegration %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Desteklenen XML Tipleri</h1>
+                <div class="section-header-button">
+                    <button data-toggle="modal" data-target="#addSupported" class="btn btn-primary">Desteklenen Tip Ekle
+                    </button>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Desteklenen XML Tipleri</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Desteklenen XML Tipleri</h2>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Desteklenen XML Tipleri</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>XML Tipi</th>
+                                            <th>Resim</th>
+                                            <th>Oluşturulma Tarihi</th>
+                                            <th>Güncellenme Tarihi</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                        {% for s in supported %}
+                                            <tr>
+                                                <td>
+                                                    {{ s.name }}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ s.get_image }}" target="_blank"><img src="{{ s.get_image }}" alt="" width="100" height="100"></a>
+                                                </td>
+                                                <td>
+                                                    {{ s.created_at|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    {{ s.updated_at|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-danger">Sil</a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="4" class="text-center">Herhangi bir kayıt
+                                                    bulunmamaktadır.
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addSupported" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Desteklenen XML Tipi Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="subscription_name"
+                                   class="col-form-label">Tip Adı</label>
+                            <input type="text" id="name" name="name" class="form-control">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="image"
+                                   class="col-form-label">Resim</label>
+                            <input type="file" accept="image/*" id="image" name="image" class="form-control">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="col-form-label"></label>
+                            <div class="col-sm-12 col-md-7">
+                                <button name="submitBtn" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

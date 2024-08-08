@@ -1,0 +1,160 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}Entegrasyon Yönetimi | Müşteriler{% endblock %}
+
+{% block entegration %}
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Tüm Yazılar</h1>
+                <div class="section-header-button">
+                    <button data-toggle="modal" data-target="#addCustomer" class="btn btn-primary">Müşteri Ekle</button>
+                </div>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{% url 'admin_main_page' %}">Anasayfa</a></div>
+                    <div class="breadcrumb-item">Müşteriler</div>
+                </div>
+            </div>
+            <div class="section-body">
+                <h2 class="section-title">Müşteriler</h2>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Müşteriler</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="float-right">
+                                    <form>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="clearfix mb-3"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Ad</th>
+                                            <th>Soyad</th>
+                                            <th>E-Posta</th>
+                                            <th>Telefon</th>
+                                            <th>Başlangıç Tarihi</th>
+                                            <th>Bitiş Tarihi</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                        {% for c in customer %}
+                                            <tr>
+                                                <td>
+                                                    {{ c.first_name }}
+                                                </td>
+                                                <td>
+                                                    {{ c.last_name }}
+                                                </td>
+                                                <td>
+                                                    {{ c.email }}
+                                                </td>
+                                                <td>
+                                                    {{ c.mobile }}
+                                                </td>
+                                                <td>
+                                                    {{ c.start_date|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    {{ c.end_date|date:"d-m-Y H:i" }}
+                                                </td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-danger">Sil</a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="7" class="text-center">Herhangi bir kayıt bulunmamaktadır.</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addCustomer" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Müşteri Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row mb-4">
+                            <label for="subscription"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Abonelik Tipi</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="subscription_type" id="subscription">
+                                    <option value="None" selected disabled>------------</option>
+                                    {% for t in s_type %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="first_name"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Müşteri Adı</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" id="first_name" name="first_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="last_name"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Müşteri Soyadı</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" id="last_name" name="last_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="email"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Müşteri E-Posta</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="email" id="email" name="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="mobile"
+                                   class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Müşteri Telefonu</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="number" id="mobile" name="mobile" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                            <div class="col-sm-12 col-md-7">
+                                <button name="submitBtn" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

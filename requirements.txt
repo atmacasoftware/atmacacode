@@ -19,3 +19,4 @@ django-ckeditor-5
 djangorestframework
 django-cors-headers
 django-online-users
+djangorestframework-simplejwt
