@@ -3,3 +3,4 @@ from ecommerce.models import *
 # Register your models here.
 
 admin.site.register(MarketPlaces)
+admin.site.register(SupportedTypes)

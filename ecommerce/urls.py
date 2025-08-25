@@ -8,9 +8,12 @@ urlpatterns = [
     path('yonetim-paneli/entegrasyon-yonetimi/abonelik-tipleri/', subscription, name="ecommerce_subscription"),
     path('yonetim-paneli/entegrasyon-yonetimi/pazaryerleri/', marketplace, name="ecommerce_marketplace"),
     path('yonetim-paneli/entegrasyon-yonetimi/desteklenen-xml/', supported_type, name="ecommerce_supported_type"),
+    path('yonetim-paneli/entegrasyon-yonetimi/notlar/', notes, name="ecommerce_notes"),
 
 
     #### API ####
     path("api/v1/marketplaces/", marketplace_api, name="marketplace_api"),
     path("api/v1/supported-types/", supported_type_api, name="supported_type_api"),
+    path("api/v1/supported-types-notes/", supported_type_note_api, name="supported_type_note_api"),
+    path("api/v1/adjusted-price-notes/", adjusted_price_note_api, name="adjusted_price_note_api"),
 ]

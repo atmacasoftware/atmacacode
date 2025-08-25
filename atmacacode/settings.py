@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-from decouple import config
+import environ
+
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", cast=bool, default=True)
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", cast=list)
+DEBUG = env('DEBUG')
 
 # Application definition
 
@@ -110,26 +112,20 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'atmacacode.wsgi.application'
+ASGI_APPLICATION = 'atmacacode.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atmaca_db',
-        'USER': 'admin',
-        'PASSWORD': '206031aAb%',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        "OPTION": {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
-            'charset': 'utf8_turkish_ci',
-            "autocommit": True,
-        }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': '5432',
     }
-
 }
 
 AUTH_USER_MODEL = 'user_accounts.User'
@@ -166,9 +162,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Default primary key field type
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
@@ -188,15 +192,18 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+CELERY_TIMEZONE = env("CELERY_TIMEZONE")
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
+CELERY_RESULT_EXTENDED = True
+CELERY_BEAT_SCHEDULAR = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_TASK_ACKS_ON_FAILURE_OR_TIMEOUT = False
+
+
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "img/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 IMPORT_EXPORT_USE_TRANSACTIONS = True
-
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -212,15 +219,15 @@ USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
-SERVER_EMAIL = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+SERVER_EMAIL = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('EMAIL_PORT', cast=int)
+EMAIL_USE_SSL = env('EMAIL_USE_SSL', cast=bool)
+EMAIL_USE_TLS = env('EMAIL_USE_TLS', cast=bool)
 
 SITE_ID = 1
 

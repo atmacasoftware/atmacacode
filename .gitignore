@@ -1,2 +1,9 @@
-.env
-.env-sample
+*.env
+**/migrations/
+staticfiles
+.venv
+hpwsurvey/.env
+*.socket
+media
+django_errors.log
+BUILD.md

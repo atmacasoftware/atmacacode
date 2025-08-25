@@ -56,6 +56,7 @@
                     <li {% if 'entegrasyon-yonetimi/abonelik-tipleri/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'ecommerce_subscription' %}">Abonelik Tipleri</a></li>
                     <li {% if 'entegrasyon-yonetimi/pazaryerleri/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'ecommerce_marketplace' %}">Pazaryerleri</a>
                     <li {% if 'entegrasyon-yonetimi/desteklenen-xml/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'ecommerce_supported_type' %}">Desteklenen XML</a>
+                    <li {% if 'entegrasyon-yonetimi/notlar/' in request.path %}class="active"{% endif %}><a class="nav-link" href="{% url 'ecommerce_notes' %}">Notlar</a>
                     <li {% if 'entegrasyon-yonetimi/duyurular/' in request.path %}class="active"{% endif %}><a class="nav-link" href="">Duyurular</a>
                     </li>
                 </ul>

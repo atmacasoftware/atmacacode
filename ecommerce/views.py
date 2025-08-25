@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from ecommerce.models import *
 
 
 # Create your views here.
-
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def customers(request):
     context = {}
     customer = Customer.objects.all()
@@ -25,6 +26,7 @@ def customers(request):
             return redirect("ecommerce_customer")
     return render(request, 'backend/pages/entegration/customer.html', context)
 
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def subscription(request):
     context = {}
     subscription = SubscriptionType.objects.all()
@@ -40,6 +42,7 @@ def subscription(request):
             return redirect("ecommerce_subscription")
     return render(request, 'backend/pages/entegration/subscription_type.html', context)
 
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def marketplace(request):
     context = {}
     marketplace = MarketPlaces.objects.all()
@@ -47,17 +50,23 @@ def marketplace(request):
 
     if 'submitBtn' in request.POST:
         name = request.POST['name']
+        active = request.POST.get('active', None)
 
         if name:
-            MarketPlaces.objects.create(name=name)
+            if active:
+                MarketPlaces.objects.create(name=name, is_active=active)
+            else:
+                MarketPlaces.objects.create(name=name, is_active=False)
             messages.success(request, 'Pazaryeri başarıyla eklendi !')
             return redirect("ecommerce_marketplace")
     return render(request, 'backend/pages/entegration/marketplaces.html', context)
 
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
 def supported_type(request):
     context = {}
     supported = SupportedTypes.objects.all()
-    context.update({'supported': supported})
+    note = SupportedTypesNotes.objects.all()
+    context.update({'supported': supported, 'note':note.last()})
 
     if 'submitBtn' in request.POST:
         name = request.POST['name']
@@ -67,4 +76,57 @@ def supported_type(request):
             SupportedTypes.objects.create(name=name, image=image)
             messages.success(request, 'Desteklenen XML tipi başarıyla eklendi !')
             return redirect("ecommerce_supported_type")
+
+    if 'submitNoteBtn' in request.POST:
+        notes = request.POST['notes']
+        if notes:
+            if note.count() < 1:
+                SupportedTypesNotes.objects.create(note=notes)
+                messages.success(request, 'Not başarıyla eklendi !')
+                return redirect("ecommerce_supported_type")
+            else:
+                data = note.last()
+                data.note = notes
+                data.save()
+                messages.success(request, 'Not başarıyla güncellendi !')
+                return redirect("ecommerce_supported_type")
+
     return render(request, 'backend/pages/entegration/supported_types.html', context)
+@login_required(login_url="/yonetim-paneli/yonetim-paneli-giris/")
+def notes(request):
+    context = {}
+    supported_type_notes = SupportedTypesNotes.objects.all()
+    adjusted_prices_notes = AdjustedPriceNotes.objects.all()
+    context.update({'supported_type_notes': supported_type_notes.last(), 'adjusted_prices_notes': adjusted_prices_notes.last()})
+
+    if 'submitPriceType' in request.POST:
+        notes = request.POST['notes']
+
+        if notes:
+            if adjusted_prices_notes.count() < 1:
+                AdjustedPriceNotes.objects.create(note=notes)
+                messages.success(request, 'Fiyat ayarlama notları başarıyla eklendi !')
+                return redirect("ecommerce_notes")
+            else:
+                data = adjusted_prices_notes.last()
+                data.note = notes
+                data.save()
+                messages.success(request, 'Fiyat ayarlama notları başarıyla güncellendi !')
+                return redirect("ecommerce_notes")
+
+    if 'submitSuppertedType' in request.POST:
+        notes = request.POST['notes']
+
+        if notes:
+            if supported_type_notes.count() < 1:
+                SupportedTypesNotes.objects.create(note=notes)
+                messages.success(request, 'Desteklenen XML notları başarıyla eklendi !')
+                return redirect("ecommerce_notes")
+            else:
+                data = supported_type_notes.last()
+                data.note = notes
+                data.save()
+                messages.success(request, 'Desteklenen XML notları başarıyla güncellendi !')
+                return redirect("ecommerce_notes")
+
+    return render(request, 'backend/pages/entegration/notes.html', context)

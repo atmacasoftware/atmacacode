@@ -10,10 +10,12 @@ django-ckeditor
 django-admin-thumbnails
 pillow
 django-robots
+django-environ
 jwt
 PyJWT
+psycopg2
+postgres
 readtime
-mysqlclient
 python-decouple
 django-ckeditor-5
 djangorestframework

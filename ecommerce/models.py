@@ -27,6 +27,8 @@ class Customer(models.Model):
     subscription_type = models.ForeignKey(SubscriptionType, verbose_name="Abonelik Tipi", on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True, verbose_name="Başlangıç Tarihi")
     end_date = models.DateTimeField(auto_now_add=False, verbose_name="Bitiş Tarihi", blank=True, null=True)
+    project_id = models.BigIntegerField(null=True, blank=True, verbose_name="Proje ID")
+    given_ip = models.GenericIPAddressField(verbose_name="IP Adresi", blank=True, null=True)
 
     class Meta:
         verbose_name = "Müşteriler"
@@ -76,6 +78,7 @@ class SupportedTypes(models.Model):
     class Meta:
         verbose_name = "Desteklenen Tipler"
         verbose_name_plural = "Desteklenen Tipler"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -99,6 +102,62 @@ class SupportedTypes(models.Model):
                     self.slug = slug
                     break
         super(SupportedTypes, self).save(*args, **kwargs)
+
+class Root(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Ad", null=True, blank=False)
+    slug = models.SlugField(max_length=100, verbose_name="Slug", null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.slug:
+            slug = defaultfilters.slugify(unidecode(self.name))
+            slug_exists = True
+            counter = 1
+            self.slug = slug
+            while slug_exists:
+                try:
+                    slug_exits = Root.objects.get(slug=slug)
+                    if slug_exits:
+                        slug = self.slug + '_' + str(counter)
+                        counter += 1
+                except SupportedTypes.DoesNotExist:
+                    self.slug = slug
+
+                    class Root(models.Model):
+                        name = models.CharField(max_length=100, verbose_name="Ad", null=True, blank=False)
+                        slug = models.SlugField(max_length=100, verbose_name="Slug", null=True, blank=True)
+
+                        def save(self, *args, **kwargs):
+                            if not self.id and not self.slug:
+                                slug = defaultfilters.slugify(unidecode(self.name))
+                                slug_exists = True
+                                counter = 1
+                                self.slug = slug
+                                while slug_exists:
+                                    try:
+                                        slug_exits = Root.objects.get(slug=slug)
+                                        if slug_exits:
+                                            slug = self.slug + '_' + str(counter)
+                                            counter += 1
+                                    except SupportedTypes.DoesNotExist:
+                                        self.slug = slug
+                                        break
+                            super(Root, self).save(*args, **kwargs)
+                    break
+        super(Root, self).save(*args, **kwargs)
+
+
+class XMLMatching(models.Model):
+    root = models.ForeignKey(Root, on_delete=models.CASCADE, null=True, blank=False)
+
+class SupportedTypesNotes(models.Model):
+    note = CKEditor5Field('Notlar', config_name='extends', null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class AdjustedPriceNotes(models.Model):
+    note = CKEditor5Field('Notlar', config_name='extends', null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Announcement(models.Model):
     name = models.CharField(max_length=100, verbose_name="Duyuru Adı", blank=False, null=True)
